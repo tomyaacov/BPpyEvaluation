@@ -1,6 +1,6 @@
 # BPpyModelChecker
 
-<b>Note: the project was implemented and tested on Python 3.7.16</b>
+<b>Note: the project was implemented and tested on Python 3.9</b>
 
 ## Installation and Usage
 
