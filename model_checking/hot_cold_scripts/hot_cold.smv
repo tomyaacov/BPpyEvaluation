@@ -1,0 +1,108 @@
+
+MODULE threeC(event)
+    VAR
+        state : 1 .. 4;
+        HOT_req: boolean;
+        COLD_req: boolean;
+
+       	HOT_blocked: boolean;
+        COLD_blocked: boolean;
+    INIT
+        state = 1;
+    ASSIGN
+        HOT_req := FALSE;
+        HOT_blocked := FALSE;
+        COLD_blocked := FALSE;
+
+        next(state) := case
+                            state = 4 : state;
+                            next(event) = COLD : state + 1;
+                            TRUE: state;
+                      esac;
+
+
+        COLD_req := case
+                            state = 1 : TRUE;
+                            state = 2 : TRUE;
+                            state = 3 : TRUE;
+                            TRUE : FALSE;
+                      esac;
+
+MODULE threeH(event)
+    VAR
+        state : 1 .. 4;
+        HOT_req: boolean;
+        COLD_req: boolean;
+
+       	HOT_blocked: boolean;
+        COLD_blocked: boolean;
+    INIT
+        state = 1;
+    ASSIGN
+        COLD_req := FALSE;
+        HOT_blocked := FALSE;
+        COLD_blocked := FALSE;
+
+        next(state) := case
+                            state = 4 : state;
+                            next(event) = HOT : state + 1;
+                            TRUE: state;
+                      esac;
+
+        HOT_req := case
+                            state = 1 : TRUE;
+                            state = 2 : TRUE;
+                            state = 3 : TRUE;
+                            TRUE : FALSE;
+                      esac;
+
+
+MODULE control(event)
+    VAR
+        state : 1 .. 2;
+
+       	HOT_blocked: boolean;
+        COLD_blocked: boolean;
+    INIT
+        state = 1;
+    ASSIGN
+        COLD_blocked := FALSE;
+
+        next(state) := case
+                            state = 1 & next(event) = HOT : 2;
+                            state = 2 & next(event) = COLD : 1;
+                            TRUE: state;
+                      esac;
+
+        HOT_blocked := case
+                            state = 2 : TRUE;
+                            TRUE : FALSE;
+                      esac;
+
+
+MODULE main
+    VAR
+        event : {START, HOT, COLD, DONE, STOPPED};
+        bt1 : threeH(event);
+        bt2 : threeC(event);
+        bt3 : control(event);
+    INIT
+        event = START;
+    DEFINE
+        HOT_req := bt1.HOT_req | bt2.HOT_req;
+        COLD_req := bt1.COLD_req | bt2.COLD_req;
+        HOT_blocked := bt1.HOT_blocked | bt2.HOT_blocked | bt3.HOT_blocked;
+        COLD_blocked := bt1.COLD_blocked | bt2.COLD_blocked | bt3.COLD_blocked;
+    ASSIGN
+        next(event) := case
+                            event = DONE : DONE;
+                            event = STOPPED : STOPPED;
+                            HOT_req & !HOT_blocked & (!COLD_req | COLD_blocked) : HOT;
+                            COLD_req & !COLD_blocked & (!HOT_req | HOT_blocked) : COLD;
+                            HOT_req & !HOT_blocked & COLD_req & !COLD_blocked : {HOT, COLD};
+                            bt1.state = 4 & bt2.state = 4 : DONE;
+                            TRUE: STOPPED;
+                      esac;
+
+
+
