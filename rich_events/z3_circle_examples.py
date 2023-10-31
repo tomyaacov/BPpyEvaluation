@@ -30,6 +30,15 @@ def generate_x_y_events(x_y_events, delta_param):
             y += delta_param
         y = -1.0
         x += delta_param
+    return len(x_y_events)
+
+def generate_x_y_events_sanity(x_y_events, delta_param):
+    number_of_discrete_events = 0
+    x_y_events.clear()
+    x = -1.0
+    while x < 1.0:
+        x_y_events.append(BEvent("set", {"x": x}))
+        x += delta_param
     random.shuffle(x_y_events)
     return len(x_y_events)
 
@@ -199,6 +208,24 @@ def generate_events_scenario(delta_param):
         x += delta_param
     yield {request: requested_events}
 
+def sanity_thread_discrete_t1():
+    global found_solution_discrete
+    x_above_x0 = list(
+        filter(lambda e: e.data["x"] > -0.4, x_y_events)
+    )
+    last_event = yield {request: x_above_x0}
+    print("Found solution: ", last_event.data["x"])
+    found_solution_discrete = True
+
+def sanity_thread_discrete_t2():
+    x_below_x1 = EventSet(lambda e: e.data["x"] > -0.3)
+    last_event = yield {waitFor: All(), block: x_below_x1}
+
+def init_bthreads_sanity():
+    b_threads_list = []
+    b_threads_list.append(sanity_thread_discrete_t1())
+    b_threads_list.append(sanity_thread_discrete_t2())
+    return b_threads_list
 
 @b_thread
 def x_y_inside_circle_discrete():
@@ -257,17 +284,17 @@ def find_equation_for_solution_discrete(line_equations):
     global found_solution_discrete
     last_event = yield {waitFor: All()}
     found_solution_discrete = True
+    '''
     x = last_event.data["x"]
     y = last_event.data["y"]
-    """
-    This code segment finds the equation that matchs the solution
-    for line_equation in line_equations:
+    print("Found solution: ", x, y)
+    for line_equation in line_equations: # This code segment finds the equation that matches the solution
         solution = check_equation(x, y, line_equation)
         if solution != "":
-            # print(line_equation)
-            # print(f"Found solution: {solution}")
+            print(line_equation)
+            print(f"Found solution: {solution}")
             break
-    """
+    '''
 
 
 """
@@ -372,27 +399,18 @@ def discrete_event_example(
     global number_of_discrete_events
     global number_of_equations
     number_of_discrete_events = generate_x_y_events(x_y_events, delta_param)
-    line_equations = create_line_equation(n=num_edges, r=radius)
-    # line_equations = create_all_line_equations(
-    #    n=num_edges, r=radius, single_equation=True
-    # )
+    line_equations = create_all_line_equations(n=num_edges,
+                                               r=radius,
+                                               single_equation=single_equation)
     number_of_equations = len(line_equations)
-    # print("number_of_equations", number_of_equations)
-    # print_line_equations(line_equations)
+    # Change if we want sanity test
     b_threads_list = initialize_bthreads_list(line_equations, delta_param)
+    # b_threads_list = init_bthreads_sanity()
     b_program = BProgram(
         bthreads=b_threads_list, event_selection_strategy=SimpleEventSelectionStrategy()
     )
     b_program.run()
     # print(f"Discrete event example found solution:{found_solution_discrete}")
-
-
-def extend_setup_with_variables(setup, n, r, delta, single_equation):
-    setup += "n=" + str(n) + "\n"
-    setup += "r=" + str(r) + "\n"
-    setup += "delta=" + str(delta) + "\n"
-    setup += "single_equation=" + str(single_equation) + "\n"
-    return setup
 
 
 def init_statistics_file():
@@ -402,22 +420,28 @@ def init_statistics_file():
 
 
 def tracemalloc_stop():
+    # TODO: bug here, start next investigation regarding memory usage here
+    return 0
     snapshot = tracemalloc.take_snapshot()
     tracemalloc.stop()
     total_memory = sum(stat.size for stat in snapshot.statistics("filename"))
     # memory_usage = total_memory / 1024 / 1024
     return total_memory
 
+def init_global_parameters():
+    global found_solution_discrete
+    found_solution_discrete = False
+    global found_solution_solver
+    found_solution_solver = False
+    global number_of_discrete_events
+    number_of_discrete_events = 0
+    global number_of_equations
+    number_of_equations = 0
+    global x_y_events
+    x_y_events = []
 
 def run_experiment(csvfile, start_n, end_n, delta_param, single_equation=False):
     global delta
-    setup = """
-from __main__ import solver_based_example, discrete_event_example
-found_solution_discrete = False
-found_solution_solver = False
-number_of_discrete_events = 0
-number_of_equations = 0
-"""
     header = [
         "num_of_edges",
         "num_of_equations",
@@ -436,36 +460,32 @@ number_of_equations = 0
 
     for n in range(start_n, end_n):
         delta = delta_param
-        c_setup = extend_setup_with_variables(setup, n, 1, delta, single_equation)
-        # print("Started discrete event example")
+        init_global_parameters()
         tracemalloc.start()
-        execution_time_discrete = timeit.timeit(
-            "discrete_event_example(num_edges=n,radius=r,delta_param=delta,single_equation=single_equation)",
-            setup=c_setup,
-            number=1,
-        )
+        start_time = timeit.default_timer()
+        discrete_event_example(num_edges=n, radius=1, delta_param=delta, single_equation=single_equation)
+        end_time = timeit.default_timer()
+        execution_time_discrete = end_time - start_time
         memory_usage_discrete = tracemalloc_stop()
 
         while not found_solution_discrete:
+            init_global_parameters()
             delta = delta / 10
-            c_setup = extend_setup_with_variables(setup, n, 1, delta, single_equation)
             tracemalloc.start()
-            execution_time_discrete = timeit.timeit(
-                "discrete_event_example(num_edges=n,radius=r,delta_param=delta,single_equation=single_equation)",
-                setup=c_setup,
-                number=1,
-            )
+            start_time = timeit.default_timer()
+            discrete_event_example(num_edges=n, radius=1, delta_param=delta,
+                                   single_equation=single_equation)
+            end_time = timeit.default_timer()
+            execution_time_discrete = end_time - start_time
             memory_usage_discrete = tracemalloc_stop()
 
         # print("Finished discrete based example")
-
         # print("Started solver based example")
         tracemalloc.start()
-        execution_time_solver = timeit.timeit(
-            "solver_based_example(num_edges=n,radius=r,single_equation=single_equation)",
-            setup=c_setup,
-            number=1,
-        )
+        start_time_solver = timeit.default_timer()
+        solver_based_example(num_edges=n, radius=1, single_equation=single_equation)
+        end_time_solver = timeit.default_timer()
+        execution_time_solver = end_time_solver - start_time_solver
         memory_usage_solver = tracemalloc_stop()
 
         row = [

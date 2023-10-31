@@ -70,9 +70,14 @@ def create_all_line_equations(n=3, r=1, single_equation=False):
         points.append(Point(r * cos(i * step_size), r * sin(i * step_size)))
 
     # if we want to create a single equation, or a set of equations
-    number_of_points = 1 if single_equation else len(points)
+    indices_of_points = []
+    if single_equation:
+        indices_of_points = list(range(0, 1))
+    else:
+        indices_of_points = list(range(0,n))
 
-    for j in range(number_of_points):
+
+    for j in indices_of_points:
         next_index = (j + 1) % n
         diff_x = points[next_index].get_x() - points[j].get_x()
         if is_almost_zero(diff_x):
