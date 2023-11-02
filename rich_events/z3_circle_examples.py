@@ -39,7 +39,7 @@ def generate_x_y_events_sanity(x_y_events, delta_param):
     while x < 1.0:
         x_y_events.append(BEvent("set", {"x": x}))
         x += delta_param
-    random.shuffle(x_y_events)
+    # random.shuffle(x_y_events)
     return len(x_y_events)
 
 
@@ -62,53 +62,59 @@ def print_line_equations(line_equations):
 
 def check_equations(point, line_equations):
     for line_equation in line_equations:
-        if line_equation.get_m() >= 0:
+        if line_equation.get_b >= 0:
             if (
                 point.get_y()
-                < line_equation.get_m() * point.get_x1() + line_equation.get_b()
+                > line_equation.get_m() * point.get_x() + line_equation.get_b()
             ):
-                if point.get_x1() ** 2 + point.get_y() ** 2 <= 1:
+                if point.get_x() ** 2 + point.get_y() ** 2 < 1:
                     return True
                 return
-        if (
-            point.get_y()
-            > line_equation.get_m() * point.get_x1() + line_equation.get_b()
-        ):
-            return
-    pass
+        else: # b < 0
+            if ( point.get_y()
+            < line_equation.get_m() * point.get_x() + line_equation.get_b()
+            ):
+                if point.get_x() ** 2 + point.get_y() ** 2 < 1:
+                    return True
+                return
 
 
 def check_equation(x, y, line_equation, discrete_mode=True):
     val = ""
     if line_equation.get_type() == "y":
-        if is_almost_zero(line_equation.get_m()):
+        if not is_almost_zero(line_equation.get_m()):
             if line_equation.get_b() >= 0:
-                # y_above_b_discrete
-                if y > line_equation.get_b():
-                    val = f"{y} > {line_equation.get_b()}"
-            else:
-                if y < line_equation.get_b():
-                    val = f"{y} < {line_equation.get_b()}"
-        else:  # M is not zero
-            if line_equation.get_m() < 0:
                 if y > (line_equation.get_m() * x + line_equation.get_b()):
                     val = (
-                        f"{y} > {line_equation.get_m()} * {x} + "
-                        + f"{line_equation.get_b()}"
+                            f"{y} > {line_equation.get_m()} * {x} + "
+                            + f"{line_equation.get_b()}"
                     )
+            else: # b < 0
+                if y < (line_equation.get_m() * x + line_equation.get_b()):
+                    val = (
+                            f"{y} < {line_equation.get_m()} * {x} + "
+                            + f"{line_equation.get_b()}"
+                    )
+        '''else:  # we ignore the case of y=b from now on 
+            if y < (line_equation.get_m() * x + line_equation.get_b()):
+                val = (
+                        f"{y} < {line_equation.get_m()} * {x} + "
+                        + f"{line_equation.get_b()}"
+                )
             else:  # M > 0
                 if y < (line_equation.get_m() * x + line_equation.get_b()):
                     val = (
                         f"{y} < {line_equation.get_m()} * {x} + "
                         + f"{line_equation.get_b()}"
                     )
-    else:  # line_equation.get_type() == "x"
-        if line_equation.get_x1() >= 0:
-            if x > line_equation.get_x1():
-                val = f"{x} > {line_equation.get_x1()}"
+                    '''
+    '''else:  # line_equation.get_type() == "x" # We ignore the case of X=b from now on
+        if line_equation.get_x() >= 0:
+            if x > line_equation.get_x():
+                val = f"{x} > {line_equation.get_x()}"
         else:  # x1 < 0
-            if x < line_equation.get_x1():
-                val = f"{x} < {line_equation.get_x1()}"
+            if x < line_equation.get_x():
+                val = f"{x} < {line_equation.get_x()}"'''
     return val
 
 
@@ -136,7 +142,7 @@ def y_above_top_line_solver(m, b):
 
 
 @b_thread
-def y_below_line_solver(m, b):
+def y_below_top_line_solver(m, b):
     # print(f"x_y_below_line_solver: m={m}, b={b}")
     y_below_line_solver = And(y < m * x + b)
     yield {request: y_below_line_solver}
@@ -173,27 +179,26 @@ def x_below_x1_solver(x1):
 
 @b_thread
 def x_y_inside_circle_solver():
-    x_y_outside_circle_constraint = And(x ** 2 + y ** 2 > 1)
+    x_y_outside_circle_constraint = And(x ** 2 + y ** 2 >= 1)
     yield {block: x_y_outside_circle_constraint}
 
 
 @b_thread
 def find_equation_for_solution_solver(line_equations, x, y):
     # x_y_in_range = And(x >= -1)
-    x_y_in_range = And(x >= -1, x <= 1, y >= -1, y <= 1)
+    # x_y_in_range = And(x >= -1, x <= 1, y >= -1, y <= 1)
     global found_solution_solver
     last_event = yield {waitFor: true}
     found_solution_solver = True
     x = last_event[x].as_fraction()
     y = last_event[y].as_fraction()
-    """ This code segment finds the equation for the found solution
-    for line_equation in line_equations:
+    '''This code segment finds the equation for the found solution'''
+    '''for line_equation in line_equations:
         solution = check_equation(x, y, line_equation, discrete_mode=False)
         if solution != "":
             # print(line_equation)
-            # print(f"Found solution: {solution}")
-            break
-    """
+            print(f"Found solution solver: {solution}")
+            break'''
 
 
 @b_thread
@@ -229,7 +234,7 @@ def init_bthreads_sanity():
 
 @b_thread
 def x_y_inside_circle_discrete():
-    x_outside_of_circle = EventSet(lambda e: e.data["x"] ** 2 + e.data["y"] ** 2 > 1)
+    x_outside_of_circle = EventSet(lambda e: e.data["x"] ** 2 + e.data["y"] ** 2 >= 1)
     yield {waitFor: All(), block: x_outside_of_circle}
 
 
@@ -239,15 +244,17 @@ def y_above_top_line_discrete(m, b):
     y_above_top_line_discrete_lst = list(
         filter(lambda e: e.data["y"] > (m * e.data["x"] + b), x_y_events)
     )
+    # print("y_above_top_line_discrete: ", y_above_top_line_discrete_lst)
     last_event = yield {request: y_above_top_line_discrete_lst, waitFor: All()}
 
 
 @b_thread
 def y_below_top_line_discrete(m, b):
-    # print(f"x_y_below_line_discrete: m={m}, b={b}")
+    # print(f"y_below_top_line_discrete: m={m}, b={b}")
     y_below_top_line_discrete_lst = list(
         filter(lambda e: e.data["y"] < (m * e.data["x"] + b), x_y_events)
     )
+    # print("y_below_top_line_discrete_lst: ", y_below_top_line_discrete_lst)
     yield {request: y_below_top_line_discrete_lst, waitFor: All()}
 
 
@@ -284,17 +291,15 @@ def find_equation_for_solution_discrete(line_equations):
     global found_solution_discrete
     last_event = yield {waitFor: All()}
     found_solution_discrete = True
-    '''
     x = last_event.data["x"]
     y = last_event.data["y"]
-    print("Found solution: ", x, y)
-    for line_equation in line_equations: # This code segment finds the equation that matches the solution
+    # print("Found solution discrete x,y: ", x, y)
+    '''for line_equation in line_equations: # This code segment finds the equation that matches the solution
         solution = check_equation(x, y, line_equation)
         if solution != "":
-            print(line_equation)
-            print(f"Found solution: {solution}")
-            break
-    '''
+            # print(line_equation)
+            print(f"Found solution discrete: {solution}")
+            break'''
 
 
 """
@@ -328,32 +333,32 @@ def initialize_bthreads_list(line_equations, discrete_mode=True):
 
     for line_equation in line_equations:
         if line_equation.get_type() == "y":
-            if is_almost_zero(line_equation.get_m()):
-                if line_equation.get_b() >= 0:
+            if not is_almost_zero(line_equation.get_m()): #  y = mx + b
+                if line_equation.get_b() >= 0: #  y = mx + b , b >= 0
                     if discrete_mode:
-                        b_threads_list.append(y_above_b_discrete(line_equation.get_b()))
+                        b_threads_list.append(y_above_top_line_discrete(line_equation.get_m(), line_equation.get_b()))
                     else:
-                        b_threads_list.append(y_above_b_solver(line_equation.get_b()))
-                else:
+                        b_threads_list.append(y_above_top_line_solver(line_equation.get_m(), line_equation.get_b()))
+                else: # y = mx + b , b < 0
                     if discrete_mode:
-                        b_threads_list.append(y_below_b_discrete(line_equation.get_b()))
+                        b_threads_list.append(y_below_top_line_discrete(line_equation.get_m(), line_equation.get_b()))
                     else:
-                        b_threads_list.append(y_below_b_solver(line_equation.get_b()))
-            else:  # M is not zero
-                if line_equation.get_m() < 0:
+                        b_threads_list.append(y_below_top_line_solver(line_equation.get_m(), line_equation.get_b()))
+            '''else:  we ignore the case of y=b from now on 
+                if line_equation.get_b() > 0: # b > 0
                     if discrete_mode:
                         b_threads_list.append(
                             y_above_top_line_discrete(
                                 line_equation.get_m(), line_equation.get_b()
                             )
                         )
-                    else:
+                    else: # solver mode
                         b_threads_list.append(
                             y_above_top_line_solver(
                                 line_equation.get_m(), line_equation.get_b()
                             )
                         )
-                else:  # M > 0
+                else:  # b < 0
                     if discrete_mode:
                         b_threads_list.append(
                             y_below_top_line_discrete(
@@ -366,18 +371,19 @@ def initialize_bthreads_list(line_equations, discrete_mode=True):
                                 line_equation.get_m(), line_equation.get_b()
                             )
                         )
-        else:  # line_equation.get_type() == "x"
-            if line_equation.get_x1() >= 0:
+                        '''
+        '''else:  # line_equation.get_type() == "x" # We ignore the case of X=b from now on
+            if line_equation.get_x() >= 0:
                 if discrete_mode:
-                    b_threads_list.append(x_above_x1_discrete(line_equation.get_x1()))
+                    b_threads_list.append(x_above_x1_discrete(line_equation.get_x()))
                 else:
-                    b_threads_list.append(x_above_x1_solver(line_equation.get_x1()))
+                    b_threads_list.append(x_above_x1_solver(line_equation.get_x()))
             else:  # x1 < 0
                 if discrete_mode:
-                    b_threads_list.append(x_below_x1_discrete(line_equation.get_x1()))
+                    b_threads_list.append(x_below_x1_discrete(line_equation.get_x()))
                 else:
-                    b_threads_list.append(x_below_x1_solver(line_equation.get_x1()))
-
+                    b_threads_list.append(x_below_x1_solver(line_equation.get_x()))
+            '''
     if discrete_mode:
         b_threads_list.append(find_equation_for_solution_discrete(line_equations))
     else:
@@ -402,6 +408,7 @@ def discrete_event_example(
     line_equations = create_all_line_equations(n=num_edges,
                                                r=radius,
                                                single_equation=single_equation)
+    # print_line_equations(line_equations)
     number_of_equations = len(line_equations)
     # Change if we want sanity test
     b_threads_list = initialize_bthreads_list(line_equations, delta_param)
@@ -421,12 +428,12 @@ def init_statistics_file():
 
 def tracemalloc_stop():
     # TODO: bug here, start next investigation regarding memory usage here
-    return 0
+    # return 0
     snapshot = tracemalloc.take_snapshot()
     tracemalloc.stop()
     total_memory = sum(stat.size for stat in snapshot.statistics("filename"))
-    # memory_usage = total_memory / 1024 / 1024
-    return total_memory
+    memory_usage = total_memory / 1024 / 1024
+    return memory_usage
 
 def init_global_parameters():
     global found_solution_discrete

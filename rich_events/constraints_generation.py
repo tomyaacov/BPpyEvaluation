@@ -35,14 +35,14 @@ class Line_Equation:
     def get_type(self):
         return self.__type
 
-    def get_x1(self):
+    def get_x(self):
         return self.__x
 
     def __str__(self):
         if self.get_type() == "y":
             return f"(m={self.get_m()}, b={self.get_b()})"
         else:
-            return f"(x={self.get_x1()})"
+            return f"(x={self.get_x()})"
 
 
 def create_line_equation(n=3, r=1):
