@@ -449,6 +449,7 @@ def init_global_parameters():
 
 def run_experiment(csvfile, start_n, end_n, delta_param, single_equation=False):
     global delta
+    delta_reduction = 2
     header = [
         "num_of_edges",
         "num_of_equations",
@@ -471,21 +472,23 @@ def run_experiment(csvfile, start_n, end_n, delta_param, single_equation=False):
         tracemalloc.start()
         start_time = timeit.default_timer()
         discrete_event_example(num_edges=n, radius=1, delta_param=delta, single_equation=single_equation)
-        end_time = timeit.default_timer()
-        execution_time_discrete = end_time - start_time
-        memory_usage_discrete = tracemalloc_stop()
+
+        # end_time = timeit.default_timer()
+        # execution_time_discrete = end_time - start_time
+        # memory_usage_discrete = tracemalloc_stop()
 
         while not found_solution_discrete:
             init_global_parameters()
-            delta = delta / 10
+            delta = delta / delta_reduction
             # print(f"Increasing delta={delta},n={n}")
-            tracemalloc.start()
-            start_time = timeit.default_timer()
+            # tracemalloc.start()
+            # start_time = timeit.default_timer()
             discrete_event_example(num_edges=n, radius=1, delta_param=delta,
                                    single_equation=single_equation)
-            end_time = timeit.default_timer()
-            execution_time_discrete = end_time - start_time
-            memory_usage_discrete = tracemalloc_stop()
+
+        end_time = timeit.default_timer()
+        execution_time_discrete = end_time - start_time
+        memory_usage_discrete = tracemalloc_stop()
 
         # print("Finished discrete based example")
         # print("Started solver based example")
