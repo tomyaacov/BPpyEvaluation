@@ -478,6 +478,7 @@ def run_experiment(csvfile, start_n, end_n, delta_param, single_equation=False):
         while not found_solution_discrete:
             init_global_parameters()
             delta = delta / 10
+            # print(f"Increasing delta={delta},n={n}")
             tracemalloc.start()
             start_time = timeit.default_timer()
             discrete_event_example(num_edges=n, radius=1, delta_param=delta,
