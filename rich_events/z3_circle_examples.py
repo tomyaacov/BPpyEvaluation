@@ -447,9 +447,10 @@ def init_global_parameters():
     global x_y_events
     x_y_events = []
 
-def run_experiment(csvfile, start_n, end_n, delta_param, single_equation=False):
+def run_experiments(csvfile, start_n, end_n, delta_param, number_of_experiments, single_equation=False,
+                    end_time_global=None):
     global delta
-    delta_reduction = 2
+    delta_reduction_divider = 2
     header = [
         "num_of_edges",
         "num_of_equations",
@@ -457,59 +458,82 @@ def run_experiment(csvfile, start_n, end_n, delta_param, single_equation=False):
         "number_of_events",
         "execution_time_discrete",
         "memory_usage_discrete",
-        "discrete_solved",
         "execution_time_solver",
         "memory_usage_solver",
-        "solver_solved",
     ]
     writer = csv.writer(csvfile, delimiter=",")
     writer.writerow(header)
     print(header)
 
-    for n in range(start_n, end_n):
-        delta = delta_param
-        init_global_parameters()
-        tracemalloc.start()
-        start_time = timeit.default_timer()
-        discrete_event_example(num_edges=n, radius=1, delta_param=delta, single_equation=single_equation)
+    # We initialize the overall statistics array to 0
+    # The elements where i< start_n are not relevant for the experiment
+    # and thier sum will remain 0
+    execution_time_discrete_arr = [0.0] * end_n
+    memory_usage_discrete_arr = [0.0] * end_n
+    execution_time_solver_arr = [0.0] * end_n
+    memory_usage_solver_arr = [0.0] * end_n
+    delta_arr = [float('inf')] * end_n
+    number_of_discrete_events_arr = [0] * end_n
+    number_of_equations_arr = [0] * end_n
 
-        # end_time = timeit.default_timer()
-        # execution_time_discrete = end_time - start_time
-        # memory_usage_discrete = tracemalloc_stop()
-
-        while not found_solution_discrete:
+    for m in range(number_of_experiments):
+        for n in range(start_n, end_n):
+            delta = delta_param
             init_global_parameters()
-            delta = delta / delta_reduction
-            # print(f"Increasing delta={delta},n={n}")
-            # tracemalloc.start()
-            # start_time = timeit.default_timer()
-            discrete_event_example(num_edges=n, radius=1, delta_param=delta,
+            tracemalloc.start()
+            start_time = timeit.default_timer()
+            discrete_event_example(num_edges=n, radius=1, delta_param=delta, single_equation=single_equation)
+
+            while not found_solution_discrete:
+                init_global_parameters()
+                delta = delta / delta_reduction_divider
+                discrete_event_example(num_edges=n, radius=1, delta_param=delta,
                                    single_equation=single_equation)
 
-        end_time = timeit.default_timer()
-        execution_time_discrete = end_time - start_time
-        memory_usage_discrete = tracemalloc_stop()
+            end_time = timeit.default_timer()
+            execution_time_discrete = end_time - start_time
+            memory_usage_discrete = tracemalloc_stop()
 
-        # print("Finished discrete based example")
-        # print("Started solver based example")
-        tracemalloc.start()
-        start_time_solver = timeit.default_timer()
-        solver_based_example(num_edges=n, radius=1, single_equation=single_equation)
-        end_time_solver = timeit.default_timer()
-        execution_time_solver = end_time_solver - start_time_solver
-        memory_usage_solver = tracemalloc_stop()
+            # Documenting the results
+            execution_time_discrete_arr[n] += execution_time_discrete
+            memory_usage_discrete_arr[n] += memory_usage_discrete
+            if number_of_discrete_events > number_of_discrete_events_arr[n]:
+                number_of_discrete_events_arr[n] = number_of_discrete_events
+            if delta < delta_arr[n]:
+                delta_arr[n] = delta
+            number_of_equations_arr[n] = number_of_equations
+            # print("Finished discrete based example")
+
+            # print("Started solver based example")
+            tracemalloc.start()
+            start_time_solver = timeit.default_timer()
+            solver_based_example(num_edges=n, radius=1, single_equation=single_equation)
+            end_time_solver = timeit.default_timer()
+
+            execution_time_solver = end_time_solver - start_time_solver
+            memory_usage_solver = tracemalloc_stop()
+            execution_time_solver_arr[n] += execution_time_solver
+            memory_usage_solver_arr[n] += memory_usage_solver
+            print("Finished experiment n=" + str(n))
+        print("Finished experiment m= " + str(m))
+
+
+    # Calculating the average results and writing them to the csv file
+    for n in range(start_n, end_n):
+        execution_time_discrete_arr[n] /= number_of_experiments
+        memory_usage_discrete_arr[n] /= number_of_experiments
+        execution_time_solver_arr[n] /= number_of_experiments
+        memory_usage_solver_arr[n] /= number_of_experiments
 
         row = [
             n,
-            number_of_equations,
-            delta,
-            number_of_discrete_events,
-            execution_time_discrete,
-            memory_usage_discrete,
-            found_solution_discrete,
-            execution_time_solver,
-            memory_usage_solver,
-            found_solution_solver,
+            number_of_equations_arr[n],
+            delta_arr[n],
+            number_of_discrete_events_arr[n],
+            execution_time_discrete_arr[n],
+            memory_usage_discrete_arr[n],
+            execution_time_solver_arr[n],
+            memory_usage_solver_arr[n],
         ]
         writer.writerow(row)
         print(row)
@@ -555,8 +579,11 @@ def parse_arguments():
         default=False,
         help="single equation or multiple equations",
     )
+    parser.add_argument(
+        "-n_e", "--num_of_exp", type=int, default=1, help="The number of time to run the experiment"
+    )
     args = parser.parse_args()
-    return args.start_n, args.end_n, args.delta_param, args.single_equation
+    return args.start_n, args.end_n, args.delta_param, args.num_of_exp, args.single_equation
 
 
 if __name__ == "__main__":
@@ -564,8 +591,8 @@ if __name__ == "__main__":
     # solver_based_example(1000, 1)
     try:
         with open(init_statistics_file(), mode="w", newline="") as csvfile:
-            start_n, end_n, delta_param, single_equation = parse_arguments()
-            run_experiment(csvfile, start_n, end_n, delta_param, single_equation)
+            start_n, end_n, delta_param, num_of_exp, single_equation = parse_arguments()
+            run_experiments(csvfile, start_n, end_n, delta_param, num_of_exp, single_equation)
     except KeyboardInterrupt:
         # this code handles keyboard interrupt
         print("Keyboard interrupt")
