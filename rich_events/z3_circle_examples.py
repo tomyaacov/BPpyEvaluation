@@ -5,10 +5,6 @@ import timeit
 import datetime
 import csv
 import random
-
-# Import libraries
-import matplotlib.pyplot as plt
-import numpy as np
 import tracemalloc
 
 random.seed(42)
@@ -514,8 +510,8 @@ def run_experiments(csvfile, start_n, end_n, delta_param, number_of_experiments,
             memory_usage_solver = tracemalloc_stop()
             execution_time_solver_arr[n] += execution_time_solver
             memory_usage_solver_arr[n] += memory_usage_solver
-            print("Finished experiment n=" + str(n))
-        print("Finished experiment m= " + str(m))
+            # print("Finished experiment n=" + str(n))
+        # print("Finished experiment m= " + str(m))
 
 
     # Calculating the average results and writing them to the csv file
@@ -538,20 +534,6 @@ def run_experiments(csvfile, start_n, end_n, delta_param, number_of_experiments,
         writer.writerow(row)
         print(row)
         # print("Finished solver based example")
-
-
-def plotting_equations():
-
-    # Creating vectors X and Y
-    x = np.linspace(-2, 2, 100)
-    y = x ** 2
-
-    fig = plt.figure(figsize=(10, 5))
-    # Create the plot
-    plt.plot(x, y)
-
-    # Show the plot
-    plt.show()
 
 
 # the following method parses the command line arguments
