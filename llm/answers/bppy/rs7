@@ -1,0 +1,57 @@
+from bppy import *
+
+@b_thread
+def car_reservation():
+    while True:
+        yield {request: BEvent("A")}
+        yield {waitFor: BEvent("G")}
+
+@b_thread
+def car_pickup():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("B")}
+        yield {waitFor: BEvent("C")}
+
+@b_thread
+def car_return():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("C")}
+        yield {waitFor: BEvent("D"), block: BEvent("E")}
+
+@b_thread
+def D():
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {request: BEvent("D")}
+
+@b_thread
+def late_return_penalty():
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {request: BEvent("E")}
+
+@b_thread
+def car_maintenance():
+    while True:
+        yield {waitFor: BEvent("H")}
+        yield {block: BEvent("F"), waitFor: BEvent("C")}
+
+@b_thread
+def customer_registration():
+    while True:
+        yield {request: BEvent("G")}
+        yield {waitFor: BEvent("A")}
+
+@b_thread
+def car_availability():
+    while True:
+        yield {request: BEvent("H")}
+        yield {waitFor: BEvent("A"), block: BEvent("H")}
+
+@b_thread
+def customer_feedback():
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {request: BEvent("I")}

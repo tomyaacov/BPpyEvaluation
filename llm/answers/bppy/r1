@@ -1,0 +1,29 @@
+from bppy import *
+
+@b_thread
+def add_a():
+    count = 0
+    while count < 3:
+        yield {request: BEvent("A")}
+        count += 1
+
+@b_thread
+def add_b():
+    yield {request: BEvent("B")}
+
+@b_thread
+def add_c():
+    count = 0
+    while count < 2:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("C")}
+        yield {waitFor: BEvent("B")}
+        count += 1
+
+@b_thread
+def add_d_e():
+    while True:
+        yield {request: BEvent("D"), request: BEvent("E")}
+
+b_program = BProgram(bthreads=[add_a, add_b, add_c, add_d_e])
+b_program.run()

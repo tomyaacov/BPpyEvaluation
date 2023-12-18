@@ -134,3 +134,4 @@ dmypy.json
 .DS_Store
 
 model_checking/output/
+llm/secrets/*

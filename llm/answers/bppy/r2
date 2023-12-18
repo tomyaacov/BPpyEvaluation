@@ -1,0 +1,39 @@
+from bppy import *
+
+@b_thread
+def add_D():
+    count = 0
+    while count < 4:
+        yield {request: BEvent("D")}
+        count += 1
+
+@b_thread
+def add_E():
+    count = 0
+    while count < 5:
+        yield {waitFor: BEvent("D")}
+        yield {request: BEvent("E")}
+        count += 1
+
+@b_thread
+def add_F():
+    count = 0
+    while count < 2:
+        yield {waitFor: BEvent("E")}
+        yield {request: BEvent("F")}
+        count += 1
+
+@b_thread
+def prevent_consecutive_D():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {block: BEvent("D"), waitFor: BEvent("E")}
+
+@b_thread
+def prevent_E_after_F():
+    while True:
+        yield {waitFor: BEvent("F")}
+        yield {block: BEvent("E")}
+
+b_program = BProgram(bthreads=[add_D, add_E, add_F, prevent_consecutive_D, prevent_E_after_F])
+b_program.run()

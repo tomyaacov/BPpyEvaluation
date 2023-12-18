@@ -1,0 +1,32 @@
+from bppy import *
+
+@b_thread
+def add_x():
+    count = 0
+    while count < 5:
+        yield {request: BEvent("X")}
+        count += 1
+
+@b_thread
+def add_y():
+    count = 0
+    consecutive_y_count = 0
+    while count < 3:
+        yield {request: BEvent("Y")}
+        count += 1
+        consecutive_y_count += 1
+        if consecutive_y_count >= 2:
+            yield {block: BEvent("Y")}
+            consecutive_y_count = 0
+
+@b_thread
+def add_z():
+    count = 0
+    while count < 2:
+        yield {request: BEvent("Z")}
+        yield {waitFor: BEvent("Y")}
+        yield {request: BEvent("X")}
+        count += 1
+
+b_program = BProgram(bthreads=[add_x, add_y, add_z])
+b_program.run()

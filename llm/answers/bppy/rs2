@@ -1,0 +1,27 @@
+from bppy import *
+
+@b_thread
+def user_inserting_money():
+    while True:
+        yield {request: BEvent("A")}
+
+@b_thread
+def user_selecting_product():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("B")}
+
+@b_thread
+def product_dispensing():
+    while True:
+        yield {waitFor: BEvent("A"), waitFor: BEvent("B")}
+        yield {request: BEvent("C")}
+
+@b_thread
+def no_consecutive_as():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {waitFor: BEvent("B")}
+
+b_program = BProgram(bthreads=[user_inserting_money, user_selecting_product, product_dispensing, no_consecutive_as])
+b_program.run()

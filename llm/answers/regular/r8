@@ -1,0 +1,33 @@
+import random
+
+def generate_events():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    event_list = []
+    
+    # Generate A followed by B, C, or D
+    event_list.append('A')
+    event_list.append(random.choice(['B', 'C', 'D']))
+    
+    # Generate the rest of the events
+    while True:
+        event = random.choice(events)
+        
+        if event == 'E' and event_list[-1] == 'F':
+            continue
+        
+        if event == 'G' and event_list[-1] == 'H':
+            continue
+        
+        if event == 'H' and event_list[-1] == 'G':
+            continue
+        
+        if event == 'J' and event_list.count('J') >= 3:
+            break
+        
+        if event == 'I' and event_list[-1] == 'J' and event_list[-2] == 'J':
+            event_list.append('I')
+            break
+        
+        event_list.append(event)
+    
+    return event_list

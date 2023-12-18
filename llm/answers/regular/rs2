@@ -1,0 +1,23 @@
+import random
+
+def generate_system_events():
+    events = []
+    event_a_occurred = False
+    event_b_occurred = False
+
+    while True:
+        if not event_a_occurred:
+            events.append("Event A (User Inserting Money)")
+            event_a_occurred = True
+        elif event_a_occurred and not event_b_occurred:
+            events.append("Event B (User Selecting a Product)")
+            event_b_occurred = True
+        else:
+            events.append("Event C (Product Dispensing)")
+            event_a_occurred = False
+            event_b_occurred = False
+
+        if random.choice([True, False]):
+            break
+
+    return events

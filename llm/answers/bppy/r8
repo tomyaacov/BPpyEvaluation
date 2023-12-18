@@ -1,0 +1,35 @@
+from bppy import *
+
+@b_thread
+def follow_a():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: [BEvent("B"), BEvent("C"), BEvent("D")]}
+
+@b_thread
+def prevent_e_followed_by_f():
+    while True:
+        yield {waitFor: BEvent("E")}
+        yield {block: BEvent("F")}
+
+@b_thread
+def prevent_consecutive_g_and_h():
+    while True:
+        yield {waitFor: BEvent("G")}
+        yield {block: BEvent("H")}
+        yield {waitFor: BEvent("H")}
+        yield {block: BEvent("G")}
+
+@b_thread
+def ensure_j_occurs_3_times():
+    count = 0
+    while count < 3:
+        yield {request: BEvent("J")}
+        count += 1
+
+@b_thread
+def ensure_i_follows_j():
+    while True:
+        yield {waitFor: BEvent("J")}
+        yield {waitFor: BEvent("I")}
+        yield {waitFor: BEvent("I")}

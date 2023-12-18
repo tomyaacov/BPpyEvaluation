@@ -1,0 +1,45 @@
+from bppy import *
+
+@b_thread
+def insert_coin():
+    yield {request: BEvent("A")}
+
+@b_thread
+def select_product():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("B")}
+
+@b_thread
+def dispense_product():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("C"), waitFor: BEvent("G")}
+
+@b_thread
+def return_change():
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {request: BEvent("D"), waitFor: BEvent("C")}
+
+@b_thread
+def reject_product():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("G"), waitFor: BEvent("C")}
+
+@b_thread
+def refill_machine():
+    while True:
+        yield {waitFor: BEvent("E")}
+        yield {block: BEvent("A"), request: BEvent("F")}
+
+@b_thread
+def perform_maintenance():
+    while True:
+        yield {waitFor: BEvent("F")}
+        yield {waitFor: BEvent("E")}
+        yield {request: BEvent("F")}
+
+b_program = BProgram(bthreads=[insert_coin, select_product, dispense_product, return_change, reject_product, refill_machine, perform_maintenance])
+b_program.run()

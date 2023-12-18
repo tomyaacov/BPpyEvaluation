@@ -1,0 +1,17 @@
+import random
+
+def generate_event_list():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Y']
+    event_list = []
+    
+    while True:
+        random.shuffle(events)
+        event_list = events.copy()
+        
+        if event_list.index('A') < event_list.index('B') and event_list.index('B') < event_list.index('C'):
+            if event_list.index('D') < event_list.index('E') and event_list.index('E') < event_list.index('F'):
+                if event_list.count('G') <= 3 * event_list.count('A'):
+                    if event_list.count('Y') <= 2:
+                        break
+    
+    return event_list

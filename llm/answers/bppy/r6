@@ -1,0 +1,75 @@
+from bppy import *
+
+@b_thread
+def add_X():
+    count_X = 0
+    while count_X < 5:
+        yield {request: BEvent("X")}
+        count_X += 1
+
+@b_thread
+def prevent_consecutive_Y():
+    count_Y = 0
+    while True:
+        yield {waitFor: BEvent("Y")}
+        count_Y += 1
+        if count_Y >= 2:
+            yield {block: BEvent("Y")}
+        else:
+            yield {request: BEvent("Y")}
+
+@b_thread
+def add_A_between_B():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("A")}
+
+@b_thread
+def prevent_D_E_F_sequence():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {waitFor: BEvent("E")}
+        yield {waitFor: BEvent("F")}
+        yield {block: BEvent("D")}
+        yield {block: BEvent("E")}
+        yield {block: BEvent("F")}
+
+@b_thread
+def add_G():
+    count_G = 0
+    while count_G < 3:
+        yield {request: BEvent("G")}
+        count_G += 1
+
+@b_thread
+def add_H():
+    count_H = 0
+    while count_H < 2:
+        yield {request: BEvent("H")}
+        count_H += 1
+
+@b_thread
+def add_consecutive_G_after_second_H():
+    count_H = 0
+    count_G = 0
+    while True:
+        yield {waitFor: BEvent("H")}
+        count_H += 1
+        if count_H == 2:
+            while count_G < 2:
+                yield {request: BEvent("G")}
+                count_G += 1
+
+@b_thread
+def prevent_more_than_3_Y_between_X():
+    count_Y = 0
+    while True:
+        yield {waitFor: BEvent("X")}
+        count_Y = 0
+        while count_Y < 3:
+            yield {waitFor: BEvent("Y")}
+            count_Y += 1
+        yield {block: BEvent("Y")}
+
+b_program = BProgram(bthreads=[add_X, prevent_consecutive_Y, add_A_between_B, prevent_D_E_F_sequence, add_G, add_H, add_consecutive_G_after_second_H, prevent_more_than_3_Y_between_X])
+b_program.run()

@@ -1,0 +1,31 @@
+import random
+
+def generate_events():
+    events = []
+    cart = []
+    total_items = 0
+    
+    # Generate random number of events
+    num_events = random.randint(1, 10)
+    
+    for _ in range(num_events):
+        event = random.choice(['A', 'B', 'C'])
+        
+        if event == 'A':
+            item = random.randint(1, 10)
+            cart.append(item)
+            total_items += item
+            events.append('Event A: User Adding Item to Cart')
+            
+        elif event == 'B':
+            if len(cart) > 0:
+                item = random.choice(cart)
+                cart.remove(item)
+                total_items -= item
+                events.append('Event B: User Removing Item from Cart')
+            
+        elif event == 'C':
+            if total_items > 0:
+                events.append('Event C: User Proceeding to Checkout')
+    
+    return events

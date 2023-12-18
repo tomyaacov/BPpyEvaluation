@@ -1,0 +1,35 @@
+import random
+
+def generate_events():
+    events = ['A', 'B', 'C', 'D']
+    generated_events = []
+    
+    while True:
+        random.shuffle(events)
+        temp_events = []
+        a_count = 0
+        d_index = -1
+        
+        for event in events:
+            if event == 'A':
+                a_count += 1
+                if d_index != -1 and d_index == len(temp_events) - 1:
+                    break
+            elif event == 'D':
+                if d_index != -1 and d_index == len(temp_events) - 1:
+                    break
+                d_index = len(temp_events)
+            elif event == 'B':
+                if a_count == 0 or d_index != -1:
+                    break
+            elif event == 'C':
+                if a_count == 0 or d_index != -1:
+                    break
+            
+            temp_events.append(event)
+        
+        if len(temp_events) == len(events):
+            generated_events = temp_events
+            break
+    
+    return generated_events

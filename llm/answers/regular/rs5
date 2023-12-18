@@ -1,0 +1,69 @@
+import random
+
+def generate_event_list():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    event_list = []
+    
+    # Generate User Registration (Event A)
+    event_list.append('A')
+    
+    # Generate User Login (Event B)
+    event_list.append('B')
+    
+    # Generate User Logout (Event C)
+    event_list.append('C')
+    
+    # Generate Create New Post (Event D)
+    event_list.append('D')
+    
+    # Generate Edit Post (Event E) or Delete Post (Event F)
+    if random.choice([True, False]):
+        event_list.append('E')
+    else:
+        event_list.append('F')
+    
+    # Generate Like Post (Event G) or Comment on Post (Event H)
+    if random.choice([True, False]):
+        event_list.append('G')
+    else:
+        event_list.append('H')
+    
+    # Generate User Profile Update (Event I)
+    event_list.append('I')
+    
+    # Generate additional events
+    for _ in range(random.randint(3, 6)):
+        event_list.append('D')
+    
+    # Generate Edit Post (Event E) or Delete Post (Event F)
+    if random.choice([True, False]):
+        event_list.append('E')
+    else:
+        event_list.append('F')
+    
+    # Generate Like Post (Event G) or Comment on Post (Event H)
+    if random.choice([True, False]):
+        event_list.append('G')
+    else:
+        event_list.append('H')
+    
+    # Generate User Profile Update (Event I)
+    event_list.append('I')
+    
+    # Generate additional events
+    for _ in range(random.randint(3, 6)):
+        event_list.append('D')
+    
+    # Generate Edit Post (Event E) or Delete Post (Event F)
+    if random.choice([True, False]):
+        event_list.append('E')
+    else:
+        event_list.append('F')
+    
+    # Generate Like Post (Event G) or Comment on Post (Event H)
+    if random.choice([True, False]):
+        event_list.append('G')
+    else:
+        event_list.append('H')
+    
+    return event_list

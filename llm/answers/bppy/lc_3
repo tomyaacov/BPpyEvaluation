@@ -1,0 +1,20 @@
+@b_thread
+def train():
+    while True:
+        yield {request: BEvent("Approaching")}
+        yield {request: BEvent("Entering")}
+        yield {request: BEvent("Leaving")}
+
+@b_thread
+def barrier():
+    while True:
+        yield {waitFor: BEvent("Approaching")}
+        yield {request: BEvent("Lower")}
+        yield {waitFor: BEvent("Leaving")}
+        yield {request: BEvent("Raise")}
+
+@b_thread
+def control():
+    while True:
+        yield {waitFor: BEvent("Entering")}
+        yield {block: BEvent("Raise"), waitFor: BEvent("Leaving")}

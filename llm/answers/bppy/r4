@@ -1,0 +1,45 @@
+from bppy import *
+
+@b_thread
+def add_a():
+    while True:
+        yield {request: BEvent("A")}
+
+@b_thread
+def add_b():
+    while True:
+        yield {request: BEvent("B")}
+        yield {waitFor: BEvent("C")}
+
+@b_thread
+def add_d():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {waitFor: BEvent("E"), block: BEvent("F")}
+
+@b_thread
+def add_f():
+    while True:
+        yield {waitFor: BEvent("F"), block: BEvent("F")}
+
+@b_thread
+def add_g():
+    while True:
+        yield {request: BEvent("G")}
+
+@b_thread
+def add_h():
+    for i in range(3):
+        yield {request: BEvent("H")}
+
+@b_thread
+def add_i():
+    while True:
+        yield {waitFor: BEvent("H")}
+        yield {waitFor: BEvent("H")}
+        for j in range(3):
+            yield {request: BEvent("I")}
+
+b_program = BProgram(bthreads=[add_a, add_b, add_d, add_f, add_g, add_h, add_i])
+
+b_program.run()

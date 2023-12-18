@@ -1,0 +1,11 @@
+Create a function that generates a list of events based on the following desired events and
+requirements:
+
+{requirements}
+
+the list returned should be non-deterministic and should be able to generate a different list of
+events each time it is called.
+That is to represent a different run of the system each time. Additionally, the function should
+terminate.
+
+Please answer with the code only and without any additional text.
