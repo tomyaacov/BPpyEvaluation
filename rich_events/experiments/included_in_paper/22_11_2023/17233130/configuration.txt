@@ -1,0 +1,1 @@
+start_n=4, end_n=200, delta_param=1.0, num_of_exp=30, single_equation=False
