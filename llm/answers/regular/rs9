@@ -1,0 +1,25 @@
+import random
+
+def generate_event_list():
+    events = []
+    
+    events.append("A")  # Product Search
+    
+    num_add_to_cart = random.randint(1, 5)
+    for _ in range(num_add_to_cart):
+        events.append("B")  # Add to Cart
+        events.append("C")  # Remove from Cart
+    
+    events.append("D")  # Checkout
+    
+    num_payments = random.randint(2, 5)
+    for _ in range(num_payments):
+        events.append("E")  # Payment
+    
+    events.append("F")  # Order Confirmation
+    
+    events.append("G")  # Shipping
+    
+    events.append("H")  # Delivery or Event I (Return Request)
+    
+    return events

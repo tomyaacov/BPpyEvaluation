@@ -1,0 +1,31 @@
+from bppy import *
+
+# User Adding Item to Cart
+@b_thread
+def add_item():
+    while True:
+        yield {request: BEvent("A")}
+
+# User Removing Item from Cart
+@b_thread
+def remove_item():
+    while True:
+        yield {request: BEvent("B")}
+
+# User Proceeding to Checkout
+@b_thread
+def checkout():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("C")}
+
+# Cart Must Not Be Empty at Checkout
+@b_thread
+def cart_consistency():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {waitFor: BEvent("B")}
+        yield {waitFor: BEvent("C")}
+
+b_program = BProgram(bthreads=[add_item, remove_item, checkout, cart_consistency])
+b_program.run()

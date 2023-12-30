@@ -1,0 +1,23 @@
+from bppy import *
+
+@b_thread
+def train_sensor():
+    yield {request: BEvent("Approaching")}
+    yield {request: BEvent("Entering")}
+    yield {request: BEvent("Leaving")}
+
+@b_thread
+def barrier_controller():
+    while True:
+        yield {waitFor: BEvent("Approaching")}
+        yield {request: BEvent("Lower")}
+        yield {waitFor: BEvent("Entering")}
+        yield {request: BEvent("Raise")}
+        yield {waitFor: BEvent("Leaving")}
+
+@b_thread
+def train_controller():
+    while True:
+        yield {waitFor: BEvent("Approaching")}
+        yield {block: BEvent("Entering")}
+        yield {waitFor: BEvent("Leaving")}

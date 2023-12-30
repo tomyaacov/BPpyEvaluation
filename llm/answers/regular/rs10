@@ -1,0 +1,64 @@
+import random
+
+def generate_event_list():
+    events = []
+    coins_inserted = False
+    product_selected = False
+    coins_count = 0
+    refill_count = 0
+    maintenance_count = 0
+    
+    while True:
+        event = random.choice(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        
+        if event == 'A':
+            if not coins_inserted:
+                events.append('A')
+                coins_inserted = True
+                coins_count += 1
+        
+        elif event == 'B':
+            if coins_inserted:
+                events.append('B')
+                product_selected = True
+        
+        elif event == 'C':
+            if product_selected and coins_count >= 2:
+                events.append('C')
+                coins_count -= 2
+        
+        elif event == 'D':
+            if coins_count > 2:
+                events.append('D')
+        
+        elif event == 'E':
+            if not (coins_inserted or product_selected):
+                events.append('E')
+                refill_count += 1
+        
+        elif event == 'F':
+            if refill_count > 0 and maintenance_count < 2:
+                events.append('F')
+                maintenance_count += 1
+        
+        elif event == 'G':
+            if product_selected and coins_count < 2:
+                events.append('G')
+        
+        if event == 'C' or event == 'D':
+            coins_count = 0
+            product_selected = False
+        
+        if event == 'E':
+            coins_inserted = False
+        
+        if event == 'F':
+            coins_inserted = True
+        
+        if event == 'G':
+            product_selected = False
+        
+        if event == 'F' and maintenance_count == 2:
+            break
+    
+    return events

@@ -1,0 +1,19 @@
+Behavioral Programming (BP) is a modeling paradigm designed to allow developers to specify the behavior of reactive systems incrementally and intuitively in a way that is aligned with system requirements.
+A BP program, is defined by a set of b-threads representing the different behaviors of the system.
+The protocol involves each b-thread issuing a statement before selecting every system-generated event.
+In the statement, the b-thread declares which events it requests, waits for (but does not request), and blocks (forbids from happening).
+After submitting the statement, the b-thread is paused.
+When all b-threads have submitted their statements, we say the b-program has reached a synchronization point (yield point).
+Then, an event arbiter picks a single event that has been requested but not blocked.
+The b-program then resumes all b-threads that either requested or waited for the chosen event, leaving others paused, and their existing statements are carried forward to the next yield point.
+This process is repeated throughout the program's execution, terminating when there are no requested non-blocked events.
+
+For instance, the following code contains requirements, written in comments,  and their respective b-threads:
+
+{hot_cold}
+
+Based on the following desired events and requirements, build a b-program that satisfies them.
+
+{requirements}
+
+Avoid including any extra keys in yield statements beyond request, waitFor, and block. Please answer with the code only and without any additional text.

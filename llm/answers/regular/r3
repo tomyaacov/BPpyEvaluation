@@ -1,0 +1,37 @@
+import random
+
+def generate_events():
+    events = ['X', 'Y', 'Z']
+    event_list = []
+    
+    # Generate X events
+    x_count = random.randint(5, 10)
+    for _ in range(x_count):
+        event_list.append('X')
+    
+    # Generate Y events
+    y_count = random.randint(3, 10)
+    y_consecutive_count = 0
+    for _ in range(y_count):
+        if y_consecutive_count < 2:
+            event_list.append('Y')
+            y_consecutive_count += 1
+        else:
+            event_list.append('X')
+            event_list.append('Y')
+            y_consecutive_count = 1
+    
+    # Generate Z events
+    z_count = 2
+    z_index = random.randint(0, len(event_list)-1)
+    for _ in range(z_count):
+        event_list.insert(z_index, 'Z')
+        z_index = random.randint(z_index+1, len(event_list)-1)
+    
+    # Add X after Z
+    for i in range(len(event_list)-1):
+        if event_list[i] == 'Z':
+            event_list.insert(i+1, 'X')
+            break
+    
+    return event_list

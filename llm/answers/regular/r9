@@ -1,0 +1,52 @@
+import random
+
+def generate_events():
+    events = ['A', 'B', 'C', 'D']
+    event_list = []
+    
+    # Generate at least 5 occurrences of A
+    num_a = random.randint(5, 10)
+    for _ in range(num_a):
+        event_list.append('A')
+    
+    # Generate B followed by C
+    event_list.append('B')
+    event_list.append('C')
+    
+    # Generate D before B
+    event_list.insert(random.randint(0, len(event_list)-1), 'D')
+    
+    # Generate remaining events
+    while True:
+        event = random.choice(events)
+        
+        if event == 'A':
+            # Check for no more than 2 consecutive A's
+            if event_list[-1] == 'A' and event_list[-2] == 'A':
+                continue
+            # Check for no more than 1 D between A's
+            if 'D' in event_list[-2:]:
+                continue
+        elif event == 'B':
+            # Check for no sequence of A, B, C
+            if event_list[-2:] == ['A', 'B']:
+                continue
+            # Check for at least one B between C's
+            if 'B' not in event_list:
+                continue
+        elif event == 'C':
+            # Check for at least one C between B's
+            if 'C' not in event_list:
+                continue
+        elif event == 'D':
+            # Check for at least two consecutive D's after the third A
+            if event_list.count('A') > 3 and event_list[-2:] != ['D', 'D']:
+                continue
+        
+        event_list.append(event)
+        
+        # Check if last event is A
+        if event == 'A':
+            break
+    
+    return event_list

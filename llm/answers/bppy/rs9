@@ -1,0 +1,49 @@
+from bppy import *
+
+@b_thread
+def product_search():
+    yield {request: BEvent("A")}
+
+@b_thread
+def add_to_cart():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("B")}
+
+@b_thread
+def remove_from_cart():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("C")}
+
+@b_thread
+def checkout():
+    yield {waitFor: BEvent("B")}
+    yield {request: BEvent("D")}
+
+@b_thread
+def payment():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {request: BEvent("E")}
+
+@b_thread
+def shipping():
+    while True:
+        yield {waitFor: BEvent("E")}
+        yield {request: BEvent("G")}
+
+@b_thread
+def delivery():
+    while True:
+        yield {waitFor: BEvent("G")}
+        yield {request: BEvent("H")}
+
+@b_thread
+def return_request():
+    while True:
+        yield {waitFor: BEvent("H")}
+        yield {request: BEvent("I")}
+
+b_program = BProgram(bthreads=[product_search, add_to_cart, remove_from_cart, checkout, payment, shipping, delivery, return_request])
+b_program.run()

@@ -1,0 +1,73 @@
+import random
+
+def generate_event_list():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K']
+    event_list = []
+    
+    while True:
+        event = random.choice(events)
+        
+        if event == 'A':
+            event_list.append('A')
+            event_list.append('B')
+        elif event == 'B':
+            if 'A' in event_list:
+                event_list.append('B')
+            else:
+                continue
+        elif event == 'C':
+            if 'B' in event_list:
+                event_list.append('C')
+            else:
+                continue
+        elif event == 'D':
+            if 'B' in event_list or 'H' in event_list:
+                event_list.append('D')
+            else:
+                continue
+        elif event == 'E':
+            if 'B' in event_list:
+                event_list.append('E')
+            else:
+                continue
+        elif event == 'F':
+            if 'B' in event_list:
+                event_list.append('F')
+            else:
+                continue
+        elif event == 'G':
+            if 'B' in event_list or 'F' in event_list:
+                event_list.append('G')
+            else:
+                continue
+        elif event == 'H':
+            event_list.append('H')
+        elif event == 'I':
+            if 'A' in event_list or 'H' in event_list or 'F' in event_list:
+                event_list.append('I')
+                event_list.append(random.choice(['A', 'H', 'F']))
+            else:
+                continue
+        elif event == 'J':
+            if 'J' not in event_list:
+                event_list.append('J')
+                event_list.append('K')
+            else:
+                continue
+        elif event == 'K':
+            if 'K' not in event_list:
+                event_list.append('K')
+                if 'J' in event_list:
+                    event_list.append('D')
+                else:
+                    event_list.append('C')
+            else:
+                continue
+        
+        if event_list.count('D') > 5:
+            event_list.remove('D')
+        
+        if len(event_list) >= 10:
+            break
+    
+    return event_list

@@ -1,0 +1,51 @@
+from bppy import *
+
+@b_thread
+def customer_arrives():
+    yield {request: BEvent("A")}
+
+@b_thread
+def customer_places_order():
+    yield {waitFor: BEvent("A")}
+    yield {request: BEvent("B")}
+
+@b_thread
+def kitchen_receives_order():
+    yield {waitFor: BEvent("B")}
+    yield {request: BEvent("C")}
+
+@b_thread
+def food_preparation():
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {request: BEvent("D")}
+
+@b_thread
+def food_ready():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {request: BEvent("E")}
+
+@b_thread
+def customer_receives_food():
+    yield {waitFor: BEvent("E")}
+    yield {request: BEvent("F")}
+
+@b_thread
+def customer_pays_bill():
+    yield {waitFor: BEvent("F")}
+    yield {request: BEvent("G")}
+
+@b_thread
+def table_clearing():
+    yield {waitFor: BEvent("G")}
+    yield {request: BEvent("H")}
+
+@b_thread
+def customer_leaves():
+    yield {waitFor: BEvent("G")}
+    yield {request: BEvent("I")}
+
+b_program = BProgram(bthreads=[customer_arrives, customer_places_order, kitchen_receives_order, food_preparation, food_ready, customer_receives_food, customer_pays_bill, table_clearing, customer_leaves])
+
+b_program.run()

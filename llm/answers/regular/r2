@@ -1,0 +1,36 @@
+import random
+
+def generate_events():
+    events = ['D', 'E', 'F']
+    event_list = []
+    
+    # Generate D events
+    num_d = random.randint(4, 10)
+    for _ in range(num_d):
+        event_list.append('D')
+    
+    # Generate E events
+    num_e = random.randint(5, 10)
+    for _ in range(num_e):
+        event_list.append('E')
+    
+    # Generate F events
+    num_f = random.randint(0, 2)
+    for _ in range(num_f):
+        event_list.append('F')
+    
+    # Shuffle the event list
+    random.shuffle(event_list)
+    
+    # Check requirements
+    for i in range(len(event_list)):
+        if event_list[i] == 'D':
+            if i < len(event_list) - 1 and event_list[i+1] == 'D':
+                event_list[i], event_list[i+1] = event_list[i+1], event_list[i]
+        elif event_list[i] == 'E':
+            if i < len(event_list) - 1 and event_list[i+1] == 'F':
+                event_list[i], event_list[i+1] = event_list[i+1], event_list[i]
+            elif i < len(event_list) - 1 and event_list[i+1] == 'E':
+                event_list[i], event_list[i+1] = event_list[i+1], event_list[i]
+    
+    return event_list

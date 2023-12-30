@@ -1,0 +1,32 @@
+from bppy import *
+
+@b_thread
+def project_creation():
+    yield {request: BEvent("A")}
+
+@b_thread
+def task_assignment():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("B"), waitFor: BEvent("C")}
+
+@b_thread
+def task_completion():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("C")}
+
+@b_thread
+def task_review():
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {request: BEvent("D"), waitFor: BEvent("E")}
+
+@b_thread
+def project_update():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {request: BEvent("E"), block: BEvent("B")}
+
+b_program = BProgram(bthreads=[project_creation, task_assignment, task_completion, task_review, project_update])
+b_program.run()

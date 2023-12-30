@@ -1,0 +1,26 @@
+@b_thread
+def req_1():
+    while True:
+        yield {request: BEvent("Approaching")}
+        yield {request: BEvent("Entering")}
+        yield {request: BEvent("Leaving")}
+
+@b_thread
+def req_2():
+    while True:
+        yield {waitFor: BEvent("Approaching")}
+        yield {request: BEvent("Lower")}
+        yield {waitFor: BEvent("Leaving")}
+        yield {request: BEvent("Raise")}
+
+@b_thread
+def req_3():
+    while True:
+        yield {waitFor: BEvent("Approaching")}
+        yield {block: BEvent("Entering"), waitFor: BEvent("Leaving")}
+
+@b_thread
+def req_4():
+    while True:
+        yield {waitFor: BEvent("Approaching")}
+        yield {block: BEvent("Raise"), waitFor: BEvent("Leaving")}

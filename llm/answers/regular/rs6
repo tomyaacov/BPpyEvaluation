@@ -1,0 +1,34 @@
+import random
+
+def generate_event_list():
+    events = []
+    events.append("A")  # Project Creation
+    events.append("B")  # Task Assignment
+    events.append("C")  # Task Completion
+    events.append("D")  # Task Review
+    events.append("E")  # Project Update
+
+    random.shuffle(events)
+
+    event_list = []
+    event_list.append(events.pop(0))  # Add initial event A
+
+    while events:
+        event = events.pop(0)
+        if event == "A":
+            if "A" not in event_list:
+                event_list.append(event)
+        elif event == "B":
+            if "A" in event_list and "B" not in event_list and "C" not in event_list:
+                event_list.append(event)
+        elif event == "C":
+            if "B" in event_list and "C" not in event_list:
+                event_list.append(event)
+        elif event == "D":
+            if "C" in event_list and "D" not in event_list:
+                event_list.append(event)
+        elif event == "E":
+            if "D" in event_list and "E" not in event_list:
+                event_list.append(event)
+
+    return event_list

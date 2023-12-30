@@ -1,0 +1,83 @@
+from bppy import *
+
+@b_thread
+def user_registration():
+    yield {request: BEvent("A")}
+
+@b_thread
+def user_login():
+    yield {waitFor: BEvent("A")}
+    yield {request: BEvent("B")}
+
+@b_thread
+def user_logout():
+    yield {waitFor: BEvent("B")}
+    yield {request: BEvent("C")}
+
+@b_thread
+def create_new_post():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("D"), block: BEvent("C")}
+
+@b_thread
+def edit_post():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {block: BEvent("F")}
+        yield {block: BEvent("E")}
+        yield {request: BEvent("E")}
+
+@b_thread
+def delete_post():
+    while True:
+        yield {waitFor: BEvent("E")}
+        yield {block: BEvent("F")}
+        yield {request: BEvent("F")}
+
+@b_thread
+def like_post():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {block: BEvent("H")}
+        yield {block: BEvent("G")}
+        yield {request: BEvent("G")}
+
+@b_thread
+def comment_on_post():
+    while True:
+        yield {waitFor: BEvent("G")}
+        yield {block: BEvent("H")}
+        yield {request: BEvent("H")}
+
+@b_thread
+def user_profile_update():
+    count = 0
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {request: BEvent("I")}
+        count += 1
+        if count == 2:
+            break
+
+@b_thread
+def consecutive_create_new_post():
+    count = 0
+    while True:
+        yield {waitFor: BEvent("C")}
+        yield {waitFor: BEvent("I")}
+        yield {waitFor: BEvent("D")}
+        count += 1
+        if count == 3:
+            break
+
+@b_thread
+def consecutive_edit_post():
+    count = 0
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {block: BEvent("E")}
+        yield {request: BEvent("E")}
+        count += 1
+        if count == 4:
+            break

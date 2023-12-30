@@ -1,0 +1,41 @@
+import random
+
+def generate_events():
+    events = ['A', 'B', 'C', 'D', 'E']
+    event_list = []
+    
+    # Generate A at least 3 times
+    a_count = random.randint(3, 5)
+    for _ in range(a_count):
+        event_list.append('A')
+    
+    # Generate B at least once
+    event_list.append('B')
+    
+    # Generate C and B if C occurs right after A
+    for i in range(len(event_list)-1):
+        if event_list[i] == 'A' and event_list[i+1] != 'C':
+            event_list.insert(i+1, 'C')
+            event_list.insert(i+2, 'B')
+    
+    # Generate C and B if A and C occur consecutively more than twice in a row
+    for i in range(len(event_list)-2):
+        if event_list[i] == 'A' and event_list[i+1] == 'C' and event_list[i+2] != 'B':
+            event_list.insert(i+2, 'B')
+    
+    # Generate D and E together
+    event_list.append('D')
+    event_list.append('E')
+    
+    # Generate no more than 2 consecutive occurrences of B
+    b_count = event_list.count('B')
+    if b_count > 2:
+        b_indices = [i for i, x in enumerate(event_list) if x == 'B']
+        random.shuffle(b_indices)
+        for i in range(b_count-2):
+            event_list[b_indices[i]] = 'A'
+    
+    # Shuffle the event list
+    random.shuffle(event_list)
+    
+    return event_list

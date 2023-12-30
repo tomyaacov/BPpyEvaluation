@@ -1,0 +1,24 @@
+import random
+
+def generate_events():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    event_list = []
+    
+    while True:
+        event = random.choice(events)
+        event_list.append(event)
+        
+        if event == 'A' and event_list.count('A') >= 7:
+            break
+        
+        if event == 'B':
+            event_list.append('C')
+        
+        if event == 'G' and event_list[-2] == 'G':
+            event_list.pop()
+        
+        if event == 'H' and event_list.count('H') >= 4:
+            break
+    
+    event_list.append('J')
+    return event_list

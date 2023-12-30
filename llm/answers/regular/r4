@@ -1,0 +1,43 @@
+import random
+
+def generate_events():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    event_list = []
+    a_count = 0
+    g_count = 0
+    h_count = 0
+    i_count = 0
+    
+    while a_count < 6:
+        event_list.append('A')
+        a_count += 1
+    
+    while len(event_list) < 100:
+        event = random.choice(events)
+        
+        if event == 'B':
+            event_list.append('B')
+            event_list.append('C')
+        elif event == 'D':
+            event_list.append('D')
+            event_list.append('E')
+        elif event == 'F':
+            if event_list[-1] != 'F':
+                event_list.append('F')
+        elif event == 'G':
+            if g_count < 4:
+                event_list.append('G')
+                g_count += 1
+        elif event == 'H':
+            if h_count < 3:
+                event_list.append('H')
+                h_count += 1
+            elif i_count < 3:
+                event_list.append('I')
+                i_count += 1
+        elif event == 'I':
+            if i_count < 3:
+                event_list.append('I')
+                i_count += 1
+    
+    return event_list

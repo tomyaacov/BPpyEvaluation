@@ -1,0 +1,19 @@
+import random
+
+def generate_event_list():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    event_list = []
+    
+    event_list.append('G')
+    
+    num_reservations = random.randint(1, 5)
+    for _ in range(num_reservations):
+        event_list.append('A')
+        event_list.append('B')
+        event_list.append('C')
+        event_list.append('D')
+        if random.random() < 0.2:
+            event_list.append('E')
+        event_list.append('I')
+    
+    return event_list

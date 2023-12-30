@@ -1,0 +1,64 @@
+from bppy import *
+
+@b_thread
+def user_check_out_book():
+    while True:
+        yield {request: BEvent("A")}
+
+@b_thread
+def user_return_book():
+    while True:
+        yield {waitFor: BEvent("A")}
+        yield {request: BEvent("B")}
+
+@b_thread
+def book_available_for_checkout():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("C")}
+
+@b_thread
+def late_book_return():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("D")}
+
+@b_thread
+def book_reservations():
+    while True:
+        yield {waitFor: BEvent("D")}
+        yield {request: BEvent("E")}
+
+@b_thread
+def late_book_return_notice():
+    while True:
+        yield {waitFor: BEvent("E")}
+        yield {request: BEvent("F")}
+
+@b_thread
+def user_fine():
+    count = 0
+    while True:
+        yield {waitFor: BEvent("F")}
+        yield {request: BEvent("H")}
+        count += 1
+        if count == 2:
+            yield {waitFor: BEvent("I")}
+
+@b_thread
+def book_request():
+    count = 0
+    while True:
+        yield {waitFor: BEvent("A")}
+        count += 1
+        if count > 3:
+            yield {block: BEvent("G")}
+
+@b_thread
+def user_account_update():
+    count = 0
+    while True:
+        yield {waitFor: BEvent("Y")}
+        count += 1
+        if count > 2:
+            yield {block: BEvent("Y")}

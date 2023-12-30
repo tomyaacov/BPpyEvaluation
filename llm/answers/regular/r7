@@ -1,0 +1,61 @@
+import random
+
+def generate_events():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    event_list = []
+    
+    # Generate A events
+    a_count = random.randint(5, 10)
+    for _ in range(a_count):
+        event_list.append('A')
+    
+    # Generate B and C events
+    b_count = random.randint(1, a_count)
+    for _ in range(b_count):
+        event_list.append('B')
+        event_list.append('C')
+    
+    # Generate D event
+    d_index = random.randint(0, len(event_list))
+    event_list.insert(d_index, 'D')
+    
+    # Generate E event
+    e_index = random.randint(d_index+1, len(event_list))
+    event_list.insert(e_index, 'E')
+    
+    # Generate F, G, H sequence
+    fgh_count = random.randint(0, 2)
+    for _ in range(fgh_count):
+        event_list.append('F')
+        event_list.append('G')
+        event_list.append('H')
+    
+    # Generate I events
+    for _ in range(4):
+        event_list.append('I')
+    
+    # Generate J events
+    j_index = random.randint(0, len(event_list))
+    event_list.insert(j_index, 'J')
+    
+    # Generate J events after third occurrence of I
+    i_count = 0
+    for i in range(len(event_list)):
+        if event_list[i] == 'I':
+            i_count += 1
+            if i_count == 3:
+                j_count = random.randint(2, 5)
+                for _ in range(j_count):
+                    event_list.insert(i+1, 'J')
+                break
+    
+    # Generate G events between A events
+    a_indices = [i for i, x in enumerate(event_list) if x == 'A']
+    for i in range(len(a_indices)-1):
+        g_count = random.randint(0, 2)
+        # g_indices = random.sample(range(a_indices[i]+1, a_indices[i+1]), g_count)
+        g_indices = random.choices(range(a_indices[i] + 1, a_indices[i+1] + 1), k=g_count) # updated
+        for index in g_indices:
+            event_list.insert(index, 'G')
+    
+    return event_list

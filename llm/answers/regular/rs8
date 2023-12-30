@@ -1,0 +1,23 @@
+import random
+
+def generate_event_list():
+    events = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    event_list = []
+    
+    event_list.append('A')
+    event_list.append('B')
+    
+    if random.choice([True, False]):
+        event_list.append('C')
+        event_list.append('D')
+        event_list.append('E')
+    
+    event_list.append('F')
+    event_list.append('G')
+    
+    if random.choice([True, False]):
+        event_list.append('H')
+    
+    event_list.append('I')
+    
+    return event_list

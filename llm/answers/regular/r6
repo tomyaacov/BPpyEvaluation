@@ -1,0 +1,70 @@
+import random
+
+def generate_events():
+    events = ['X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    event_list = []
+    
+    # Generate X events
+    x_count = random.randint(5, 10)
+    for _ in range(x_count):
+        event_list.append('X')
+    
+    # Generate Y events
+    y_count = random.randint(0, 3)
+    y_consecutive_count = 0
+    for _ in range(y_count):
+        event_list.append('Y')
+        y_consecutive_count += 1
+        if y_consecutive_count >= 2:
+            event_list.append(random.choice(events))
+            y_consecutive_count = 0
+    
+    # Generate A and B events
+    a_count = random.randint(1, 5)
+    b_count = random.randint(1, 5)
+    for _ in range(a_count):
+        event_list.append('A')
+        event_list.append('B')
+    for _ in range(b_count):
+        event_list.append('B')
+        event_list.append('A')
+    
+    # Generate C event
+    event_list.append('C')
+    
+    # Generate D, E, F sequence
+    while 'D' in event_list and 'E' in event_list and 'F' in event_list:
+        d_index = event_list.index('D')
+        e_index = event_list.index('E')
+        f_index = event_list.index('F')
+        if d_index < e_index < f_index:
+            event_list.remove('D')
+            event_list.remove('E')
+            event_list.remove('F')
+    
+    # Generate G events
+    g_count = 3
+    for _ in range(g_count):
+        event_list.append('G')
+    
+    # Generate H events
+    h_count = random.randint(0, 2)
+    for _ in range(h_count):
+        event_list.append('H')
+    
+    # Generate consecutive G events after second H occurrence
+    if h_count >= 2:
+        g_consecutive_count = random.randint(2, 5)
+        for _ in range(g_consecutive_count):
+            event_list.append('G')
+    
+    # Generate Y events between X events
+    x_indices = [i for i, x in enumerate(event_list) if x == 'X']
+    for i in range(len(x_indices) - 1):
+        y_between_count = random.randint(0, 3)
+        #y_indices = random.sample(range(x_indices[i] + 1, x_indices[i + 1]), y_between_count)
+        y_indices = random.choices(range(x_indices[i] + 1, x_indices[i + 1] + 1), k=y_between_count) # updated
+        for index in y_indices:
+            event_list.insert(index, 'Y')
+    
+    return event_list

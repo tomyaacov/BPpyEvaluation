@@ -1,0 +1,20 @@
+import random
+
+def railway_crossing_controller():
+    possible_events = ["Approaching", "Entering", "Leaving", "Lower", "Raise"]
+    trace = []
+    while True:
+        print(trace)
+        current_possible_events = possible_events
+        if "Approaching" in trace and "Entering" not in trace:
+            current_possible_events = [x for x in current_possible_events if x != "Entering"]
+        if "Raise" in trace and "Leaving" not in trace:
+            current_possible_events = [x for x in current_possible_events if x != "Raise"]
+
+        if len(current_possible_events) == 0:
+            break
+        else:
+            trace.append(random.choice(current_possible_events))
+    return trace
+
+railway_crossing_controller()

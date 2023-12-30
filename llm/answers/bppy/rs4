@@ -1,0 +1,67 @@
+from bppy import *
+
+@b_thread
+def email_sent_received():
+    while True:
+        yield {request: BEvent("A")}
+        yield {request: BEvent("B")}
+
+@b_thread
+def email_read():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("C")}
+
+@b_thread
+def email_deleted():
+    while True:
+        yield {waitFor: [BEvent("B"), BEvent("H")]}
+        yield {request: BEvent("D")}
+
+@b_thread
+def email_forwarded():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("E")}
+
+@b_thread
+def email_reply():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("F")}
+
+@b_thread
+def attachment_downloaded():
+    while True:
+        yield {waitFor: [BEvent("B"), BEvent("F")]}
+        yield {request: BEvent("G")}
+
+@b_thread
+def email_sent_error():
+    while True:
+        yield {waitFor: [BEvent("A"), BEvent("H"), BEvent("F")]}
+        yield {request: BEvent("I")}
+
+@b_thread
+def email_spam_marked():
+    while True:
+        yield {waitFor: BEvent("B")}
+        yield {request: BEvent("J")}
+
+@b_thread
+def email_filtered():
+    while True:
+        yield {waitFor: BEvent("J")}
+        yield {request: BEvent("K")}
+
+@b_thread
+def email_deleted_consecutive():
+    count = 0
+    while True:
+        yield {waitFor: BEvent("D")}
+        count += 1
+        if count >= 5:
+            yield {block: BEvent("D")}
+
+b_program = BProgram(bthreads=[email_sent_received, email_read, email_deleted, email_forwarded, email_reply, attachment_downloaded, email_sent_error, email_spam_marked, email_filtered, email_deleted_consecutive])
+b_program.run()
