@@ -6,7 +6,7 @@
 #SBATCH --output run_pancake_dfs.out ### output log for running job - %J is the job number variable
 #SBATCH --mail-user=tomya@post.bgu.ac.il ### users email for sending job status notifications ñ replace with yours
 #SBATCH --mail-type=BEGIN,END,FAIL ### conditions when to send the email. ALL,BEGIN,END,FAIL, REQUEU, NONE
-#SBATCH --mem=100G ### total amount of RAM // 500
+#SBATCH --mem=32G ### total amount of RAM // 500
 #SBATCH --ntasks=1
 
 ### Start you code below ####
@@ -18,28 +18,30 @@ module load anaconda ### load anaconda module
 source activate BPpyLiveness ### activating Conda environment. Environment must be configured before running the job
 cd ~/repos/BPpyEvaluation/drl || exit
 
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 5
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 5
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 5
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 5
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 5
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 5
 
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 20 --m 1 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 40 --m 1 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 60 --m 1 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 80 --m 1 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 1 > $out_file_name
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 10
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 10
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 10
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 10
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 10
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 10
 
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 20 --m 5 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 40 --m 5 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 60 --m 5 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 80 --m 5 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 5 > $out_file_name
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 15
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 15
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 15
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 15
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 15
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 15
 
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 20 --m 10 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 40 --m 10 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 60 --m 10 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 80 --m 10 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 10 > $out_file_name
-
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 20 --m 15 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 40 --m 15 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 60 --m 15 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 80 --m 15 > $out_file_name
-/usr/bin/time -a -o $out_file_name -f "time:%E,memory:%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 15 > $out_file_name
-
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 20
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 20
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 20
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 20
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 20
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 20
