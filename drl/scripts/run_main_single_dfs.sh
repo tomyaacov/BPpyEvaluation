@@ -4,8 +4,8 @@
 #SBATCH --time 7-00:00:00 ### limit the time of job running. Format: D-H:MM:SS
 #SBATCH --job-name run_pancake_dfs ### name of the job. replace my_job with your desired job name
 #SBATCH --output run_pancake_dfs.out ### output log for running job - %J is the job number variable
-##SBATCH --mail-user=tomya@post.bgu.ac.il ### users email for sending job status notifications ñ replace with yours
-##SBATCH --mail-type=BEGIN,END,FAIL ### conditions when to send the email. ALL,BEGIN,END,FAIL, REQUEU, NONE
+#SBATCH --mail-user=tomya@post.bgu.ac.il ### users email for sending job status notifications ñ replace with yours
+#SBATCH --mail-type=BEGIN,END,FAIL ### conditions when to send the email. ALL,BEGIN,END,FAIL, REQUEU, NONE
 #SBATCH --mem=100G ### total amount of RAM // 500
 #SBATCH --ntasks=1
 
