@@ -18,30 +18,22 @@ module load anaconda ### load anaconda module
 source activate BPpyLiveness ### activating Conda environment. Environment must be configured before running the job
 cd ~/repos/BPpyEvaluation/drl || exit
 
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 5
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 5
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 5
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 5
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 5
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 5
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 100
 
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 10
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 10
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 10
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 10
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 10
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 10
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 400 --m 100
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 400 --m 300
 
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 15
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 15
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 15
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 15
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 15
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 15
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 600 --m 100
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 600 --m 300
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 600 --m 500
 
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 50 --m 20
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 100 --m 20
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 150 --m 20
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 200 --m 20
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 250 --m 20
-~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 300 --m 20
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 800 --m 100
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 800 --m 300
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 800 --m 500
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 800 --m 700
+
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 1000 --m 100
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 1000 --m 300
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 1000 --m 500
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 1000 --m 700
+~/.conda/envs/BPpyLiveness/bin/python pancake_dfs.py --n 1000 --m 900
