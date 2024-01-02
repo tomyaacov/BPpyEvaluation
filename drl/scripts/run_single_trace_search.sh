@@ -12,7 +12,7 @@
 ### Start you code below ####
 module load anaconda ### load anaconda module
 source activate BPpyLiveness ### activating Conda environment. Environment must be configured before running the job
-cd ~/repos/BPpyModelChecker/ || exit
+cd ~/repos/BPpyEvaluation/drl || exit
 
 #options = ()
 options=(
