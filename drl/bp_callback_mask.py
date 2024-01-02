@@ -1,8 +1,4 @@
 from stable_baselines3.common.callbacks import BaseCallback
-from sb3_contrib import MaskablePPO
-from concurrent.futures import ThreadPoolExecutor
-from ttt_helper import get_env, get_bprogram
-import tempfile
 
 class BPCallbackMask(BaseCallback):
     """
@@ -32,60 +28,26 @@ class BPCallbackMask(BaseCallback):
         self.should_end = False
         self.repeat = repeat
 
-    def test(self, model, env, threshold=-0.5):
-        if self.repeat > 1:
-            def evaluate_single(model):
-                temp_dir = tempfile.TemporaryDirectory()
-                model.save(temp_dir.name + "/model")
-                model = MaskablePPO.load(temp_dir.name + "/model")
-                env = get_env()
-                observation, _ = env.reset()
-                reward_sum = 0
-                counter = 0
-                values = []
-                actions = []
-                while True:
-                    action_masks = env.action_masks()
-                    action, _states = model.predict(observation, deterministic=True, action_masks=action_masks)
-                    actions.append(action)
-                    observation, reward, done, _,  info = env.step(action.item())
-                    reward_sum += reward
-                    counter += 1
-                    # print(action, observation, reward, done, info)
-                    if done:
-                        break
-                if reward_sum == -2:
-                    print(actions)
-                return reward_sum
-            model.action_space.bprogram = None
-            with ThreadPoolExecutor(100) as executor:
-                processes = [executor.submit(evaluate_single, model) for _ in range(self.repeat)]
-                rewards = [p.result() for p in processes]
-            model.action_space.bprogram = get_bprogram()
-            if all([r == 0 for r in rewards]):
-                self.should_end = True
-            print(model.num_timesteps, sum([int(r == 0) for r in rewards]))
-            #print(model.num_timesteps, rewards)
-        else:
-            _env = env.envs[0]
-            observation = env.reset()
-            reward_sum = 0
-            counter = 0
-            values = []
-            actions = []
-            while True:
-                action_masks = _env.action_masks()
-                action, _states = model.predict(observation, deterministic=True, action_masks=action_masks)
-                actions.append(action)
-                observation, reward, done, info = env.step(action)
-                reward_sum += reward
-                counter += 1
-                # print(action, observation, reward, done, info)
-                if done[0]:
-                    break
-            # print("optimal reward: ", reward_sum)
-            if reward_sum > threshold:
-                self.should_end = True
+    def test(self, model, env, threshold=0):
+        _env = env.envs[0]
+        observation = env.reset()
+        reward_sum = 0
+        counter = 0
+        values = []
+        actions = []
+        while True:
+            action_masks = _env.action_masks()
+            action, _states = model.predict(observation, deterministic=True, action_masks=action_masks)
+            actions.append(action)
+            observation, reward, done, info = env.step(action)
+            reward_sum += reward
+            counter += 1
+            # print(action, observation, reward, done, info)
+            if done[0]:
+                break
+        # print("optimal reward: ", reward_sum)
+        if reward_sum > threshold:
+            self.should_end = True
 
 
 

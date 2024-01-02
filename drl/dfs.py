@@ -112,7 +112,7 @@ class NodeList:
         self.transitions = {}
         ess = SimpleEventSelectionStrategy()
         if len(ess.selectable_events([x.data for x in self.nodes if x.data is not None])) == 0:
-            if BEvent("DoneBlueberries") in self.prefix:
+            if BEvent("AddBlueberries") in self.prefix:
                 raise Interrupt(self.prefix)
 
     def __key(self):
