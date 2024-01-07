@@ -26,7 +26,7 @@ options=(
 echo "option,run,time,memory" > run_single_trace_drl_output.csv
 for option in "${options[@]}"; do
   echo "$option"
-  for i in {1..10}
+  for i in {1..30}
   do
     timeout 120m /usr/bin/time -a -o run_single_trace_drl_output.csv -f "$option,$i,%E,%M" ~/.conda/envs/BPpyLiveness/bin/python pancake_single_trace_drl.py $option $i
   done
