@@ -9,7 +9,7 @@ from pancake import init_bprogram, get_event_list, get_action_list
 from bp_callback_mask_multiple import BPCallbackMaskMultiple
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[200, 25, 100, "tmp"])
+parser.add_argument("parameters", nargs="*", default=[3, 1, 10, "tmp"])
 args = parser.parse_args()
 
 N = int(args.parameters[0])
