@@ -51,7 +51,7 @@ def range_arbiter(bound, n):
 
 @bp.thread
 def blueberries():
-    yield bp.sync(request=bp.BEvent("AddBlueberries"), localReward=-0.001)
+    yield bp.sync(request=bp.BEvent("AddBlueberries"), localReward=-0.0001)
     yield bp.sync(waitFor=bp.All(), localReward=1)
 
 

@@ -106,14 +106,17 @@ class DFSBThread:
 
 
 class NodeList:
-    def __init__(self, nodes, prefix):
+    def __init__(self, nodes, prefix, interrupt_on_trace=True):
         self.nodes = nodes
         self.prefix = prefix
         self.transitions = {}
         ess = SimpleEventSelectionStrategy()
         if len(ess.selectable_events([x.data for x in self.nodes if x.data is not None])) == 0:
             if BEvent("AddBlueberries") in self.prefix:
-                raise Interrupt(self.prefix)
+                if interrupt_on_trace:
+                    raise Interrupt(self.prefix)
+                else:
+                    self.flagged = True
 
     def __key(self):
         return ";".join([n.get_key() for n in self.nodes])
@@ -126,10 +129,11 @@ class NodeList:
 
 
 class DFSBProgram:
-    def __init__(self, bprogram_generator, event_list=None, max_trace_length=1000):
+    def __init__(self, bprogram_generator, event_list=None, max_trace_length=1000, interrupt_on_trace=True):
         self.bprogram_generator = bprogram_generator
         self.event_list = event_list
         self.max_trace_length = max_trace_length
+        self.interrupt_on_trace = interrupt_on_trace
 
     def run(self, explore_graph=True):
         if self.event_list:
@@ -147,7 +151,7 @@ class DFSBProgram:
             if not explore_graph: # stop before mapping sync statements
                 return init, mapper
 
-            init = NodeList(init, tuple())
+            init = NodeList(init, tuple(), interrupt_on_trace=self.interrupt_on_trace)
             visited = set()
             stack = [init]
             while len(stack):
@@ -160,7 +164,7 @@ class DFSBProgram:
                     for i, bt_s in enumerate(s.nodes):
                         s_temp = mapper[i][mapper[i].index(bt_s)]
                         new_s.append(s_temp.transitions[e])
-                    new_s = NodeList(new_s, s.prefix + (e, ))
+                    new_s = NodeList(new_s, s.prefix + (e, ), interrupt_on_trace=self.interrupt_on_trace)
                     s.transitions[e] = new_s
                     if new_s not in visited:
                         stack.append(new_s)
@@ -172,7 +176,7 @@ class DFSBProgram:
             ess = self.bprogram_generator().event_selection_strategy
             bprogram = self.bprogram_generator()
             bprogram.setup()
-            init = NodeList([Node(tuple(), t) for t in self.tickets_without_bt(bprogram.tickets)], tuple())
+            init = NodeList([Node(tuple(), t) for t in self.tickets_without_bt(bprogram.tickets)], tuple(), interrupt_on_trace=self.interrupt_on_trace)
             visited = set()
             stack = [init]
             while len(stack):
@@ -189,7 +193,7 @@ class DFSBProgram:
                         bprogram.advance_bthreads(bprogram.tickets, e)
                     except AssertionError:
                         raise BPAssertionError("Assertion error in DFSBProgram", s.prefix + (e,))
-                    new_s = NodeList([Node(s.prefix + (e,), t) for t in self.tickets_without_bt(bprogram.tickets)], s.prefix + (e,))
+                    new_s = NodeList([Node(s.prefix + (e,), t) for t in self.tickets_without_bt(bprogram.tickets)], s.prefix + (e,), interrupt_on_trace=self.interrupt_on_trace)
                     s.transitions[e] = new_s
                     if (new_s not in visited) and (len(new_s.prefix) <= self.max_trace_length):
                         stack.append(new_s)

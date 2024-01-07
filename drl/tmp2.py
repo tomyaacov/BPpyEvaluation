@@ -45,12 +45,13 @@ env = Monitor(env, log_dir)
 os.makedirs(log_dir, exist_ok=True)
 model = MaskablePPO("MlpPolicy", env, verbose=1)
 
-model.learn(total_timesteps=10 ** 4)
+model.learn(total_timesteps=10 ** 3)
 
 observation, _ = env.reset()
 print(observation)
 while True:
     action_masks = env.action_masks()
+    print(model.policy.get_distribution(model.policy.obs_to_tensor(observation)[0], action_masks).distribution.probs.detach().numpy()[0])
     action, _states = model.predict(observation, deterministic=True, action_masks=action_masks)
     observation, reward, done, _, info = env.step(action.item())
     print(action, observation, reward, done)
