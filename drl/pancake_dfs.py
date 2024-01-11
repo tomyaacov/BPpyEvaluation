@@ -1,13 +1,10 @@
 from dfs import DFSBProgram
 import argparse
 from pancake import init_bprogram, get_event_list, get_action_list
-from stable_baselines3.common.utils import get_device
 import pickle
 from bppy.model.event_selection.simple_event_selection_strategy import SimpleEventSelectionStrategy
 import random
 
-print("current device:")
-print(get_device())
 
 parser = argparse.ArgumentParser()
 parser.add_argument("parameters", nargs="*", default=[3, 1, 10])
