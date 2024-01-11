@@ -22,11 +22,11 @@ options=(
 "500 25" "500 50" "500 75" "500 100"
 )
 
-echo "option,run,time,memory" > run_single_trace_search_output2.csv
+echo "option,run,time,memory" > run_single_trace_search_output3.csv
 for option in "${options[@]}"; do
   echo "$option"
-  for i in {1..5}
+  for i in {1..10}
   do
-    timeout 60m /usr/bin/time -a -o run_single_trace_search_output2.csv -f "$option,$i,%E,%M" python pancake_single_trace_search.py $option
+    timeout 120m /usr/bin/time -a -o run_single_trace_search_output3.csv -f "$option,$i,%E,%M" python pancake_single_trace_search.py $option
   done
 done
