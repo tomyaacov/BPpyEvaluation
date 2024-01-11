@@ -27,7 +27,7 @@ class BPCallbackMaskMultiple(BaseCallback):
     :param verbose: Verbosity level: 0 for no output, 1 for info messages, 2 for debug messages
     """
 
-    def __init__(self, verbose=0, num_traces=None, init_s=None, visited=None):
+    def __init__(self, verbose=0, traces=None):
         super(BPCallbackMaskMultiple, self).__init__(verbose)
         # Those variables will be accessible in the callback
         # (they are defined in the base class)
@@ -47,17 +47,12 @@ class BPCallbackMaskMultiple(BaseCallback):
         # # to have access to the parent object
         # self.parent = None  # type: Optional[BaseCallback]
         self.should_end = False
-        self.num_traces = num_traces
-        self.init_s = init_s
-        self.visited = visited
         self.start_time = time.time()
         self.prob_threshold = 0.001
         self.check_every = 60
         self.last_check = 0
         self.result = ""
-        self.traces = []
-        for i in range(self.num_traces):
-            self.traces.append(generate_trace(init_s=self.init_s, visited=self.visited, good=i % 2 == 0))
+        self.traces = traces
 
     def test(self, model, env):
         if time.time() - self.start_time - self.last_check < self.check_every:
@@ -94,7 +89,7 @@ class BPCallbackMaskMultiple(BaseCallback):
         # print(idx)
         # p_max = (p[idx-1] + p[idx]) / 2
         # print(p_max)
-        print(results_traces)
+        # print(results_traces)
         for min_value, label in results_traces:
             if label:
                 if min_value > 0:
