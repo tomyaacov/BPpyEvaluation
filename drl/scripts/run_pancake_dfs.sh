@@ -14,4 +14,4 @@ module load anaconda ### load anaconda module
 source activate bppy-py39 ### activating Conda environment. Environment must be configured before running the job
 cd ~/repos/BPpyEvaluation/drl || exit
 
-python pancake_dfs.py 200 25 1000
+~/.conda/envs/bppy-py39/bin/python pancake_dfs.py 200 25 1000
