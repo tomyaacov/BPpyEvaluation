@@ -8,7 +8,7 @@ import time
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[3, 1, 10])
+parser.add_argument("parameters", nargs="*", default=[200, 25, 10])
 args = parser.parse_args()
 
 N = int(args.parameters[0])
@@ -19,6 +19,8 @@ dfs = DFSBProgram(lambda: init_bprogram(N, M), get_event_list(), max_trace_lengt
 time_start = time.time()
 init_s, visited = dfs.run()
 time_end = time.time()
+import bppy
+print(bppy.__version__)
 print("Time: " + str(time_end - time_start))
 print("States: " + str(len(visited)))
 
