@@ -63,10 +63,10 @@ log_data = {p: [const_time[p]] + data  for p, data in storm_info.items()}
 def write_overview(data):
     fname = 'gen_overview.csv'
     with open(fname, 'w+') as f:
-        f.write('d, p, o, states, total_time, res\n')
+        f.write('d, p, o, states, gen_time, check_time, res\n')
         for params, entry in data.items():
             f.write(str(params)[1:-1])
-            f.write(f', {entry[-1]}, {sum(entry[0:3])}, {entry[-2]}\n')
+            f.write(f', {entry[-1]}, {entry[0]}, {sum(entry[1:3])}, {entry[-2]}\n')
     print(f'written {len(data)} to "{fname}".')
 
 def cum_times(data):
