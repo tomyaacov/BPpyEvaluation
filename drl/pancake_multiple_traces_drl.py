@@ -35,7 +35,7 @@ if str(get_device()) == "cpu":
 else:
     with open('traces.pkl', 'rb') as f:
         traces = pickle.load(f)
-    CHECK_EVERY = 60
+    CHECK_EVERY = 10
 
 random.shuffle(traces)
 traces = traces[:TESTED_TRACES]
@@ -65,23 +65,19 @@ class NewBPEnv(BPEnv):
         return s, r, d, d, m
 
 
-# env = NewBPEnv(bprogram_generator=lambda: init_bprogram(N, M),
-#                action_list=get_action_list(),
-#                observation_space=PancakeObservationSpace([N + 1] * 2),
-#                reward_function=lambda rewards: sum(filter(None, rewards)))
-# log_dir = "output/" + RUN + "/"
-# env = Monitor(env, log_dir)
-# os.makedirs(log_dir, exist_ok=True)
-env = DummyVecEnv([lambda: NewBPEnv(bprogram_generator=lambda: init_bprogram(N, M),
+env = NewBPEnv(bprogram_generator=lambda: init_bprogram(N, M),
                action_list=get_action_list(),
                observation_space=PancakeObservationSpace([N + 1] * 2),
-               reward_function=lambda rewards: sum(filter(None, rewards)))])
-env = VecCheckNan(env, raise_exception=True)
+               reward_function=lambda rewards: sum(filter(None, rewards)))
+log_dir = "output/" + RUN + "/"
+env = Monitor(env, log_dir)
+os.makedirs(log_dir, exist_ok=True)
+
 if MODEL == "DQN":
     model = DQN("MlpPolicy", env, verbose=0)
 else:
     model = QRDQN("MlpPolicy", env, verbose=0)
-callback_obj = BPCallbackMaskMultiple(traces=traces, check_every=CHECK_EVERY)
+callback_obj = BPCallbackMaskMultiple(traces=traces, check_every=CHECK_EVERY, threshold=(N*(-0.0001))/2)
 model.learn(total_timesteps=1_000_000, callback=callback_obj)
 
 print(callback_obj.result)

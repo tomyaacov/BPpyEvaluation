@@ -13,7 +13,7 @@ class BPCallbackMaskMultiple(BaseCallback):
     :param verbose: Verbosity level: 0 for no output, 1 for info messages, 2 for debug messages
     """
 
-    def __init__(self, verbose=0, traces=None, check_every=None):
+    def __init__(self, verbose=0, traces=None, check_every=None, threshold=None):
         super(BPCallbackMaskMultiple, self).__init__(verbose)
         # Those variables will be accessible in the callback
         # (they are defined in the base class)
@@ -35,10 +35,12 @@ class BPCallbackMaskMultiple(BaseCallback):
         self.should_end = False
         self.start_time = time.time()
         self.prob_threshold = 0.001
+        self.threshold = threshold
         self.check_every = check_every
         self.last_check = 0
         self.result = ""
         self.traces = traces
+        self.can_start_test = True
 
     def test(self, model, env):
         if time.time() - self.start_time - self.last_check < self.check_every:
@@ -61,7 +63,7 @@ class BPCallbackMaskMultiple(BaseCallback):
                     q_values = model.policy.quantile_net(model.policy.obs_to_tensor(observation)[0]).mean(dim=1)
                     q_value = q_values.detach().cpu().numpy()[0][actions.index(e)]
                 min_value = min(min_value, q_value+reward_sum)
-                if min_value <= 0:
+                if min_value <= self.threshold:
                     break
                 # probs = model.policy.get_distribution(model.policy.obs_to_tensor(observation)[0], action_masks).distribution.probs.detach().numpy()[0]
                 # total_prob = min(total_prob, probs[actions.index(e)])
@@ -82,12 +84,12 @@ class BPCallbackMaskMultiple(BaseCallback):
         # print(results_traces)
         for min_value, label in results_traces:
             if label:
-                if min_value > 0:
+                if min_value > self.threshold:
                     results["TP"] += 1
                 else:
                     results["FN"] += 1
             else:
-                if min_value > 0:
+                if min_value > self.threshold:
                     results["FP"] += 1
                 else:
                     results["TN"] += 1
@@ -107,13 +109,15 @@ class BPCallbackMaskMultiple(BaseCallback):
         This method is called before the first rollout starts.
         """
 
+
     def _on_rollout_start(self) -> None:
         """
         A rollout is the collection of environment interaction
         using the current policy.
         This event is triggered before collecting new samples.
         """
-        self.test(self.model, self.training_env)
+        if self.can_start_test:
+            self.test(self.model, self.training_env)
 
     def _on_step(self) -> bool:
         """
