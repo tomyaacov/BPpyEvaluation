@@ -60,6 +60,7 @@ const_time = read_time_taken()
 # d, p, o : bp_gen_t, input_parse_t, model_cons_t, model_check_t, result, states_num
 log_data = {p: [const_time[p]] + data  for p, data in storm_info.items()}
 
+# for models which storm finished running
 def write_overview(data):
     fname = 'gen_overview.csv'
     with open(fname, 'w+') as f:
@@ -69,6 +70,16 @@ def write_overview(data):
             f.write(f', {entry[-1]}, {entry[0]}, {sum(entry[1:3])}, {entry[-2]}\n')
     print(f'written {len(data)} to "{fname}".')
 
+# for all BP generated models
+def write_only_gen(time):
+    fname = 'construction_overview.csv'
+    with open(fname, 'w+') as f:
+        f.write('d, p, o, gen_time\n')
+        for params, entry in time.items():
+            f.write(str(params)[1:-1])
+            f.write(f', {entry}\n')
+    print(f'written {len(time)} to "{fname}".')
+
 def cum_times(data):
     for params, entry in data.items():
         cum_times = [sum(entry[0:i]) for i in range(1,5)]
@@ -77,5 +88,6 @@ def cum_times(data):
             for t in cum_times:
                 f.write(f'{t}, {entry[-2]}\n')
 
-write_overview(log_data)
-cum_times(log_data)
+# write_overview(log_data)
+# cum_times(log_data)
+write_only_gen(const_time)
