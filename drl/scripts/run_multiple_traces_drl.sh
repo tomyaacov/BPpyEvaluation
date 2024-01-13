@@ -15,5 +15,5 @@ module load anaconda ### load anaconda module
 source activate BPpyLiveness ### activating Conda environment. Environment must be configured before running the job
 cd ~/repos/BPpyEvaluation/drl || exit
 
-~/.conda/envs/BPpyLiveness/bin/python pancake_multiple_traces_drl.py 200 25 100 run
+~/.conda/envs/BPpyLiveness/bin/python pancake_multiple_traces_drl.py 200 25 100 run DQN
 

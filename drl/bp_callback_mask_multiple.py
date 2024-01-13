@@ -3,22 +3,8 @@ import random
 from bppy.model.event_selection.simple_event_selection_strategy import SimpleEventSelectionStrategy
 import time
 import numpy as np
-
-
-def generate_trace(init_s, visited, good):
-    current_s = init_s
-    trace = []
-    ess = SimpleEventSelectionStrategy()
-    while True:
-        if len(ess.selectable_events([x.data for x in current_s.nodes if x.data is not None])) == 0:
-            return trace, current_s.flagged
-        if good:
-            e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if v.flagged])
-        else:
-            e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items()])
-        current_s = visited[visited.index(current_s)]
-        trace.append(e)
-
+from stable_baselines3 import DQN
+from sb3_contrib import QRDQN
 
 class BPCallbackMaskMultiple(BaseCallback):
     """
@@ -27,7 +13,7 @@ class BPCallbackMaskMultiple(BaseCallback):
     :param verbose: Verbosity level: 0 for no output, 1 for info messages, 2 for debug messages
     """
 
-    def __init__(self, verbose=0, traces=None):
+    def __init__(self, verbose=0, traces=None, check_every=None):
         super(BPCallbackMaskMultiple, self).__init__(verbose)
         # Those variables will be accessible in the callback
         # (they are defined in the base class)
@@ -49,7 +35,7 @@ class BPCallbackMaskMultiple(BaseCallback):
         self.should_end = False
         self.start_time = time.time()
         self.prob_threshold = 0.001
-        self.check_every = 60
+        self.check_every = check_every
         self.last_check = 0
         self.result = ""
         self.traces = traces
@@ -69,7 +55,11 @@ class BPCallbackMaskMultiple(BaseCallback):
             for e in t:
                 if e not in actions:
                     continue
-                q_value = model.policy.q_net(model.policy.obs_to_tensor(observation)[0]).detach().cpu().numpy()[0][actions.index(e)]
+                if isinstance(model, DQN):
+                    q_value = model.policy.q_net(model.policy.obs_to_tensor(observation)[0]).detach().cpu().numpy()[0][actions.index(e)]
+                else:
+                    q_values = model.policy.quantile_net(model.policy.obs_to_tensor(observation)[0]).mean(dim=1)
+                    q_value = q_values.detach().cpu().numpy()[0][actions.index(e)]
                 min_value = min(min_value, q_value+reward_sum)
                 if min_value <= 0:
                     break
@@ -104,7 +94,12 @@ class BPCallbackMaskMultiple(BaseCallback):
         self.result += "Time," + str(time.time() - self.start_time) + "," + ",".join([str(k) + "," + str(v) for k,v in results.items()]) + "\n"
         self.last_check = time.time() - self.start_time
         print("Time," + str(time.time() - self.start_time) + "," + ",".join([str(k) + "," + str(v) for k,v in results.items()]))
-        print(model.policy.q_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).detach().cpu().numpy())
+        if isinstance(model, DQN):
+            print(model.policy.q_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).detach().cpu().numpy())
+        else:
+            q_values = model.policy.quantile_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).mean(dim=1)
+            print(q_values.detach().cpu().numpy())
+
 
 
     def _on_training_start(self) -> None:
