@@ -47,8 +47,8 @@ Events: Approaching, Entering, Leaving, Lower, Raise
 
 Requirements:
 
-1. When a train passes it requests to approach, enter, and then leave.
-2. The barriers are lowered when a train is approaching and then raised.
+1. When a train passes, the sensor system activates the exact event order: approaching, entering, and leaving.
+2. The barriers are lowered when a train approaches and then raised.
 3. A train may not enter while barriers are raised.
 4. The barriers may not be raised while a train is passing, i.e. it approached but did not leave.
 
@@ -65,49 +65,49 @@ Please answer with the code only and without any additional text.
 prompt = intro
 print(prompt)
 
-# completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
-#                                           messages=[{"role": "user", "content": prompt}],
-#                                           temperature=0)
-# answer = completion.choices[0].message.content
-# print(answer)
+completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                          messages=[{"role": "user", "content": prompt}],
+                                          temperature=0)
+answer = completion.choices[0].message.content
+print(answer)
 # with open("answers/regular/lc", "w") as f:
 #     f.write(answer)
 
-with open("answers/regular/lc", "r") as f:
-    answer = f.read()
-
-print(answer)
-
-def get_function(answer):
-    f_dict = {}
-    exec(answer, globals(), f_dict)
-    d = dict([(k, v) for k, v in f_dict.items()])
-    f = None
-    for k, v in d.items():
-        if callable(v):
-            f = v
-            break
-    return f
-
-n = 100
-f = get_function(answer)
-exec(answer)
-if f is None:
-    raise Exception("No function found")
-results = [0] * Test(trace=[]).tests_num
-for i in range(n):
-    try:
-        trace = f()
-    except Exception as e:
-        print(e)
-        continue
-    print(trace)
-    test_obj = Test(trace=trace)
-    for j in range(len(results)):
-        try:
-            test_obj.__getattribute__("req_" + str(j + 1))()
-            results[j] += 1
-        except AssertionError:
-            pass
-print([x / n for x in results])
+# with open("answers/regular/lc", "r") as f:
+#     answer = f.read()
+#
+# print(answer)
+#
+# def get_function(answer):
+#     f_dict = {}
+#     exec(answer, globals(), f_dict)
+#     d = dict([(k, v) for k, v in f_dict.items()])
+#     f = None
+#     for k, v in d.items():
+#         if callable(v):
+#             f = v
+#             break
+#     return f
+#
+# n = 100
+# f = get_function(answer)
+# exec(answer)
+# if f is None:
+#     raise Exception("No function found")
+# results = [0] * Test(trace=[]).tests_num
+# for i in range(n):
+#     try:
+#         trace = f()
+#     except Exception as e:
+#         print(e)
+#         continue
+#     print(trace)
+#     test_obj = Test(trace=trace)
+#     for j in range(len(results)):
+#         try:
+#             test_obj.__getattribute__("req_" + str(j + 1))()
+#             results[j] += 1
+#         except AssertionError:
+#             pass
+# print([x / n for x in results])
 

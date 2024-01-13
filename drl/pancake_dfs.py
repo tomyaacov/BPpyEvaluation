@@ -5,26 +5,27 @@ import pickle
 from bppy.model.event_selection.simple_event_selection_strategy import SimpleEventSelectionStrategy
 import random
 import time
+from bppy import BEvent
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[200, 25, 10])
+parser.add_argument("parameters", nargs="*", default=[200, 25, 1000])
 args = parser.parse_args()
 
 N = int(args.parameters[0])
 M = int(args.parameters[1])
 TESTED_TRACES = int(args.parameters[2])
 
-dfs = DFSBProgram(lambda: init_bprogram(N, M), get_event_list(), max_trace_length=10 ** 10, interrupt_on_trace=False)
-time_start = time.time()
-init_s, visited = dfs.run()
-time_end = time.time()
-import bppy
-print(bppy.__version__)
-print("Time: " + str(time_end - time_start))
-print("States: " + str(len(visited)))
-
-
+# dfs = DFSBProgram(lambda: init_bprogram(N, M), get_event_list(), max_trace_length=10 ** 10, interrupt_on_trace=False)
+# time_start = time.time()
+# init_s, visited = dfs.run()
+# time_end = time.time()
+# import bppy
+# print(bppy.__version__)
+# print("Time: " + str(time_end - time_start))
+# print("States: " + str(len(visited)))
+#
+#
 # before = 0
 # after = 0
 # for x in visited:
@@ -43,8 +44,21 @@ print("States: " + str(len(visited)))
 #         if any([y.flagged for y in x.transitions.values()]):
 #             x.flagged = True
 #             after += 1
-#
-# def generate_trace(init_s, visited, good):
+
+def generate_trace(bprogram_gen):
+    trace = []
+    ess = SimpleEventSelectionStrategy()
+    bprogram = bprogram_gen()
+    bprogram.setup()
+    while True:
+        if len(ess.selectable_events(bprogram.tickets)) == 0:
+            return trace, BEvent("AddBlueberries") in trace
+        else:
+            e = ess.select(bprogram.tickets)
+            bprogram.advance_bthreads(bprogram.tickets, e)
+        trace.append(e)
+
+# def generate_trace2(init_s, visited, good):
 #     current_s = init_s
 #     trace = []
 #     ess = SimpleEventSelectionStrategy()
@@ -57,12 +71,13 @@ print("States: " + str(len(visited)))
 #             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items()])
 #         current_s = visited[visited.index(current_s)]
 #         trace.append(e)
-#
-#
-# traces = []
-# for i in range(TESTED_TRACES):
-#     traces.append(generate_trace(init_s=init_s, visited=visited, good=i % 2 == 0))
-#
-#
-# with open('traces.pkl', 'wb') as f:
-#     pickle.dump(traces, f)
+
+
+traces = []
+for i in range(TESTED_TRACES):
+    traces.append(generate_trace(bprogram_gen=lambda: init_bprogram(N, M)))
+
+print(len([x for x in traces if x[1]]))
+
+with open('traces.pkl', 'wb') as f:
+    pickle.dump(traces, f)

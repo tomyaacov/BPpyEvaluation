@@ -15,7 +15,7 @@ print("current device:")
 print(get_device())
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[3, 1, 10, "tmp"])
+parser.add_argument("parameters", nargs="*", default=[200, 25, 100, "tmp"])
 args = parser.parse_args()
 
 N = int(args.parameters[0])

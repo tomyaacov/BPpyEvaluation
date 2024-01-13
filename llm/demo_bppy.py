@@ -51,7 +51,7 @@ Events: Approaching, Entering, Leaving, Lower, Raise
 
 Requirements:
 
-1. When a train passes it requests to approach, enter, and then leave.
+1. When a train passes, the sensor system activates the exact event order: approaching, entering, and leaving.
 2. The barriers are lowered when a train is approaching and then raised.
 3. A train may not enter while barriers are raised.
 4. The barriers may not be raised while a train is passing, i.e. it approached but did not leave.
@@ -69,13 +69,13 @@ completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                           temperature=0)
 answer = completion.choices[0].message.content
 print(answer)
-with open("answers/bppy/lc", "w") as f:
-    f.write(answer)
-
-with open("answers/bppy/lc", "r") as f:
-    answer = f.read()
-
-print(answer)
+# with open("answers/bppy/lc", "w") as f:
+#     f.write(answer)
+#
+# with open("answers/bppy/lc", "r") as f:
+#     answer = f.read()
+#
+# print(answer)
 
 # answer = """
 # @b_thread
