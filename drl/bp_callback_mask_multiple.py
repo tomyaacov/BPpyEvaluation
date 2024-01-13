@@ -69,7 +69,7 @@ class BPCallbackMaskMultiple(BaseCallback):
             for e in t:
                 if e not in actions:
                     continue
-                q_value = model.policy.q_net(model.policy.obs_to_tensor(observation)[0]).detach().numpy()[0][actions.index(e)]
+                q_value = model.policy.q_net(model.policy.obs_to_tensor(observation)[0]).detach().cpu().numpy()[0][actions.index(e)]
                 min_value = min(min_value, q_value+reward_sum)
                 if min_value <= 0:
                     break
