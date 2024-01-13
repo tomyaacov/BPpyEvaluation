@@ -104,6 +104,7 @@ class BPCallbackMaskMultiple(BaseCallback):
         self.result += "Time," + str(time.time() - self.start_time) + "," + ",".join([str(k) + "," + str(v) for k,v in results.items()]) + "\n"
         self.last_check = time.time() - self.start_time
         print("Time," + str(time.time() - self.start_time) + "," + ",".join([str(k) + "," + str(v) for k,v in results.items()]))
+        print(model.policy.q_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).detach().cpu().numpy())
 
 
     def _on_training_start(self) -> None:
