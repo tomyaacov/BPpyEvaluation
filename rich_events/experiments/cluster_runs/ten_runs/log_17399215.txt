@@ -1,0 +1,1100 @@
+Current Date and Time = 2023-12-30 18:34:51.607296
+start_n=4, end_n=101, delta_param=1.0, num_of_exp=10, single_equation=True
+['num_of_edges', 'num_of_equations', 'delta_param', 'number_of_events', 'execution_time_discrete', 'memory_usage_discrete', 'execution_time_solver', 'memory_usage_solver']
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 0) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 1) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 2) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 3) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 4) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 5) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 6) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 7) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 8) =====
+=================================================
+---- Finished experiment for edge: n=4 ----
+---- Finished experiment for edge: n=5 ----
+---- Finished experiment for edge: n=6 ----
+---- Finished experiment for edge: n=7 ----
+---- Finished experiment for edge: n=8 ----
+---- Finished experiment for edge: n=9 ----
+---- Finished experiment for edge: n=10 ----
+---- Finished experiment for edge: n=11 ----
+---- Finished experiment for edge: n=12 ----
+---- Finished experiment for edge: n=13 ----
+---- Finished experiment for edge: n=14 ----
+---- Finished experiment for edge: n=15 ----
+---- Finished experiment for edge: n=16 ----
+---- Finished experiment for edge: n=17 ----
+---- Finished experiment for edge: n=18 ----
+---- Finished experiment for edge: n=19 ----
+---- Finished experiment for edge: n=20 ----
+---- Finished experiment for edge: n=21 ----
+---- Finished experiment for edge: n=22 ----
+---- Finished experiment for edge: n=23 ----
+---- Finished experiment for edge: n=24 ----
+---- Finished experiment for edge: n=25 ----
+---- Finished experiment for edge: n=26 ----
+---- Finished experiment for edge: n=27 ----
+---- Finished experiment for edge: n=28 ----
+---- Finished experiment for edge: n=29 ----
+---- Finished experiment for edge: n=30 ----
+---- Finished experiment for edge: n=31 ----
+---- Finished experiment for edge: n=32 ----
+---- Finished experiment for edge: n=33 ----
+---- Finished experiment for edge: n=34 ----
+---- Finished experiment for edge: n=35 ----
+---- Finished experiment for edge: n=36 ----
+---- Finished experiment for edge: n=37 ----
+---- Finished experiment for edge: n=38 ----
+---- Finished experiment for edge: n=39 ----
+---- Finished experiment for edge: n=40 ----
+---- Finished experiment for edge: n=41 ----
+---- Finished experiment for edge: n=42 ----
+---- Finished experiment for edge: n=43 ----
+---- Finished experiment for edge: n=44 ----
+---- Finished experiment for edge: n=45 ----
+---- Finished experiment for edge: n=46 ----
+---- Finished experiment for edge: n=47 ----
+---- Finished experiment for edge: n=48 ----
+---- Finished experiment for edge: n=49 ----
+---- Finished experiment for edge: n=50 ----
+---- Finished experiment for edge: n=51 ----
+---- Finished experiment for edge: n=52 ----
+---- Finished experiment for edge: n=53 ----
+---- Finished experiment for edge: n=54 ----
+---- Finished experiment for edge: n=55 ----
+---- Finished experiment for edge: n=56 ----
+---- Finished experiment for edge: n=57 ----
+---- Finished experiment for edge: n=58 ----
+---- Finished experiment for edge: n=59 ----
+---- Finished experiment for edge: n=60 ----
+---- Finished experiment for edge: n=61 ----
+---- Finished experiment for edge: n=62 ----
+---- Finished experiment for edge: n=63 ----
+---- Finished experiment for edge: n=64 ----
+---- Finished experiment for edge: n=65 ----
+---- Finished experiment for edge: n=66 ----
+---- Finished experiment for edge: n=67 ----
+---- Finished experiment for edge: n=68 ----
+---- Finished experiment for edge: n=69 ----
+---- Finished experiment for edge: n=70 ----
+---- Finished experiment for edge: n=71 ----
+---- Finished experiment for edge: n=72 ----
+---- Finished experiment for edge: n=73 ----
+---- Finished experiment for edge: n=74 ----
+---- Finished experiment for edge: n=75 ----
+---- Finished experiment for edge: n=76 ----
+---- Finished experiment for edge: n=77 ----
+---- Finished experiment for edge: n=78 ----
+---- Finished experiment for edge: n=79 ----
+---- Finished experiment for edge: n=80 ----
+---- Finished experiment for edge: n=81 ----
+---- Finished experiment for edge: n=82 ----
+---- Finished experiment for edge: n=83 ----
+---- Finished experiment for edge: n=84 ----
+---- Finished experiment for edge: n=85 ----
+---- Finished experiment for edge: n=86 ----
+---- Finished experiment for edge: n=87 ----
+---- Finished experiment for edge: n=88 ----
+---- Finished experiment for edge: n=89 ----
+---- Finished experiment for edge: n=90 ----
+---- Finished experiment for edge: n=91 ----
+---- Finished experiment for edge: n=92 ----
+---- Finished experiment for edge: n=93 ----
+---- Finished experiment for edge: n=94 ----
+---- Finished experiment for edge: n=95 ----
+---- Finished experiment for edge: n=96 ----
+---- Finished experiment for edge: n=97 ----
+---- Finished experiment for edge: n=98 ----
+---- Finished experiment for edge: n=99 ----
+---- Finished experiment for edge: n=100 ----
+=================================================
+====== Finished experiment iteration (m= 9) =====
+=================================================
+[4, 1, 0.25, 64, 0.2238830160815269, 0.01599273681640625, 0.17175684021785856, 0.005751705169677735]
+[5, 1, 0.25, 64, 0.00615181983448565, 0.0122650146484375, 0.08101642071269452, 0.0006046295166015625]
+[6, 1, 0.25, 64, 0.002858233917504549, 0.012210845947265625, 0.10286362334154546, 0.0005573272705078125]
+[7, 1, 0.125, 256, 0.015863323397934437, 0.09166412353515625, 0.09356082500889898, 0.006635093688964843]
+[8, 1, 0.125, 256, 0.006036144262179732, 0.0916595458984375, 0.07823310159146786, 0.006631278991699218]
+[9, 1, 0.125, 256, 0.003988411836326122, 0.09169464111328125, 0.07779207178391516, 0.006660270690917969]
+[10, 1, 0.0625, 1024, 0.027099229069426654, 0.4113182067871094, 0.0824398938100785, 0.006651592254638672]
+[11, 1, 0.0625, 1024, 0.015385076124221086, 0.4110755920410156, 0.0820416236296296, 0.006631278991699218]
+[12, 1, 0.0625, 1024, 0.01250368352048099, 0.4111213684082031, 0.07499507893808185, 0.00664825439453125]
+[13, 1, 0.0625, 1024, 0.011594951851293445, 0.4111671447753906, 0.07558295987546444, 0.006631278991699218]
+[14, 1, 0.0625, 1024, 0.012695112125948071, 0.41121692657470704, 0.08073243554681539, 0.006690216064453125]
+[15, 1, 0.0625, 1024, 0.012696143193170428, 0.4114082336425781, 0.08064925302751362, 0.006638908386230468]
+[16, 1, 0.03125, 4096, 0.0546151926741004, 1.6302345275878907, 0.09204426282085479, 0.006631278991699218]
+[17, 1, 0.03125, 4096, 0.04038376114331186, 1.6302803039550782, 0.08538476945832371, 0.006631278991699218]
+[18, 1, 0.03125, 4096, 0.03657653057016432, 1.630439567565918, 0.08174770609475672, 0.006638908386230468]
+[19, 1, 0.03125, 4096, 0.03754621772095561, 1.6303824424743651, 0.0840343632735312, 0.0071162223815917965]
+[20, 1, 0.03125, 4096, 0.03575273519381881, 1.6304603576660157, 0.08253312427550555, 0.0071277618408203125]
+[21, 1, 0.03125, 4096, 0.03611529362387955, 1.6305061340332032, 0.07757054292596877, 0.007118034362792969]
+[22, 1, 0.03125, 4096, 0.036916026892140505, 1.6305856704711914, 0.07672719014808535, 0.006631278991699218]
+[23, 1, 0.015625, 16384, 0.4022707353811711, 6.51137523651123, 0.12069818428717553, 0.007133293151855469]
+[24, 1, 0.015625, 16384, 0.17440122198313474, 6.510922241210937, 0.10014028223231435, 0.007656669616699219]
+[25, 1, 0.015625, 16384, 0.15455639432184398, 6.511109733581543, 0.08531548925675451, 0.007162284851074219]
+[26, 1, 0.015625, 16384, 0.1452185279224068, 6.511008930206299, 0.08115636953152716, 0.007172966003417968]
+[27, 1, 0.015625, 16384, 0.14433596204034985, 6.511139678955078, 0.07914590029977261, 0.007201290130615235]
+[28, 1, 0.015625, 16384, 0.13824643725529312, 6.511236572265625, 0.08015380566939712, 0.007194328308105469]
+[29, 1, 0.015625, 16384, 0.13750737612135708, 6.511304473876953, 0.07675149347633123, 0.0077800750732421875]
+[30, 1, 0.015625, 16384, 0.13140627536922694, 6.51141128540039, 0.07747690575197339, 0.0072119712829589845]
+[31, 1, 0.015625, 16384, 0.131916844798252, 6.511539459228516, 0.07967906878329814, 0.007806205749511718]
+[32, 1, 0.015625, 16384, 0.12964257430285214, 6.511684894561768, 0.07823651493526995, 0.007835197448730468]
+[33, 1, 0.015625, 16384, 0.1292551037389785, 6.511811828613281, 0.08432349539361894, 0.00785655975341797]
+[34, 1, 0.015625, 16384, 0.13155096671544014, 6.5119880676269535, 0.07798446952365339, 0.008530235290527344]
+[35, 1, 0.0078125, 65536, 0.9231849217321724, 26.043401336669923, 0.14991100700572133, 0.006660747528076172]
+[36, 1, 0.0078125, 65536, 0.5007772640325129, 26.04350814819336, 0.08668211866170168, 0.006654167175292968]
+[37, 1, 0.0078125, 65536, 0.7652653716504574, 26.044100189208983, 0.10233154161833227, 0.007980155944824218]
+[38, 1, 0.0078125, 65536, 0.5830000917427242, 26.044869232177735, 0.08301730216480792, 0.010627555847167968]
+[39, 1, 0.0078125, 65536, 0.5091618662700057, 26.044697570800782, 0.07512041847221554, 0.010691642761230469]
+[40, 1, 0.0078125, 65536, 0.5167505521327257, 26.044751739501955, 0.08393948329612613, 0.008727836608886718]
+[41, 1, 0.0078125, 65536, 0.501434575766325, 26.04484395980835, 0.07702327761799097, 0.010819816589355468]
+[42, 1, 0.0078125, 65536, 0.5044233729597181, 26.044910430908203, 0.07360965106636286, 0.008791923522949219]
+[43, 1, 0.0078125, 65536, 0.5572239819914102, 26.045172119140624, 0.07732582069002092, 0.010962963104248047]
+[44, 1, 0.0078125, 65536, 0.5096337508410216, 26.045326232910156, 0.07498585493303836, 0.009582328796386718]
+[45, 1, 0.0078125, 65536, 0.49638433861546216, 26.045391082763672, 0.07545580398291349, 0.011813163757324219]
+[46, 1, 0.0078125, 65536, 0.5035405572969467, 26.045492553710936, 0.073384361108765, 0.008944988250732422]
+[47, 1, 0.0078125, 65536, 0.49479010230861603, 26.04568862915039, 0.07280191462486982, 0.010461235046386718]
+[48, 1, 0.00390625, 262144, 2.810777833731845, 104.21517562866211, 0.12061445503495634, 0.009744071960449218]
+[49, 1, 0.00390625, 262144, 2.071401218045503, 104.21522903442383, 0.08841298380866647, 0.009782218933105468]
+[50, 1, 0.00390625, 262144, 2.0932060953229668, 104.21529006958008, 0.07823686157353223, 0.008298969268798828]
+[51, 1, 0.00390625, 262144, 2.069575918419287, 104.2153434753418, 0.07266402435488999, 0.007571983337402344]
+[52, 1, 0.00390625, 262144, 2.0746587831992658, 104.21540451049805, 0.0768413276411593, 0.009168052673339843]
+[53, 1, 0.00390625, 262144, 2.0880128520540895, 104.2154655456543, 0.07784825218841433, 0.011022472381591797]
+[54, 1, 0.00390625, 262144, 2.057852824451402, 104.21556253433228, 0.07597171128727495, 0.008473682403564452]
+[55, 1, 0.00390625, 262144, 2.0524914274923503, 104.21557998657227, 0.07356086787767709, 0.007736968994140625]
+[56, 1, 0.00390625, 262144, 2.0616745504084975, 104.21564102172852, 0.07865394768305123, 0.009316062927246094]
+[57, 1, 0.00390625, 262144, 2.0595197971910237, 104.21569442749023, 0.07317987447604538, 0.010981559753417969]
+[58, 1, 0.00390625, 262144, 2.041204480128363, 104.21575546264648, 0.07281790422275662, 0.008686637878417969]
+[59, 1, 0.00390625, 262144, 2.032016232283786, 104.21581649780273, 0.07254278277978302, 0.007950401306152344]
+[60, 1, 0.00390625, 262144, 2.0547675207722933, 104.21586990356445, 0.07152476077899336, 0.009593486785888672]
+[61, 1, 0.00390625, 262144, 2.0500121521763504, 104.2159309387207, 0.07182297613471747, 0.011195182800292969]
+[62, 1, 0.00390625, 262144, 2.03043228816241, 104.21599197387695, 0.07235494959168136, 0.008881950378417968]
+[63, 1, 0.00390625, 262144, 2.0163776215631515, 104.21599197387695, 0.0747909776866436, 0.008139610290527344]
+[64, 1, 0.00390625, 262144, 2.033242026902735, 104.2160530090332, 0.07322380896657706, 0.009772300720214844]
+[65, 1, 0.00390625, 262144, 2.0332538713235406, 104.21611404418945, 0.0721054372843355, 0.011509990692138672]
+[66, 1, 0.00390625, 262144, 2.0221059380099176, 104.2161787033081, 0.07207284565083683, 0.009079933166503906]
+[67, 1, 0.00390625, 262144, 2.010961835784838, 104.21623611450195, 0.07660739170387387, 0.008360767364501953]
+[68, 1, 0.00390625, 262144, 2.0296459055971354, 104.2162971496582, 0.07304013227112591, 0.009976387023925781]
+[69, 1, 0.00390625, 262144, 2.0221327053848652, 104.21635818481445, 0.07231044266372919, 0.010824775695800782]
+[70, 1, 0.001953125, 1048576, 9.56308888103813, 416.0685234069824, 0.4259033684618771, 0.008473396301269531]
+[71, 1, 0.001953125, 1048576, 8.131563835265116, 416.06857681274414, 0.0871757605113089, 0.008520698547363282]
+[72, 1, 0.001953125, 1048576, 8.110371791291982, 416.0686378479004, 0.09036211427301169, 0.007763099670410156]
+[73, 1, 0.001953125, 1048576, 8.188852795725689, 416.0687334060669, 0.07577933855354786, 0.00861530303955078]
+[74, 1, 0.001953125, 1048576, 8.076924296841025, 416.06875228881836, 0.08588227843865752, 0.009468269348144532]
+[75, 1, 0.001953125, 1048576, 8.071800970565528, 416.0688133239746, 0.07369402106851339, 0.008707618713378907]
+[76, 1, 0.001953125, 1048576, 8.066184124490245, 416.0688667297363, 0.07212679162621498, 0.007946205139160157]
+[77, 1, 0.001953125, 1048576, 8.040425354195758, 416.0689277648926, 0.07321487241424621, 0.009684371948242187]
+[78, 1, 0.001953125, 1048576, 8.060482250060886, 416.0689888000488, 0.07194066485390067, 0.009665870666503906]
+[79, 1, 0.001953125, 1048576, 8.024130767770112, 416.06904220581055, 0.07222132300958037, 0.008083534240722657]
+[80, 1, 0.001953125, 1048576, 8.081098509812728, 416.06904220581055, 0.07445310046896339, 0.008190345764160157]
+[81, 1, 0.001953125, 1048576, 8.002183095365762, 416.06904220581055, 0.07509858915582299, 0.00910358428955078]
+[82, 1, 0.001953125, 1048576, 8.087649728730321, 416.069034576416, 0.0725586751010269, 0.008327674865722657]
+[83, 1, 0.001953125, 1048576, 8.110868203174324, 416.069034576416, 0.07440405604429542, 0.010830879211425781]
+[84, 1, 0.001953125, 1048576, 8.030369283724577, 416.069034576416, 0.07337840595282615, 0.010923957824707032]
+[85, 1, 0.001953125, 1048576, 7.995868645748123, 416.0690269470215, 0.0729489493649453, 0.011828041076660157]
+[86, 1, 0.001953125, 1048576, 8.006471904693171, 416.0690269470215, 0.0720723551698029, 0.010361671447753906]
+[87, 1, 0.001953125, 1048576, 8.079164585098624, 416.0690269470215, 0.07276013088412583, 0.010447120666503907]
+[88, 1, 0.001953125, 1048576, 7.975696182949468, 416.0690269470215, 0.07285114256665111, 0.010532569885253907]
+[89, 1, 0.001953125, 1048576, 7.9712509701028464, 416.06901931762695, 0.07339736404828727, 0.012157249450683593]
+[90, 1, 0.001953125, 1048576, 7.977520151669159, 416.06901931762695, 0.07151815555989742, 0.009978675842285156]
+[91, 1, 0.001953125, 1048576, 8.026987898768857, 416.06901931762695, 0.07546759843826294, 0.012212562561035156]
+[92, 1, 0.001953125, 1048576, 7.890610269783065, 416.0689582824707, 0.07686631963588297, 0.010874366760253907]
+[93, 1, 0.001953125, 1048576, 7.992232612520456, 416.0689582824707, 0.07345179170370102, 0.010269355773925782]
+[94, 1, 0.001953125, 1048576, 8.002935005165636, 416.0689582824707, 0.0724312740843743, 0.012404823303222656]
+[95, 1, 0.001953125, 1048576, 7.9558802036102865, 416.0689582824707, 0.07329030022956431, 0.012468910217285157]
+[96, 1, 0.001953125, 1048576, 7.927545815473422, 416.0689920425415, 0.07229674849659204, 0.011874580383300781]
+[97, 1, 0.001953125, 1048576, 7.937821739818901, 416.0689582824707, 0.07298573148436845, 0.01194934844970703]
+[98, 1, 0.0009765625, 4194304, 136.68026832235046, 1665.1273384094238, 8.372736635291949, 0.01011066436767578]
+[99, 1, 0.0009765625, 4194304, 183.76710101859643, 1665.1273307800293, 6.689908575592563, 0.01019458770751953]
+[100, 1, 0.0009765625, 4194304, 186.2406360342633, 1665.1273307800293, 5.036082348134369, 0.011516761779785157]
