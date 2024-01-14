@@ -11,9 +11,12 @@ from bp_callback_mask_multiple import BPCallbackMaskMultiple
 from stable_baselines3.common.utils import get_device
 import pickle
 import random
-from stable_baselines3.common.vec_env import DummyVecEnv, VecCheckNan
-# import torch as th
-# th.autograd.set_detect_anomaly(True)
+import torch
+
+print(torch.cuda.is_available())
+print(torch.cuda.device_count())
+print(torch.cuda.current_device())
+print(torch.cuda.get_device_name(0))
 
 print("current device:")
 print(get_device())
@@ -35,7 +38,7 @@ if str(get_device()) == "cpu":
 else:
     with open(f'traces_{N}_{M}.pkl', 'rb') as f:
         traces = pickle.load(f)
-    CHECK_EVERY = 10
+    CHECK_EVERY = 60
 
 random.shuffle(traces)
 traces = traces[:TESTED_TRACES]
