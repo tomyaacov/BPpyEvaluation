@@ -37,14 +37,16 @@ class BPCallbackMaskMultiple(BaseCallback):
         self.prob_threshold = 0.001
         self.threshold = threshold
         self.check_every = check_every
+        self.test_count = 0
         self.last_check = 0
         self.result = ""
         self.traces = traces
         self.can_start_test = True
 
     def test(self, model, env):
-        if time.time() - self.start_time - self.last_check < self.check_every:
+        if (self.test_count < 12 and time.time() - self.start_time - self.last_check < 5) or (time.time() - self.start_time - self.last_check < self.check_every):
             return
+        self.test_count += 1
         traces = self.traces
         results = dict([(x, 0) for x in ["TP", "FP", "TN", "FN"]])
         actions = env.action_space.event_list

@@ -38,7 +38,7 @@ if str(get_device()) == "cpu":
 else:
     with open(f'traces_{N}_{M}.pkl', 'rb') as f:
         traces = pickle.load(f)
-    CHECK_EVERY = 60
+    CHECK_EVERY = 10
 
 random.shuffle(traces)
 traces = traces[:TESTED_TRACES]
