@@ -423,8 +423,6 @@ def init_statistics_file():
 
 
 def tracemalloc_stop():
-    # TODO: bug here, start next investigation regarding memory usage here
-    # return 0
     snapshot = tracemalloc.take_snapshot()
     tracemalloc.stop()
     total_memory = sum(stat.size for stat in snapshot.statistics("filename"))
@@ -510,8 +508,10 @@ def run_experiments(csvfile, start_n, end_n, delta_param, number_of_experiments,
             memory_usage_solver = tracemalloc_stop()
             execution_time_solver_arr[n] += execution_time_solver
             memory_usage_solver_arr[n] += memory_usage_solver
-            # print("Finished experiment n=" + str(n))
-        # print("Finished experiment m= " + str(m))
+            # print("---- Finished experiment for edge: n=" + str(n) + " ----")
+        # print("=================================================")
+        # print("====== Finished experiment iteration (m= " + str(m) + ") =====")
+        # print("=================================================")
 
 
     # Calculating the average results and writing them to the csv file
@@ -573,7 +573,10 @@ if __name__ == "__main__":
     # solver_based_example(1000, 1)
     try:
         with open(init_statistics_file(), mode="w", newline="") as csvfile:
+            current_datetime = datetime.datetime.now()
+            # print("Current Date and Time =", current_datetime)
             start_n, end_n, delta_param, num_of_exp, single_equation = parse_arguments()
+            # print(f"start_n={start_n}, end_n={end_n}, delta_param={delta_param}, num_of_exp={num_of_exp}, single_equation={single_equation}")
             run_experiments(csvfile, start_n, end_n, delta_param, num_of_exp, single_equation)
     except KeyboardInterrupt:
         # this code handles keyboard interrupt
