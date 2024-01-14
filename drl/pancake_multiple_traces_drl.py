@@ -33,7 +33,7 @@ if str(get_device()) == "cpu":
         traces = pickle.load(f)
     CHECK_EVERY = 10
 else:
-    with open('traces.pkl', 'rb') as f:
+    with open(f'traces_{N}_{M}.pkl', 'rb') as f:
         traces = pickle.load(f)
     CHECK_EVERY = 10
 

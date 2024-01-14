@@ -9,7 +9,7 @@ from bppy import BEvent
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[10, 5, 100])
+parser.add_argument("parameters", nargs="*", default=[500, 100, 1000])
 args = parser.parse_args()
 
 N = int(args.parameters[0])
@@ -79,5 +79,5 @@ for i in range(TESTED_TRACES):
 
 print(len([x for x in traces if x[1]]))
 
-with open('traces_tmp.pkl', 'wb') as f:
+with open(f'traces_{N}_{M}.pkl', 'wb') as f:
     pickle.dump(traces, f)
