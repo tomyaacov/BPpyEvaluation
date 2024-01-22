@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- Change these to match your group and artifact IDs -->
+    <groupId>il.ac.bgu.cs.bp</groupId>
+    <artifactId>BPjsModelChecking</artifactId>
+    <!-- / Change these to match your group and artifact IDs -->
+    
+    <version>0.6-DEV</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <exec.mainClass>il.ac.bgu.cs.bp.bpjsmodelchecking.VerifyBProgram</exec.mainClass>
+    </properties>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.bthink-bgu</groupId>
+            <artifactId>BPjs</artifactId>
+            <version>0.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.bThink-BGU</groupId>
+            <artifactId>StateSpaceMapper</artifactId>
+            <version>0.4.10</version>
+        </dependency>
+    </dependencies>
+</project>

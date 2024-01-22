@@ -1,4 +1,4 @@
-## Performance evaluation of rich events
+## Performance evaluation of SMT solvers
 
 ### Installation instructions:
 

@@ -1,0 +1,4 @@
+bppy==0.0.4
+graphviz==0.20.1
+pynusmv==1.0rc8
+pyparsing==3.0.9

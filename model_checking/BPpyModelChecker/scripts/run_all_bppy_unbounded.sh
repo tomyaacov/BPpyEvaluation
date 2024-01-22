@@ -6,7 +6,7 @@
 #SBATCH --output run_all_bppy_unbounded.out ### output log for running job - %J is the job number variable
 #SBATCH --mail-user=tomya@post.bgu.ac.il ### users email for sending job status notifications ñ replace with yours
 #SBATCH --mail-type=BEGIN,END,FAIL ### conditions when to send the email. ALL,BEGIN,END,FAIL, REQUEU, NONE
-#SBATCH --mem=16G ### total amount of RAM // 500
+#SBATCH --mem=32G ### total amount of RAM // 500
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32 ##. // max 128
 
@@ -22,16 +22,16 @@ options=(
 "hot_cold2 30 2 0" "hot_cold2 60 2 0" "hot_cold2 90 2 0"
 "hot_cold2 30 3 0" "hot_cold2 60 3 0" "hot_cold2 90 3 0"
 
-"dining_philosophers2 3 0" "dining_philosophers2 6 0" "dining_philosophers2 9 0" "dining_philosophers2 12 0" "dining_philosophers2 15 0"
+"dining_philosophers2 3 0" "dining_philosophers2 6 0" "dining_philosophers2 9 0" "dining_philosophers2 12 0"
 
-"ttt2 2 2 0" "ttt2 3 3 0" "ttt2 4 4 0"
+"ttt2 3 3 0" "ttt2 4 4 0"
 )
 echo "option,run,time,memory" > run_all_bppy_unbounded_output.csv
 for option in "${options[@]}"; do
   echo "$option"
-  for i in {1..5}
+  for i in {1..10}
   do
-    timeout 30m /usr/bin/time -a -o run_all_bppy_unbounded_output.csv -f "$option,$i,%E,%M" python main.py $option
+    timeout 60m /usr/bin/time -a -o run_all_bppy_unbounded_output.csv -f "$option,$i,%E,%M" python main.py $option
     EXIT_STATUS=$?
     if [ $EXIT_STATUS -eq 124 ]
     then
