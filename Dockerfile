@@ -32,9 +32,7 @@ RUN apt-get install -y maven
 RUN apt-get install -y git
 
 # download repo
-RUN git clone https://github.com/fedebotu/clone-anonymous-github.git
-RUN python3 -m pip install -r clone-anonymous-github/requirements.txt
-RUN python3 clone-anonymous-github/src/download.py --url https://anonymous.4open.science/r/BPpyEvaluation-85EC
+RUN git clone https://github.com/tomyaacov/BPpyEvaluation.git
 
 # Cleanup to reduce image size
 RUN apt-get clean \
@@ -42,5 +40,5 @@ RUN apt-get clean \
  && rm get-pip.py
 
 # Define a default command, for this case, we're just using a bash shell
-WORKDIR "/BPpyEvaluation-85EC"
+WORKDIR "/BPpyEvaluation"
 CMD ["/bin/bash"]

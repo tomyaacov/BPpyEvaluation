@@ -1,9 +1,19 @@
-import openai
-from tests.rs10 import Test
-from tests.rs10 import prompt as requirements
+# import openai
+import argparse
+import importlib
 
-with open('secrets/openai_api_key', 'r') as f_api_key:
-    openai.api_key = f_api_key.read()
+parser = argparse.ArgumentParser()
+parser.add_argument("parameters", nargs="*", default=["rs1"])
+args = parser.parse_args()
+example = args.parameters[0]
+
+Test = importlib.import_module('tests.' + example).Test
+requirements = importlib.import_module('tests.' + example).prompt
+
+
+
+# with open('secrets/openai_api_key', 'r') as f_api_key:
+#     openai.api_key = f_api_key.read()
 
 with open('files/intro_bppy.txt', 'r') as f_intro:
     intro = f_intro.read()
@@ -43,7 +53,7 @@ def get_functions(answer):
 
 from bppy import *
 bthreads = get_functions(answer)
-print(bthreads)
+#print(bthreads)
 
 class EvaluatorListener(PrintBProgramRunnerListener):
 
@@ -74,7 +84,7 @@ for i in range(n):
     except TimeoutError:
         pass
     trace = bprog.listener.events
-    print(trace)
+    #print(trace)
     test_obj = Test(trace=trace)
     for j in range(len(results)):
         try:
@@ -82,4 +92,5 @@ for i in range(n):
             results[j] += 1
         except AssertionError:
             pass
+print("alignment of 100 sampled traces with requirements:")
 print([x / n for x in results])

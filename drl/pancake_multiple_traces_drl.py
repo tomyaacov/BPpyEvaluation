@@ -13,22 +13,23 @@ import pickle
 import random
 import torch
 
-print(torch.cuda.is_available())
-print(torch.cuda.device_count())
-print(torch.cuda.current_device())
-print(torch.cuda.get_device_name(0))
-
-print("current device:")
-print(get_device())
+# print(torch.cuda.is_available())
+# print(torch.cuda.device_count())
+# print(torch.cuda.current_device())
+# print(torch.cuda.get_device_name(0))
+#
+# print("current device:")
+# print(get_device())
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[10, 5, 100, "tmp", "DQN"])
+parser.add_argument("parameters", nargs="*", default=[10, 5, 100, 1_000, "DQN"])
 args = parser.parse_args()
 
 N = int(args.parameters[0])
 M = int(args.parameters[1])
 TESTED_TRACES = int(args.parameters[2])
-RUN = str(N) + str(M) + args.parameters[3]
+STEPS = int(args.parameters[3])
+RUN = str(N) + str(M) + str(STEPS)
 MODEL = args.parameters[4]
 
 if str(get_device()) == "cpu":
@@ -81,6 +82,6 @@ if MODEL == "DQN":
 else:
     model = QRDQN("MlpPolicy", env, verbose=0)
 callback_obj = BPCallbackMaskMultiple(traces=traces, check_every=CHECK_EVERY, threshold=(N*(-0.0001))/2)
-model.learn(total_timesteps=2_000_000, callback=callback_obj)
+model.learn(total_timesteps=STEPS, callback=callback_obj)
 
 print(callback_obj.result)
