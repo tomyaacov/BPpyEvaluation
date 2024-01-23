@@ -21,15 +21,20 @@ RUN apt-get update && apt-get install -y \
 RUN python3.9 -m venv /venv
 ENV PATH=/venv/bin:$PATH
 
-# Install the required Python packages
-RUN python3 -m pip install \
-    bppy==1.0.1 \
-    z3-solver>=4.8.5.0 \
-    gymnasium==0.29.1 \
-    stable-baselines3==2.2.1 \
-    sb3-contrib==2.2.1 \
-    https://github.com/davidebreso/pynusmv/releases/download/v1.0rc8/pynusmv-1.0rc8-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
+RUN python3 -m pip install bppy==1.0.1
+RUN python3 -m pip install z3-solver>=4.8.5.0
+RUN python3 -m pip install gymnasium==0.29.1
+RUN python3 -m pip install stable-baselines3==2.2.1
+RUN python3 -m pip install sb3-contrib==2.2.1
+RUN python3 -m pip install https://github.com/davidebreso/pynusmv/releases/download/v1.0rc8/pynusmv-1.0rc8-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
+RUN apt-get install -y maven
+RUN apt-get install -y git
+
+# download repo
+RUN git clone https://github.com/fedebotu/clone-anonymous-github.git
+RUN python3 -m pip install -r clone-anonymous-github/requirements.txt
+RUN python3 clone-anonymous-github/src/download.py --url https://anonymous.4open.science/r/BPpyEvaluation-85EC
 
 # Cleanup to reduce image size
 RUN apt-get clean \
@@ -37,4 +42,5 @@ RUN apt-get clean \
  && rm get-pip.py
 
 # Define a default command, for this case, we're just using a bash shell
+WORKDIR "/BPpyEvaluation-85EC"
 CMD ["/bin/bash"]
