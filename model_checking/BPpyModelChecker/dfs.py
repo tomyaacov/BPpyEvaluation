@@ -1,4 +1,3 @@
-import graphviz
 from bppy import BEvent, SimpleEventSelectionStrategy
 from itertools import product
 
@@ -81,6 +80,7 @@ class DFSBThread:
 
     @staticmethod
     def save_graph(init, states, name):
+        import graphviz
         g = graphviz.Digraph()
         map = {}
         for i, s in enumerate(states):
@@ -149,6 +149,7 @@ class DFSBProgram:
 
     @staticmethod
     def save_graph(init, states, name):
+        import graphviz
         g = graphviz.Digraph()
         map = {}
         for i, s in enumerate(states):

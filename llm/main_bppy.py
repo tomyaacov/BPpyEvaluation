@@ -7,11 +7,11 @@ parser.add_argument("parameters", nargs="*", default=["rs1"])
 args = parser.parse_args()
 example = args.parameters[0]
 
-Test = importlib.import_module('tests.' + example).Test
+Test = importlib.import_module('.tests.' + example, "llm").Test
 requirements = importlib.import_module('tests.' + example).prompt
 
-
-
+print(Test)
+raise ValueError
 # with open('secrets/openai_api_key', 'r') as f_api_key:
 #     openai.api_key = f_api_key.read()
 

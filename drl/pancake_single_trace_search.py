@@ -28,7 +28,7 @@ try:
     init_s, visited = dfs.run()
 except Interrupt as e:
     print("Trace found!")
-    print(e.prefix)
-    print(len(e.prefix))
+    #print(e.prefix)
+    print("trace length:", len(e.prefix))
     exit(0)
 print("No trace found!")

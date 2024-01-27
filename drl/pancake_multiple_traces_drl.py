@@ -32,13 +32,8 @@ STEPS = int(args.parameters[3])
 RUN = str(N) + str(M) + str(STEPS)
 MODEL = args.parameters[4]
 
-if str(get_device()) == "cpu":
-    with open('traces_tmp.pkl', 'rb') as f:
-        traces = pickle.load(f)
-    CHECK_EVERY = 10
-else:
-    with open(f'traces_{N}_{M}.pkl', 'rb') as f:
-        traces = pickle.load(f)
+with open(f'traces_{N}_{M}.pkl', 'rb') as f:
+    traces = pickle.load(f)
     CHECK_EVERY = 10
 
 random.shuffle(traces)

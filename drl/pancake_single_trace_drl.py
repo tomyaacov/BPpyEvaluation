@@ -12,12 +12,13 @@ import argparse
 import random
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[3, 1, "tmp"])
+parser.add_argument("parameters", nargs="*", default=[3, 1, 1_000])
 args = parser.parse_args()
 
 N = int(args.parameters[0])
 M = int(args.parameters[1])
-RUN = str(N) + str(M) + args.parameters[2]
+STEPS = int(args.parameters[3])
+RUN = str(N) + str(M) + str(STEPS)
 
 
 class PancakeObservationSpace(BPObservationSpace):
@@ -45,11 +46,15 @@ env = Monitor(env, log_dir)
 os.makedirs(log_dir, exist_ok=True)
 model = MaskablePPO("MlpPolicy", env, verbose=0)
 
-model.learn(total_timesteps=1_000_000,
-            callback=BPCallbackMask())
-print(model.num_timesteps)
-if model.num_timesteps >= 1_000_000:
+callback = BPCallbackMask()
+model.learn(total_timesteps=STEPS,
+            callback=callback)
+
+
+if model.num_timesteps >= STEPS:
     print("model did not converge")
+else:
+    print("model converged in", model.num_timesteps, "steps")
 
 model.action_space.bprogram = None
 model.save(log_dir + "model")

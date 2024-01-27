@@ -62,7 +62,8 @@ class BPCallbackMask(BaseCallback):
         using the current policy.
         This event is triggered before collecting new samples.
         """
-        self.test(self.model, self.training_env)
+        if self.num_timesteps > self.model.learning_starts:
+            self.test(self.model, self.training_env)
 
     def _on_step(self) -> bool:
         """
