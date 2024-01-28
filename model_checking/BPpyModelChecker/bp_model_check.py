@@ -11,6 +11,7 @@ from pynusmv.sat import SatSolverFactory, Polarity, SatSolverResult
 from pynusmv.bmc import ltlspec, utils as bmcutils
 import time
 import tracemalloc
+import os
 
 
 sys.setrecursionlimit(10000)
@@ -36,7 +37,7 @@ class ModelChecker:
         main = main_module(self.event_list, bt_list)
         if debug:
             print("Loading model into NuSMV")
-
+        os.makedirs("output", exist_ok=True)
         with open("output/bp_model.smv", "w") as f:
             for bt in bt_list:
                 f.write(str(bt))

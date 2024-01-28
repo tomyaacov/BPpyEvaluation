@@ -17,7 +17,7 @@ args = parser.parse_args()
 
 N = int(args.parameters[0])
 M = int(args.parameters[1])
-STEPS = int(args.parameters[3])
+STEPS = int(args.parameters[2])
 RUN = str(N) + str(M) + str(STEPS)
 
 
