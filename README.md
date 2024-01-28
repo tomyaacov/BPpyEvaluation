@@ -1,56 +1,206 @@
-# Artifact Submission Template
+# Artifact Submission 
 
-Please answer the following questions concisely, either with bullet lists or short paragraphs.
 
-Title of the submitted paper:
-ECOOP submission number for the paper:
+**Title of the submitted paper**: Exploring and Evaluating Interplays of BPpy with Artificial Intelligence and Formal Methods
 
-## Metadata to provide during artifact submission in HotCRP
+**ECOOP submission number for the paper**: 61
 
-**No need to provide them again in the submission**
+## Metadata 
 
-- OS and resource (CPU, memory, disk, GPU) used by the authors to run the artifact
-- Estimation of the required hardware resources for evaluation. In case the evaluation takes multiple days or requires huge resources, please provide a scaled-down evaluation.
-- Known compatibility issues of the container/VM.
-- Which badges do you claim for your artifact? Functional? Reusable? Available?
+* To run the artifact we used:
+    * macOS 11.7.5 
+    * Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+    * memory: 16 GB
+    * disk: 256 GB
 
-## Quick-start guide (Kick-the-tires phase)
+* Required hardware resources:
+    * The artifact includes code for several experiments presented in the paper. Running a complete experiment in each of the evaluations takes multiple days and requires huge resources. We included instructions for a scaled-down evaluation for each experiment, which takes several minutes.
 
-Please describe how reviewers can check the artifact's integrity and basic functionality.
+* Known compatibility issues of the container:
+    * No compatibility issues are known.
 
-## Overview: What does the artifact comprise?
+* Claimed badges:
+  * Functional
+  * Reusable
+  * Available
 
-Please list for each distinct component of your artifact:
+## Installation and Usage
 
-* type of artifact (data, code, proof, etc.)
-* format (e.g., CSV, source code, binary, etc.)
-* location in the container/VM
+The artifact contains all experiments contained in the paper.
 
-## For authors claiming an available badge
+To run all experiments, the first step is to pull the docker image and run it:
+```shell
+docker pull annonymouswriter/bp-evaluation:latest
+docker run -i bp-evaluation:latest
+```
+When running the container, the current directory will be ``BPpyEvaluation``.
+Inside this directory there are separate directories for each experiment discussed in the paper, as elaborated below. 
 
-We offer to publish the artifact on [DARTS](https://drops.dagstuhl.de/opus/institut_darts.php), in which case the available badge will be issued automatically.
-If you agree to publishing your artifact under a Creative Commons license, please indicate this here.
+### Experiments
 
-In case you would like to publish your artifact under different licensing conditions on Zenodo, please state under which license will the artifact be published?
+#### SMT solvers
 
-## For authors claiming a functional or reusable badge
+The code for running the SMT solvers experiments is in the ``smt_solvers`` directory:
 
-For **all** experimental claims made in the paper, please:
-* Quote/reference the experimental claim
-* Explain how this claim can be reproduced with the artifact
+```shell
+cd smt_solvers
+```
 
-For example: “The data in table 1 can be obtained by running script ‘generate_table1.sh’”
+The ``z3_circle_examples.py`` file accepts the parameters:
+* `n_0` - the initial number of edges to start the experiment.
+* `n_m` - the final number of edges to finish the experiment.
+* `n_e` - the number of times to repeat the experiment.
+* `s` - flag that indicates that the experiment will be executed in a single-edge mode.
 
-Please note: we highly advise authors to provide a push-button evaluation (cf. call for artifacts).
+For example, running a scaled-down evaluation of the single edge experiment:
+```shell
+python3 z3_circle_examples.py -n_0 4 -n_m 10 -s -n_e 100 -s
+```
 
-## For authors claiming a reusable badge
+and running a scaled-down evaluation of the multi edge experiment:
+```shell
+python3 z3_circle_examples.py -n_0 4 -n_m 10 -n_e 20
+```
 
-If some parts of your artifacts contains software:
-- is your implementation open-source?
-- how to recompile the software?
+#### Symbolic Model Checking
 
-If you use benchmarks: are the benchmarks public and open-source?
+The code for running the symbolic model checking experiments are in the ``model_checking`` directory:
 
-Please list any reuse scenarios that you envision for your artifact, i.e., state how the artifact can be reused or repurposed beyond its role in the submitted paper. Example:
+```shell
+cd model_checking
+```
 
-* “The implementation can easily be modified to use a different algorithm than the one described in section 4.1 of our paper by implementing a corresponding module. We provide an interface specification in ...”
+The folder contains two subfolders: `BPpyModelChecker` for the BPpy's symbolic model checker experiments and `BPjsModelChecking` for running BPjs's model checker.
+
+##### BPpy's Symbolic Model Checker
+
+```shell
+cd BPpyModelChecker
+```
+
+The ``main.py`` file accepts the following parameters:
+* example - one of: `hot_cold2`,`dining_philosophers2`,`ttt2`
+* two problem parameters - `n` and `m`
+* bounded mc - `1` for true and `0` otherwise
+
+For example, running *unbounded* symbolic model checking for the hot cold example with n=30 and m=1:
+```shell
+python3 main.py hot_cold2 30 1 0
+```
+
+and running *bounded* symbolic model checking for the dining philosophers example with n=3:
+```shell
+python3 main.py dining_philosophers2 3 1 1
+```
+##### BPjs's Model Checker
+
+```shell
+cd BPjsModelChecking
+```
+
+Running the examples above using BPjs's model checker:
+
+```shell
+mvn clean compile exec:java -Dexec.args="hot_cold 30 1 true false"
+```
+
+```shell
+mvn clean compile exec:java -Dexec.args="dining_philosophers 3 true true"
+```
+
+#### Probabilistic Model Checking
+
+The code for running the probabilistic model checking experiments is in the ``prob_modeling`` directory:
+
+```shell
+cd prob_modeling
+```
+
+This experiment includes an initial step of downloading and installing the prism model checker inside the ``prob_modeling`` directory:
+
+```shell
+curl https://www.prismmodelchecker.org/dl/prism-4.8-linux64-x86.tar.gz -o prism-4.8-linux64-x86.tar.gz
+gunzip prism-4.8-linux64-x86.tar.gz
+tar -xf prism-4.8-linux64-x86.tar
+cd prism-4.8-linux64-x86
+./install.sh
+cd ..
+```
+
+The ``artifact_demonstration.py`` file runs the monty hall experiment for a single parameter configuration and accepts the parameters:
+* `doors` - number of doors in total
+* `prizes` - doors containing prizes
+* `doors_opened` - doors opened before asking to swap
+* `--samples` - number of iterations to use for sampling
+
+For example, running the experiment for 3 doors, 1 prize, 1 door opened, and 10000 samples:
+```shell
+python3 artifact_demonstration.py 3 1 1 --samples 10000
+```
+
+#### Deep Reinforcement Learning
+
+The code for running the deep reinforcement lLearning experiments is in the ``drl`` directory:
+
+```shell
+cd drl
+```
+
+The ``pancake_single_trace_drl.py`` file contain the experiment of finding a single valid trace using DRL. 
+It accepts the parameters:
+* `n` - number of pancakes in the example
+* `b` - thickness bound
+* learning rounds for the DRL algorithm.
+
+
+For example, running ``pancake_single_trace_drl.py`` for `n=200`, `b=25`:
+```shell
+python3 pancake_single_trace_drl.py 200 25 100000
+```
+
+The ``pancake_single_trace_search.py`` file contain the experiment of finding a single valid trace using search. 
+It accepts the parameters:
+* `n` - number of pancakes in the example
+* `b` - thickness bound
+
+
+For example, running ``pancake_single_trace_search.py`` for `n=200`, `b=25` - **warning - this can take few minutes**
+```shell
+python3 pancake_single_trace_search.py 200 25
+```
+
+The ``pancake_multiple_traces_drl.py`` file contain the experiment of finding a valid non-deterministic policy for the pancake example.
+It accepts the following parameters:
+* `n` - number of pancakes in the example
+* `b` - thickness bound
+* number of evaluated traces
+* learning rounds for the DRL algorithm
+* algorithm used - on of `DQN`,`QRDQN`
+
+
+For example, running ``pancake_multiple_traces_drl.py`` for `n=200`, `b=25` - **warning - this can take few minutes**
+```shell
+python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
+```
+
+#### LLM
+
+The code for running the LLM experiments is in the ``llm`` directory:
+
+```shell
+cd llm
+```
+
+The ``main_bppy.py`` file runs the evaluation for the BP model, and the ``main_regular.py`` runs the evaluation for the python model.
+Both accept a single parameter, an example identifier, one of `r1,...,r10` or `rs1,...,rs10`
+
+
+For example, running the evaluation of the BP model for the specification example `rs1`:
+```shell
+python3 main_bppy.py rs1
+```
+
+and running the evaluation of the Python model for the specification example `rs1`:
+```shell
+python3 main_regular.py rs1
+```
