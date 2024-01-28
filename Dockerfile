@@ -29,7 +29,7 @@ RUN python3 -m pip install stable-baselines3==2.2.1
 RUN python3 -m pip install sb3-contrib==2.2.1
 RUN python3 -m pip install https://github.com/davidebreso/pynusmv/releases/download/v1.0rc8/pynusmv-1.0rc8-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
-RUN apt-get install -y openjdk-8-jdk
+RUN apt-get install -y openjdk-11-jdk
 RUN apt-get install -y maven
 RUN apt-get install -y git
 
