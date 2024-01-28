@@ -1,17 +1,18 @@
 # import openai
 import argparse
 import importlib
+import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument("parameters", nargs="*", default=["rs1"])
 args = parser.parse_args()
 example = args.parameters[0]
 
-Test = importlib.import_module('.tests.' + example, "llm").Test
-requirements = importlib.import_module('tests.' + example).prompt
 
-print(Test)
-raise ValueError
+with open(os.path.dirname(os.path.realpath(__file__)) + "/tests/" + example + ".py", "r") as f:
+    exec(f.read())
+
+
 # with open('secrets/openai_api_key', 'r') as f_api_key:
 #     openai.api_key = f_api_key.read()
 
@@ -20,7 +21,7 @@ with open('files/intro_bppy.txt', 'r') as f_intro:
 with open('files/hot_cold_bppy.py', 'r') as f_hot_cold:
     hot_cold = f_hot_cold.read()
 
-prompt = intro.format(hot_cold=hot_cold, requirements=requirements)
+prompt = intro.format(hot_cold=hot_cold, requirements=prompt)
 
 print(prompt)
 

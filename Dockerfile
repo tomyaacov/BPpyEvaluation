@@ -4,6 +4,7 @@ FROM ubuntu:22.04
 # Set environment variables to ensure non-interactive installations
 ENV DEBIAN_FRONTEND=noninteractive
 
+
 # Update and install required packages
 RUN apt-get update && apt-get install -y \
     swig \

@@ -1,14 +1,15 @@
 #import openai
 import argparse
 import importlib
+import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument("parameters", nargs="*", default=["rs1"])
 args = parser.parse_args()
 example = args.parameters[0]
 
-Test = importlib.import_module('tests.' + example).Test
-requirements = importlib.import_module('tests.' + example).prompt
+with open(os.path.dirname(os.path.realpath(__file__)) + "/tests/" + example + ".py", "r") as f:
+    exec(f.read())
 
 # with open('secrets/openai_api_key', 'r') as f_api_key:
 #     openai.api_key = f_api_key.read()
@@ -17,7 +18,7 @@ with open('files/intro_regular.txt', 'r') as f_intro:
     intro = f_intro.read()
 
 
-prompt = intro.format(requirements=requirements)
+prompt = intro.format(requirements=prompt)
 
 print(prompt)
 
