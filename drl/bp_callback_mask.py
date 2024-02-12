@@ -36,7 +36,7 @@ class BPCallbackMask(BaseCallback):
         values = []
         actions = []
         while True:
-            action_masks = _env.action_masks()
+            action_masks = _env.unwrapped.action_masks()
             action, _states = model.predict(observation, deterministic=True, action_masks=action_masks)
             actions.append(action)
             observation, reward, done, info = env.step(action)

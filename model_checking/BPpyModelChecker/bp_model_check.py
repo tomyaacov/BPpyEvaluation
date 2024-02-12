@@ -1,5 +1,4 @@
 from bp_modules import *
-from hot_cold_scripts.hot_cold_original import *
 import sys
 import pynusmv
 from pynusmv import prop

@@ -1,4 +1,5 @@
-from bppy import BEvent, b_thread, waitFor, request, block, BProgram, PrintBProgramRunnerListener, SimpleEventSelectionStrategy
+from bppy import BEvent, waitFor, request, block, BProgram, PrintBProgramRunnerListener, SimpleEventSelectionStrategy
+import bppy as bp
 data = "data"
 
 def set_ttt_bprogram(n, m):
@@ -30,12 +31,12 @@ def o(row, col):
 
 
 
-@b_thread
+@bp.thread
 def square_taken(row, col):
     yield {waitFor: [x(row, col), o(row, col)]}
     yield {block: [x(row, col), o(row, col)]}
 
-@b_thread
+@bp.thread
 def fault_square_taken(row, col):
     if row == 2 and col == 2:
         good = False
@@ -47,20 +48,20 @@ def fault_square_taken(row, col):
         yield {block: [x(row, col), o(row, col)], data: locals()}
 
 
-@b_thread
+@bp.thread
 def enforce_turns():
     while True:
         yield {waitFor: any_x, block: any_o}
         yield {waitFor: any_o, block: any_x}
 
 
-@b_thread
+@bp.thread
 def end_of_game():
     yield {waitFor: list(static_event.values())}
     yield {block: all_events}
 
 
-@b_thread
+@bp.thread
 def detect_draw():
     for r in range(R):
         for c in range(C):
@@ -68,14 +69,14 @@ def detect_draw():
     yield {request: static_event['draw'], block: move_events}
 
 
-@b_thread
+@bp.thread
 def detect_x_win(line):
     for i in range(R):
         yield {waitFor: line, data: locals()}
     yield {request: static_event['XWin'], block: [e for e in all_events if e != static_event['XWin']]}
 
 
-@b_thread
+@bp.thread
 def detect_o_win(line):
     for i in range(R):
         yield {waitFor: line, data: locals()}
@@ -94,7 +95,7 @@ def detect_o_win(line):
 
 
 # # player O strategy to add a third O to win
-# @b_thread
+# @bp.thread
 # def add_third_o(line):
 #     for i in range(R-1):  # check when we have different R
 #         yield {waitFor: line}
@@ -102,7 +103,7 @@ def detect_o_win(line):
 
 
 # player O strategy to prevent a third X
-# @b_thread
+# @bp.thread
 # def prevent_third_x(xline, oline):
 #     need_to_prevent = True
 #     i = 0
@@ -118,13 +119,13 @@ def detect_o_win(line):
 
 
 # Preference to put O on the center
-# @b_thread
+# @bp.thread
 # def center_preference():
 #     yield {request: o(1, 1), waitFor: [o(1, 1), x(1, 1)], block: [e for e in any_o if e != o(1, 1)]}
 #     print("b")
 #
 #
-# @b_thread
+# @bp.thread
 # def corner_preference():
 #     yield {waitFor: [o(1, 1), x(1, 1)]}
 #     o_corners_list = [o(0, 0), o(0, 2), o(2, 0), o(2, 2)]
@@ -133,14 +134,14 @@ def detect_o_win(line):
 #         print("a")
 #         yield {request: o_corners_list, waitFor: o_corners_list + x_corners_list, block: [e for e in any_o if e not in o_corners_list]}
 
-@b_thread
+@bp.thread
 def player_o():
     while True:
         yield {request: any_o}
 
 
 # simulate player X
-@b_thread
+@bp.thread
 def player_x():
     while True:
         yield {request: any_x}

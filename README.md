@@ -40,7 +40,7 @@ Inside this directory there are separate directories for each experiment discuss
 
 #### SMT solvers
 
-The code for running the SMT solvers experiments is in the ``smt_solvers`` directory:
+The code for running the SMT solvers experiments (Section 3) is in the ``smt_solvers`` directory:
 
 ```shell
 cd smt_solvers
@@ -62,9 +62,18 @@ and running a scaled-down evaluation of the multi edge experiment:
 python3 z3_circle_examples.py -n_0 4 -n_m 10 -n_e 20
 ```
 
+The scripts outputs a table with the results presented in Figure 2 and Figure 3.
+
+The full evaluation results presented in Section 3 can be obtained by running the following commands (**this may take a few hours and may require additional resources**):
+```shell
+python3 z3_circle_examples.py -n_0 4 -n_m 100 -s -n_e 30 -s
+python3 z3_circle_examples.py -n_0 4 -n_m 200 -n_e 30
+```
+
+
 #### Symbolic Model Checking
 
-The code for running the symbolic model checking experiments are in the ``model_checking`` directory:
+The code for running the symbolic model checking experiments (Section 4) are in the ``model_checking`` directory:
 
 ```shell
 cd model_checking
@@ -92,6 +101,10 @@ and running *bounded* symbolic model checking for the dining philosophers exampl
 ```shell
 python3 main.py dining_philosophers2 3 1 1
 ```
+
+The data in Table 3 concerning BPpy can be obtained by running scripts `scripts/bounded.sh` and `scripts/unbounded.sh`  (**this may take multiple days and may require additional resources**).
+
+
 ##### BPjs's Model Checker
 
 ```shell
@@ -108,15 +121,17 @@ mvn clean compile exec:java -Dexec.args="hot_cold 30 1 true false"
 mvn clean compile exec:java -Dexec.args="dining_philosophers 3 true true"
 ```
 
+The data in Table 3 concerning BPjs can be obtained by running scripts `scripts/bounded.sh` and `scripts/unbounded.sh`  (**this may take multiple days and may require additional resources**).
+
 #### Probabilistic Model Checking
 
-The code for running the probabilistic model checking experiments is in the ``prob_modeling`` directory:
+The code for running the probabilistic model checking experiments (Section 5) is in the ``prob_modeling`` directory:
 
 ```shell
 cd prob_modeling
 ```
 
-This experiment includes an initial step of downloading and installing the prism model checker inside the ``prob_modeling`` directory:
+Running the experiments requires an initial step of downloading and installing the prism model checker inside the ``prob_modeling`` directory:
 
 ```shell
 curl https://www.prismmodelchecker.org/dl/prism-4.8-linux64-x86.tar.gz -o prism-4.8-linux64-x86.tar.gz
@@ -138,9 +153,12 @@ For example, running the experiment for 3 doors, 1 prize, 1 door opened, and 100
 python3 artifact_demonstration.py 3 1 1 --samples 10000
 ```
 
+The full evaluation results presented in Section 5 and presented in Figure 4 and Table 4 can be obtained by running the script `run_all.sh` (**this may take multiple days and may require additional resources**).
+
+
 #### Deep Reinforcement Learning
 
-The code for running the deep reinforcement lLearning experiments is in the ``drl`` directory:
+The code for running the deep reinforcement lLearning experiments (Section 6) is in the ``drl`` directory:
 
 ```shell
 cd drl
@@ -169,6 +187,9 @@ For example, running ``pancake_single_trace_search.py`` for `n=200`, `b=25` - **
 python3 pancake_single_trace_search.py 200 25
 ```
 
+The full evaluation results presented in Table 5 can be obtained by running the scripts `scripts/single_trace_drl.sh` and `scripts/single_trace_search.sh` (**this may take multiple days and may require additional resources**).
+
+
 The ``pancake_multiple_traces_drl.py`` file contain the experiment of finding a valid non-deterministic policy for the pancake example.
 It accepts the following parameters:
 * `n` - number of pancakes in the example
@@ -183,9 +204,11 @@ For example, running ``pancake_multiple_traces_drl.py`` for `n=200`, `b=25` - **
 python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
 ```
 
+The full evaluation results presented in Figure 5 can be obtained by running the script `multiple_traces.sh` (**this may take few hours and may require additional resources**).
+
 #### LLM
 
-The code for running the LLM experiments is in the ``llm`` directory:
+The code for running the LLM experiments (Section 7) is in the ``llm`` directory:
 
 ```shell
 cd llm
@@ -204,3 +227,7 @@ and running the evaluation of the Python model for the specification example `rs
 ```shell
 python3 main_regular.py rs1
 ```
+
+The full evaluation results mentioned in the end of Section 7 can be obtained by running the script `run_all.sh`.
+
+

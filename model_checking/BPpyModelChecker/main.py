@@ -4,7 +4,6 @@ from examples.hot_cold import *
 from examples.ttt import *
 import sys
 from itertools import product
-
 def main(args):
     example = args[0]
 

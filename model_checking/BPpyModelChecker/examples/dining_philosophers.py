@@ -1,5 +1,6 @@
-from bppy import BEvent, b_thread, waitFor, request, block, BProgram, PrintBProgramRunnerListener, \
+from bppy import BEvent, waitFor, request, block, BProgram, PrintBProgramRunnerListener, \
     SimpleEventSelectionStrategy
+import bppy as bp
 must_finish = "must_finish"
 data = "data"
 
@@ -23,7 +24,7 @@ def set_dp_bprogram(n):
                  [BEvent(f"RS{i}") for i in range(PHILOSOPHER_COUNT)]
 
 
-@b_thread
+@bp.thread
 def philosopher(i):
     while True:
         for j in range(2):
@@ -32,7 +33,7 @@ def philosopher(i):
             yield {request: [BEvent(f"P{i}R"), BEvent(f"P{i}L")], data: locals()}
 
 
-@b_thread
+@bp.thread
 def fork(i):
     while True:
         e, cannot_put = None, None
@@ -41,19 +42,19 @@ def fork(i):
         yield {waitFor: any_put[i], block: any_take[i] + [cannot_put], data: locals()}
 
 # A taken fork will eventually be released
-@b_thread
+@bp.thread
 def fork_eventually_released(i):
     while True:
         yield {waitFor: any_take[i]}
         yield {waitFor: any_put[i], must_finish: True}
 
-@b_thread
+@bp.thread
 def semaphore():
     while True:
         yield {waitFor: any_take_semaphore}
         yield {waitFor: any_release_semaphore, block: any_take_semaphore}
 
-@b_thread
+@bp.thread
 def take_semaphore(i):
     while True:
         yield {request: BEvent(f"TS{i}"), block: [BEvent(f"T{i}R"), BEvent(f"T{i}L")], data: locals()}

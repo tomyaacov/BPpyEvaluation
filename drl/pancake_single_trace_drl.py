@@ -7,6 +7,7 @@ from bppy.gym import BPEnv, BPObservationSpace, SimpleBPObservationSpace
 import numpy as np
 from pancake import init_bprogram, get_event_list, get_action_list
 from bp_callback_mask import BPCallbackMask
+import warnings
 
 import argparse
 import random
@@ -42,12 +43,14 @@ env = BPEnvMask(bprogram_generator=lambda: init_bprogram(N, M),
                 reward_function=lambda rewards: sum(filter(None, rewards)))
 
 log_dir = "output/" + RUN + "/"
-env = Monitor(env, log_dir)
-os.makedirs(log_dir, exist_ok=True)
-model = MaskablePPO("MlpPolicy", env, verbose=0)
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    env = Monitor(env, log_dir)
+    os.makedirs(log_dir, exist_ok=True)
+    model = MaskablePPO("MlpPolicy", env, verbose=0)
 
-callback = BPCallbackMask()
-model.learn(total_timesteps=STEPS,
+    callback = BPCallbackMask()
+    model.learn(total_timesteps=STEPS,
             callback=callback)
 
 

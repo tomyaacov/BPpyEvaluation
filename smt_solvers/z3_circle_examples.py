@@ -1,5 +1,6 @@
 from math import sqrt
 from bppy import *
+import bppy as bp
 from constraints_generation import *
 import timeit
 import datetime
@@ -127,64 +128,64 @@ Solver event selection experiment bThreads
 count = 0
 
 
-@b_thread
+@bp.thread
 def y_above_top_line_solver(m, b):
     global count
     y_above_top_line_solver = And(y > m * x + b)
     count = count + 1
     # if count % 1000 == 0:
     # print(f"y_above_top_line_solver: count={count}")
-    yield {request: y_above_top_line_solver}
+    yield bp.sync(request=y_above_top_line_solver)
 
 
-@b_thread
+@bp.thread
 def y_below_top_line_solver(m, b):
     # print(f"x_y_below_line_solver: m={m}, b={b}")
     y_below_line_solver = And(y < m * x + b)
-    yield {request: y_below_line_solver}
+    yield bp.sync(request=y_below_line_solver)
 
 
-@b_thread
+@bp.thread
 def y_above_b_solver(b):
     # print(f"y_above_b_solver: b={b}")
     y_above_b = And(y > b)
-    yield {request: y_above_b}
+    yield bp.sync(request=y_above_b)
 
 
-@b_thread
+@bp.thread
 def y_below_b_solver(b):
     # print(f"y_below_b_solver: b={b}")
     y_below_b = And(y < b)
-    yield {request: y_below_b}
+    yield bp.sync(request=y_below_b)
 
 
-@b_thread
+@bp.thread
 def x_above_x1_solver(x1):
     # print(f"x_above_x1_solver: x1={x1}")
     x_above_x1 = And(x > x1)
-    yield {request: x_above_x1}
+    yield bp.sync(request=x_above_x1)
 
 
-@b_thread
+@bp.thread
 def x_below_x1_solver(x1):
     # print(f"x_below_x1_solver: x1={x1}")
     # x_below_x1 = And(x >= x1)
     x_below_x1 = And(x < x1)
-    yield {request: x_below_x1}
+    yield bp.sync(request=x_below_x1)
 
 
-@b_thread
+@bp.thread
 def x_y_inside_circle_solver():
     x_y_outside_circle_constraint = And(x ** 2 + y ** 2 >= 1)
-    yield {block: x_y_outside_circle_constraint}
+    yield bp.sync(block=x_y_outside_circle_constraint)
 
 
-@b_thread
+@bp.thread
 def find_equation_for_solution_solver(line_equations, x, y):
     # x_y_in_range = And(x >= -1)
     # x_y_in_range = And(x >= -1, x <= 1, y >= -1, y <= 1)
     global found_solution_solver
-    last_event = yield {waitFor: true}
+    last_event = yield bp.sync(waitFor=true)
     found_solution_solver = True
     x = last_event[x].as_fraction()
     y = last_event[y].as_fraction()
@@ -197,7 +198,7 @@ def find_equation_for_solution_solver(line_equations, x, y):
             break'''
 
 
-@b_thread
+@bp.thread
 def generate_events_scenario(delta_param):
     requested_events = []
     x, y = -1.0, -1.0
@@ -207,20 +208,20 @@ def generate_events_scenario(delta_param):
             y += delta_param
         y = -1.0
         x += delta_param
-    yield {request: requested_events}
+    yield bp.sync(request=requested_events)
 
 def sanity_thread_discrete_t1():
     global found_solution_discrete
     x_above_x0 = list(
         filter(lambda e: e.data["x"] > -0.4, x_y_events)
     )
-    last_event = yield {request: x_above_x0}
+    last_event = yield bp.sync(request=x_above_x0)
     print("Found solution: ", last_event.data["x"])
     found_solution_discrete = True
 
 def sanity_thread_discrete_t2():
     x_below_x1 = EventSet(lambda e: e.data["x"] > -0.3)
-    last_event = yield {waitFor: All(), block: x_below_x1}
+    last_event = yield bp.sync(waitFor=All(), block=x_below_x1)
 
 def init_bthreads_sanity():
     b_threads_list = []
@@ -228,64 +229,64 @@ def init_bthreads_sanity():
     b_threads_list.append(sanity_thread_discrete_t2())
     return b_threads_list
 
-@b_thread
+@bp.thread
 def x_y_inside_circle_discrete():
     x_outside_of_circle = EventSet(lambda e: e.data["x"] ** 2 + e.data["y"] ** 2 >= 1)
-    yield {waitFor: All(), block: x_outside_of_circle}
+    yield bp.sync(waitFor=All(), block=x_outside_of_circle)
 
 
-@b_thread
+@bp.thread
 def y_above_top_line_discrete(m, b):
     # print(f"y_above_top_line_discrete: m={m}, b={b}")
     y_above_top_line_discrete_lst = list(
         filter(lambda e: e.data["y"] > (m * e.data["x"] + b), x_y_events)
     )
     # print("y_above_top_line_discrete: ", y_above_top_line_discrete_lst)
-    last_event = yield {request: y_above_top_line_discrete_lst, waitFor: All()}
+    last_event = yield bp.sync(request=y_above_top_line_discrete_lst, waitFor=All())
 
 
-@b_thread
+@bp.thread
 def y_below_top_line_discrete(m, b):
     # print(f"y_below_top_line_discrete: m={m}, b={b}")
     y_below_top_line_discrete_lst = list(
         filter(lambda e: e.data["y"] < (m * e.data["x"] + b), x_y_events)
     )
     # print("y_below_top_line_discrete_lst: ", y_below_top_line_discrete_lst)
-    yield {request: y_below_top_line_discrete_lst, waitFor: All()}
+    yield bp.sync(request=y_below_top_line_discrete_lst, waitFor=All())
 
 
-@b_thread
+@bp.thread
 def y_above_b_discrete(b):
     # print(f"y_above_b_discrete: b={b}")
     y_above_b_events_lst = list(filter(lambda e: e.data["y"] > b, x_y_events))
-    yield {request: y_above_b_events_lst, waitFor: All()}
+    yield bp.sync(request=y_above_b_events_lst, waitFor=All())
 
 
-@b_thread
+@bp.thread
 def y_below_b_discrete(b):
     # print(f"y_below_b_discrete: b={b}")
     y_below_b_discrete_lst = list(filter(lambda e: e.data["y"] < b, x_y_events))
-    yield {request: y_below_b_discrete_lst, waitFor: All()}
+    yield bp.sync(request=y_below_b_discrete_lst, waitFor=All())
 
 
-@b_thread
+@bp.thread
 def x_above_x1_discrete(x1):
     # print(f"x_above_x1_discrete: x1={x1}")
     x_above_x1_discrete_lst = list(filter(lambda e: e.data["x"] > x1, x_y_events))
-    yield {request: x_above_x1_discrete_lst, waitFor: All()}
+    yield bp.sync(request=x_above_x1_discrete_lst, waitFor=All())
 
 
-@b_thread
+@bp.thread
 def x_below_x1_discrete(x1):
     # print(f"x_below_x1_discrete: x1={x1}")
     x_below_x1_discrete_lst = list(filter(lambda e: e.data["x"] < x1, x_y_events))
-    yield {request: x_below_x1_discrete_lst, waitFor: All()}
+    yield bp.sync(request=x_below_x1_discrete_lst, waitFor=All())
 
 
-@b_thread
+@bp.thread
 def find_equation_for_solution_discrete(line_equations):
     global found_solution_discrete
-    last_event = yield {waitFor: All()}
+    last_event = yield bp.sync( waitFor=All())
     found_solution_discrete = True
     x = last_event.data["x"]
     y = last_event.data["y"]
@@ -457,7 +458,7 @@ def run_experiments(csvfile, start_n, end_n, delta_param, number_of_experiments,
     ]
     writer = csv.writer(csvfile, delimiter=",")
     writer.writerow(header)
-    print(header)
+    print(",".join(header[:1] + header[4:]))
 
     # We initialize the overall statistics array to 0
     # The elements where i< start_n are not relevant for the experiment
@@ -523,16 +524,16 @@ def run_experiments(csvfile, start_n, end_n, delta_param, number_of_experiments,
 
         row = [
             n,
-            number_of_equations_arr[n],
-            delta_arr[n],
-            number_of_discrete_events_arr[n],
+            # number_of_equations_arr[n],
+            # delta_arr[n],
+            # number_of_discrete_events_arr[n],
             execution_time_discrete_arr[n],
             memory_usage_discrete_arr[n],
             execution_time_solver_arr[n],
             memory_usage_solver_arr[n],
         ]
         writer.writerow(row)
-        print(row)
+        print(",".join([str(x) for x in row]))
         # print("Finished solver based example")
 
 
@@ -546,10 +547,10 @@ def parse_arguments():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-n_0", "--start_n", type=int, default=3, help="start number of edges"
+        "-n_0", "--start_n", type=int, default=4, help="start number of edges"
     )
     parser.add_argument(
-        "-n_m", "--end_n", type=int, default=50, help="Max number of edges"
+        "-n_m", "--end_n", type=int, default=10, help="Max number of edges"
     )
     parser.add_argument(
         "-d", "--delta_param", type=float, default=1.0, help="delta parameter"
@@ -558,11 +559,11 @@ def parse_arguments():
         "-s",
         "--single_equation",
         action="store_true",
-        default=False,
+        default=True,
         help="single equation or multiple equations",
     )
     parser.add_argument(
-        "-n_e", "--num_of_exp", type=int, default=1, help="The number of time to run the experiment"
+        "-n_e", "--num_of_exp", type=int, default=2, help="The number of time to run the experiment"
     )
     args = parser.parse_args()
     return args.start_n, args.end_n, args.delta_param, args.num_of_exp, args.single_equation
