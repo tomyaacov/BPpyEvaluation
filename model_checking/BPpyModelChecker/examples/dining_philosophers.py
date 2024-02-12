@@ -28,41 +28,42 @@ def set_dp_bprogram(n):
 def philosopher(i):
     while True:
         for j in range(2):
-            yield {request: [BEvent(f"T{i}R"), BEvent(f"T{i}L")], data: locals()}
+            yield bp.sync(request=[BEvent(f"T{i}R"), BEvent(f"T{i}L")], data=locals())
         for j in range(2):
-            yield {request: [BEvent(f"P{i}R"), BEvent(f"P{i}L")], data: locals()}
+            yield bp.sync(request=[BEvent(f"P{i}R"), BEvent(f"P{i}L")], data=locals())
 
 
 @bp.thread
 def fork(i):
     while True:
         e, cannot_put = None, None
-        e = yield {waitFor: any_take[i], block: any_put[i], data: locals()}
+        e = yield bp.sync(waitFor=any_take[i], block=any_put[i], data=locals())
         cannot_put = BEvent(f"P{(i + 1) % PHILOSOPHER_COUNT}L") if e.name.endswith("R") else BEvent(f"P{i}R")
-        yield {waitFor: any_put[i], block: any_take[i] + [cannot_put], data: locals()}
+        yield bp.sync(waitFor=any_put[i], block=any_take[i] + [cannot_put], data=locals())
 
 # A taken fork will eventually be released
 @bp.thread
 def fork_eventually_released(i):
     while True:
-        yield {waitFor: any_take[i]}
-        yield {waitFor: any_put[i], must_finish: True}
+        yield bp.sync(waitFor=any_take[i])
+        yield bp.sync(waitFor=any_put[i], must_finish=True)
+
 
 @bp.thread
 def semaphore():
     while True:
-        yield {waitFor: any_take_semaphore}
-        yield {waitFor: any_release_semaphore, block: any_take_semaphore}
+        yield bp.sync(waitFor=any_take_semaphore)
+        yield bp.sync(waitFor=any_release_semaphore, block=any_take_semaphore)
 
 @bp.thread
 def take_semaphore(i):
     while True:
-        yield {request: BEvent(f"TS{i}"), block: [BEvent(f"T{i}R"), BEvent(f"T{i}L")], data: locals()}
+        yield bp.sync(request=BEvent(f"TS{i}"), block=[BEvent(f"T{i}R"), BEvent(f"T{i}L")], data=locals())
         for j in range(2):
-            yield {waitFor: [BEvent(f"T{i}R"), BEvent(f"T{i}L")], data: locals()}
-        yield {request: BEvent(f"RS{i}"), block: [BEvent(f"P{i}R"), BEvent(f"P{i}L")], data: locals()}
+            yield bp.sync(waitFor=[BEvent(f"T{i}R"), BEvent(f"T{i}L")], data=locals())
+        yield bp.sync(request=BEvent(f"RS{i}"), block=[BEvent(f"P{i}R"), BEvent(f"P{i}L")], data=locals())
         for j in range(2):
-            yield {waitFor: [BEvent(f"P{i}R"), BEvent(f"P{i}L")], data: locals()}
+            yield bp.sync(waitFor=[BEvent(f"P{i}R"), BEvent(f"P{i}L")], data=locals())
 
 
 

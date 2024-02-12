@@ -44,7 +44,8 @@ def get_functions(answer):
     try:
         exec(answer, globals(), f_dict)
     except Exception as e:
-        print(e)
+        pass
+        #print(e)
     d = dict([(k, v) for k, v in f_dict.items()])
     f = []
     for k, v in d.items():
@@ -80,8 +81,10 @@ n = 100
 results = [0] * Test(trace=[]).tests_num
 for i in range(n):
     try:
-        bprog = init_bprogram()
-        bprog.run()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            bprog = init_bprogram()
+            bprog.run()
     except TimeoutError:
         pass
     trace = bprog.listener.events

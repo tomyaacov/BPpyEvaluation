@@ -79,4 +79,5 @@ else:
 callback_obj = BPCallbackMaskMultiple(traces=traces, check_every=CHECK_EVERY, threshold=(N*(-0.0001))/2)
 model.learn(total_timesteps=STEPS, callback=callback_obj)
 
+print("Final results:")
 print(callback_obj.result)

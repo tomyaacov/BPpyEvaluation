@@ -54,7 +54,7 @@ The ``z3_circle_examples.py`` file accepts the parameters:
 
 For example, running a scaled-down evaluation of the single edge experiment:
 ```shell
-python3 z3_circle_examples.py -n_0 4 -n_m 10 -s -n_e 100 -s
+python3 z3_circle_examples.py -n_0 4 -n_m 10 -s -n_e 20 -s
 ```
 
 and running a scaled-down evaluation of the multi edge experiment:
@@ -158,7 +158,7 @@ The full evaluation results presented in Section 5 and presented in Figure 4 and
 
 #### Deep Reinforcement Learning
 
-The code for running the deep reinforcement lLearning experiments (Section 6) is in the ``drl`` directory:
+The code for running the deep reinforcement learning experiments (Section 6) is in the ``drl`` directory:
 
 ```shell
 cd drl
@@ -203,8 +203,9 @@ For example, running ``pancake_multiple_traces_drl.py`` for `n=200`, `b=25` - **
 ```shell
 python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
 ```
+This is a reduced evaluation which outputs a table with the results presented in Figure 5.
 
-The full evaluation results presented in Figure 5 can be obtained by running the script `multiple_traces.sh` (**this may take few hours and may require additional resources**).
+The full evaluation results presented in Figure 5 can be obtained by running the script `scripts/multiple_traces.sh` (**this may take few hours and may require additional resources**).
 
 #### LLM
 
@@ -230,4 +231,13 @@ python3 main_regular.py rs1
 
 The full evaluation results mentioned in the end of Section 7 can be obtained by running the script `run_all.sh`.
 
+## Additional Information Regarding Claimed Badges
 
+### Available
+
+During the review process, the artifact is available at [https://anonymous.4open.science/r/BPpyEvaluation-85EC](https://anonymous.4open.science/r/BPpyEvaluation-85EC).
+Once reviewing process is over it can be published under a Creative Commons license.
+
+### Functional and Reusable
+
+All experimental claims are referenced in the 
