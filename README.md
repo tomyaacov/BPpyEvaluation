@@ -38,7 +38,7 @@ Inside this directory there are separate directories for each experiment discuss
 
 ### Experiments
 
-#### SMT solvers
+#### SMT solvers (Section 3)
 
 The code for running the SMT solvers experiments (Section 3) is in the ``smt_solvers`` directory:
 
@@ -71,7 +71,7 @@ python3 z3_circle_examples.py -n_0 4 -n_m 200 -n_e 30
 ```
 
 
-#### Symbolic Model Checking
+#### Symbolic Model Checking (Section 4)
 
 The code for running the symbolic model checking experiments (Section 4) are in the ``model_checking`` directory:
 
@@ -123,7 +123,7 @@ mvn clean compile exec:java -Dexec.args="dining_philosophers 3 true true"
 
 The data in Table 3 concerning BPjs can be obtained by running scripts `scripts/bounded.sh` and `scripts/unbounded.sh`  (**this may take multiple days and may require additional resources**).
 
-#### Probabilistic Model Checking
+#### Probabilistic Model Checking (Section 5)
 
 The code for running the probabilistic model checking experiments (Section 5) is in the ``prob_modeling`` directory:
 
@@ -156,7 +156,7 @@ python3 artifact_demonstration.py 3 1 1 --samples 10000
 The full evaluation results presented in Section 5 and presented in Figure 4 and Table 4 can be obtained by running the script `run_all.sh` (**this may take multiple days and may require additional resources**).
 
 
-#### Deep Reinforcement Learning
+#### Deep Reinforcement Learning (Section 6)
 
 The code for running the deep reinforcement learning experiments (Section 6) is in the ``drl`` directory:
 
@@ -207,7 +207,7 @@ This is a reduced evaluation which outputs a table with the results presented in
 
 The full evaluation results presented in Figure 5 can be obtained by running the script `scripts/multiple_traces.sh` (**this may take few hours and may require additional resources**).
 
-#### LLM
+#### LLM (Section 7)
 
 The code for running the LLM experiments (Section 7) is in the ``llm`` directory:
 
@@ -240,4 +240,7 @@ Once reviewing process is over it can be published under a Creative Commons lice
 
 ### Functional and Reusable
 
-All experimental claims are referenced in the 
+All experimental claims are referenced in their relevant subsection above (divided to paper sections). 
+Each reference includes instructions on how to run the full experiment and obtain the results presented in the paper.
+
+The artifact and its dependencies are open-source.
