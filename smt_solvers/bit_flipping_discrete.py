@@ -49,23 +49,27 @@ def col_flipped(j0, e):
 @bp.thread
 def row(i):
     e = yield bp.sync(waitFor=true)
-    yield bp.sync(request=row_flipped(i, e))
+    while True:
+        e = yield bp.sync(request=row_flipped(i, e), waitFor=true)
 
 
 @bp.thread
 def col(i):
     e = yield bp.sync(waitFor=true)
-    yield bp.sync(request=col_flipped(i, e))
+    while True:
+        e = yield bp.sync(request=col_flipped(i, e), waitFor=true)
+
+
 
 
 @bp.thread
 def general():
     e = yield bp.sync(request=event_list)
-    while True:
-        for i in range(N):
-            e = yield bp.sync(block=row_flipped(i, e))
-        for j in range(N):
-            e = yield bp.sync(block=col_flipped(j, e))
+    for i in range(N):
+        e = yield bp.sync(block=row_flipped(i, e), waitFor=true)
+    for j in range(N):
+        e = yield bp.sync(block=col_flipped(j, e), waitFor=true)
+    yield bp.sync(block=true)
 
 
 if __name__ == '__main__':
