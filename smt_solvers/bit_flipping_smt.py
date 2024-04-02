@@ -7,7 +7,7 @@ from bppy import And, true, false, Not, Implies, Bool, Or, is_true
 class PrintBProgramRunnerListener(bp.PrintBProgramRunnerListener):
     def event_selected(self, b_program, event):
         print()
-        print("\n".join([",".join([str(event.eval(p[i][j])) for j in range(N)]) for i in range(N)]))
+        print("\n".join([",".join([str(event.eval(p[i][j])) for j in range(M)]) for i in range(N)]))
 
 
 class NewSMTEventSelectionStrategy(bp.SMTEventSelectionStrategy):
@@ -23,7 +23,7 @@ def row_flipped(i0, e):
 
 
 def col_flipped(j0, e):
-    return And([And([Eq(e.eval(p[i][j]), Not(p[i][j]) if j == j0 else p[i][j]) for j in range(N)]) for i in range(N)])
+    return And([And([Eq(e.eval(p[i][j]), Not(p[i][j]) if j == j0 else p[i][j]) for j in range(M)]) for i in range(N)])
 
 
 @bp.thread
@@ -47,7 +47,7 @@ def general():
     e = yield bp.sync(request=event_list)
     for i in range(N):
         e = yield bp.sync(block=row_flipped(i, e), waitFor=true)
-    for j in range(N):
+    for j in range(M):
         e = yield bp.sync(block=col_flipped(j, e), waitFor=true)
     yield bp.sync(block=true)
 
@@ -55,11 +55,12 @@ def general():
 if __name__ == '__main__':
     import random
     N = 3
-    p = [[Bool(f"p{i}{j}") for j in range(N)] for i in range(N)]
+    M = 4
+    p = [[Bool(f"p{i}{j}") for j in range(M)] for i in range(N)]
     #event_list = And([random.choice([p[i][j], Not(p[i][j])]) for i in range(N) for j in range(N)])  # for requesting all options
-    event_list = And([Or([p[i][j], Not(p[i][j])]) for i in range(N) for j in range(N)])  # for requesting all options
+    event_list = And([Or([p[i][j], Not(p[i][j])]) for i in range(N) for j in range(M)])  # for requesting all options
 
-    bp_program = bp.BProgram(bthreads=[general()] + [row(i) for i in range(N)] + [col(i) for i in range(N)],
+    bp_program = bp.BProgram(bthreads=[general()] + [row(i) for i in range(N)] + [col(i) for i in range(M)],
                              event_selection_strategy=NewSMTEventSelectionStrategy(),
                              listener=PrintBProgramRunnerListener())
 
