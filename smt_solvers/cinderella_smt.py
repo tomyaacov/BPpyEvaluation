@@ -14,18 +14,19 @@ class PrintBProgramRunnerListener(bp.PrintBProgramRunnerListener):
         print(",".join([str(event.eval(buckets[i])) for i in range(N)]))
 
 
-def stepmother(e):
-    return And(Sum([b - e.eval(b) for b in buckets]) == A,
-               And([b - e.eval(b) >= 0 for b in buckets]))
+def stepmother(prev):
+    added_water = Sum([b - prev.eval(b) for b in buckets])
+    only_add_water = And([b - prev.eval(b) >= 0 for b in buckets])
+    return And(added_water == A,only_add_water )
 
 
-def cinderella(e):
+def cinderella(prev):
     r = list(range(N)) + list(range(N))
 
-    def empty(i):
-        return And([buckets[j] == 0 if j in r[i:i + C] else buckets[j] == e.eval(buckets[j]) for j in range(N)])
+    def empty_buckets(rng):
+        return And([buckets[j] == 0 if j in rng else buckets[j] == prev.eval(buckets[j]) for j in range(N)])
 
-    return Or([empty(i) for i in range(N)])
+    return Or([empty_buckets(r[i:i + C]) for i in range(N)])
 
 
 @bp.thread

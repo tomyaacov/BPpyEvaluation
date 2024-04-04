@@ -45,7 +45,8 @@ def cinderella(e):
 
 @bp.thread
 def main():
-    e = yield bp.sync(request=BucketsAssignment([0 for _ in range(N)]))
+    buckets_assignment = BucketsAssignment([0 for _ in range(N)])
+    e = yield bp.sync(request=buckets_assignment)
     for i in range(STEPS):
         e = yield bp.sync(request=stepmother(e))
         e = yield bp.sync(request=cinderella(e))
