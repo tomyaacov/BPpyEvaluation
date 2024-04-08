@@ -1,5 +1,6 @@
 import datetime
 import csv
+import logging
 from bit_flipping_discrete import run_bit_flipping_discrete_bp_program
 from bit_flipping_smt import run_bit_flipping_smt_bp_program
 
@@ -48,56 +49,65 @@ def run_experiemnts(csvfile, n, m, number_of_experiments=1):
 
     writer = csv.writer(csvfile, delimiter=",")
     writer.writerow(header)
-    print(",".join(header))
+    logging.info(",".join(header))
 
     execution_time_discrete_dict = {}
     memory_usage_discrete_dict = {}
     execution_time_smt_dict = {}
     memory_usage_smt_dict = {}
 
+    logging.info("Starting bit_flip experiments...")
     for exp in range(number_of_experiments):
         for key in n_x_m_dict.keys():
-                n,m = n_x_m_dict[key]
-                execution_time_discrete,memory_usage_discrete = run_bit_flipping_discrete_bp_program( n, m )
-                execution_time_smt, memory_usage_smt = run_bit_flipping_smt_bp_program(n, m)
-                if key not in execution_time_discrete_dict:
-                    execution_time_discrete_dict[key] = execution_time_discrete
-                    memory_usage_discrete_dict[key] = memory_usage_discrete
-                    execution_time_smt_dict[key] = execution_time_smt
-                    memory_usage_smt_dict[key] = memory_usage_smt
-                else:
-                    execution_time_discrete_dict[key] += execution_time_discrete
-                    memory_usage_discrete_dict[key] += memory_usage_discrete
-                    execution_time_smt_dict[key] += execution_time_smt
-                    memory_usage_smt_dict[key] += memory_usage_smt
+            n,m = n_x_m_dict[key]
+            execution_time_discrete,memory_usage_discrete = run_bit_flipping_discrete_bp_program( n, m )
+            execution_time_smt, memory_usage_smt = run_bit_flipping_smt_bp_program(n, m)
+            if key not in execution_time_discrete_dict:
+                execution_time_discrete_dict[key] = execution_time_discrete
+                memory_usage_discrete_dict[key] = memory_usage_discrete
+                execution_time_smt_dict[key] = execution_time_smt
+                memory_usage_smt_dict[key] = memory_usage_smt
+            else:
+                execution_time_discrete_dict[key] += execution_time_discrete
+                memory_usage_discrete_dict[key] += memory_usage_discrete
+                execution_time_smt_dict[key] += execution_time_smt
+                memory_usage_smt_dict[key] += memory_usage_smt
+            logging.info(f"Finished bit_flip execution for nXm: {n}x{m}")
+        logging.info(f"Finished experiment {exp+1} out of {number_of_experiments}")
+        logging.info("---------------------------------------------------")
+    logging.info("Finished bit_flip experiments...")
 
+    logging.info("Starting bit_flip results processing...")
     for key in n_x_m_dict.keys():
         execution_time_discrete_dict[key] /= number_of_experiments # average the execution time
         execution_time_discrete_dict[key] = 1000 * execution_time_discrete_dict[key] # From seconds to milliseconds
-        # print(f"{key} Avg. Execution time discrete: ", execution_time_discrete_dict[key])
+        # logging.info(f"{key} Avg. Execution time discrete: ", execution_time_discrete_dict[key])
 
         memory_usage_discrete_dict[key] /= number_of_experiments  # average the memory usage,units in KB
-        # print(f"{key} Avg. Memory usage discrete: ", memory_usage_discrete_dict[key])
+        # logging.info(f"{key} Avg. Memory usage discrete: ", memory_usage_discrete_dict[key])
 
         execution_time_smt_dict[key] /= number_of_experiments # average the execution time
         execution_time_smt_dict[key] = 1000 * execution_time_smt_dict[key] # From seconds to milliseconds
-        # print(f"{key} Avg. Execution time smt: ", execution_time_smt_dict[key])
+        # logging.info(f"{key} Avg. Execution time smt: ", execution_time_smt_dict[key])
 
         memory_usage_smt_dict[key] /= number_of_experiments  # average the memory usage, units in KB
-        # print(f"{key} Avg. Memory usage: smt", memory_usage_smt_dict[key])
+        # logging.info(f"{key} Avg. Memory usage: smt", memory_usage_smt_dict[key])
 
         row = [key, n_x_m_dict[key], execution_time_discrete_dict[key], memory_usage_discrete_dict[key], execution_time_smt_dict[key], memory_usage_smt_dict[key]]
         writer.writerow(row)
-        print(",".join([str(x) for x in row]))
+        logging.info(",".join([str(x) for x in row]))
+        logging.info("Finished bit_flip results processing...")
 
 if __name__ == '__main__':
     try:
         with open(init_statistics_file(), mode="w", newline="") as csvfile:
-            current_datetime = datetime.datetime.now()
+            current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            logging.basicConfig(filename=f"bit_flip_experiments_{current_datetime}.log", level=logging.INFO)
             n, m, num_of_exp = parse_arguments()
+            logging.info(f"n: {n}, m: {m}, num_of_exp: {num_of_exp}")
             run_experiemnts(csvfile, n, m, num_of_exp)
     except KeyboardInterrupt:
         # this code handles keyboard interrupt
-        print("Keyboard interrupt")
+        logging.info("Keyboard interrupt")
     except IOError as e:
-        print(f"An error occurred: {e}")
+        logging.error(f"An error occurred: {e}")

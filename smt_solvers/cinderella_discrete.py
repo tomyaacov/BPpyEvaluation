@@ -1,8 +1,16 @@
 from bppy import BEvent, EventSet
 import itertools
 import bppy as bp
+import timeit
+import tracemalloc
+import random
 
 
+random.seed(42)
+# Global variables
+event_list = None
+true = None
+false = None
 N = 5
 C = 2
 B = 9
@@ -11,8 +19,23 @@ STEPS = 2
 
 
 class PrintBProgramRunnerListener(bp.PrintBProgramRunnerListener):
+    def starting(self, b_program):
+        pass
+        """
+        Prints "STARTED" when the BProgram execution is about to start.
+        """
+        # print("STARTED")
+
+    def ended(self, b_program):
+        pass
+        """
+        Prints "ENDED" when the BProgram execution is about to start.
+        """
+        # print("ENDED")
+
     def event_selected(self, b_program, event):
-        print(event.l)
+        pass
+        # print(event.l)
 
 
 class BucketsAssignment(BEvent):
@@ -63,14 +86,43 @@ def game_ends():
     yield bp.sync(block=bp.All())
 
 
+def tracemalloc_stop():
+    snapshot = tracemalloc.take_snapshot()
+    tracemalloc.stop()
+    total_memory = sum(stat.size for stat in snapshot.statistics("filename"))
+    memory_usage = total_memory / 1024 / 1024
+    return memory_usage
 
-event_list = set([BucketsAssignment(list(values)) for values in
-                  itertools.product(list(range(B+1)), repeat=N)])
-true = event_list
-false = set()
 
-bp_program = bp.BProgram(bthreads=[main(), bucket_limit(), game_ends()],
-                         event_selection_strategy=bp.SimpleEventSelectionStrategy(),
-                         listener=PrintBProgramRunnerListener())
+def run_cinderella_discrete_bp_program( n, c, b,  a ):
+    global N, C, B, A, event_list, true, false
+    N = n
+    C = c
+    B = b
+    A = a
+    event_list = set([BucketsAssignment(list(values)) for values in
+                      itertools.product(list(range(B + 1)), repeat=N)])
+    true = event_list
+    false = set()
+    bp_program = bp.BProgram(bthreads=[main(), bucket_limit()], # without game_ends scenario
+                             event_selection_strategy=bp.SimpleEventSelectionStrategy(),
+                             listener=PrintBProgramRunnerListener())
+    start_time = timeit.default_timer()
+    tracemalloc.start()
+    bp_program.run()
+    end_time = timeit.default_timer()
+    memory_usage_discrete = tracemalloc_stop()
+    execution_time_discrete = end_time - start_time
+    return execution_time_discrete, memory_usage_discrete
 
-bp_program.run()
+if __name__ == '__main__':
+    event_list = set([BucketsAssignment(list(values)) for values in
+                      itertools.product(list(range(B+1)), repeat=N)])
+    true = event_list
+    false = set()
+
+    bp_program = bp.BProgram(bthreads=[main(), bucket_limit(), game_ends()],
+                             event_selection_strategy=bp.SimpleEventSelectionStrategy(),
+                             listener=PrintBProgramRunnerListener())
+
+    bp_program.run()

@@ -5,4 +5,4 @@
 #SBATCH --output=log_%j.txt
 #SBATCH --job-name=bit_flipping_experiments
 
-venv_rich_events/bin/python3 bit_flipping_experiments.py -n 10 -m 10 -n_e 30
+venv_rich_events/bin/python3 bit_flipping_experiments.py -n 10 -m 10 -n_e 10
