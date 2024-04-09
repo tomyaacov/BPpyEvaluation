@@ -100,7 +100,10 @@ if __name__ == '__main__':
     try:
         with open(init_statistics_file(), mode="w", newline="") as csvfile:
             current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            logging.basicConfig(filename=f"cinderella_experiments_{current_datetime}.log", level=logging.INFO)
+            logging.basicConfig(filename=f"cinderella_experiments_{current_datetime}.log",
+                                level=logging.INFO,
+                                format='%(asctime)s - %(levelname)s - %(message)s',
+                                datefmt='%Y-%m-%d %H:%M:%S')
             n, c, b,  a, num_of_exp = parse_arguments()
             logging.info(f"Starting Cinderella experiments with n: {n}, c: {c}, b: {b}, a: {a}, num_of_exp: {num_of_exp}")
             run_experiemnts(csvfile, n, c, b,  a, num_of_exp)

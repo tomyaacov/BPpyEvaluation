@@ -82,12 +82,12 @@ def run_cinderella_smt_bp_program(n, c, b, a):
     C = c
     B = b
     A = a
+    tracemalloc.start()
     buckets = [Int(f"b{i}") for i in range(N)]
     bp_program = bp.BProgram(bthreads=[main(), bucket_limit()], # without game_ends scenario
                          event_selection_strategy=SMTEventSelectionStrategy(),
                          listener=PrintBProgramRunnerListener())
     start_time = timeit.default_timer()
-    tracemalloc.start()
     bp_program.run()
     end_time = timeit.default_timer()
     memory_usage_smt = tracemalloc_stop()
