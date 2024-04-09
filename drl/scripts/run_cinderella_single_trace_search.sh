@@ -21,20 +21,17 @@ cd ~/repos/BPpyEvaluation/drl || exit
 #"400 25" "400 50" "400 75" "400 100"
 #"500 25" "500 50" "500 75" "500 100"
 #)
-#options=(
-#"4 8 2 5" "4 12 2 5" "4 16 2 5" "4 20 2 5"
-#"4 8 2 6" "4 12 2 6" "4 16 2 6" "4 20 2 6"
-#"4 8 2 7" "4 12 2 7" "4 16 2 7" "4 20 2 7"
-#)
 options=(
-"4 8 2 5"
+"4 8 2 5" "4 12 2 5" "4 16 2 5" "4 20 2 5"
+"4 8 2 6" "4 12 2 6" "4 16 2 6" "4 20 2 6"
+"4 8 2 7" "4 12 2 7" "4 16 2 7" "4 20 2 7"
 )
+
 
 echo "option,run,time,memory" > run_cinderella_single_trace_search_output.csv
 for option in "${options[@]}"; do
   echo "$option"
-#  for i in {1..10}
-  for i in {1..2}
+  for i in {1..10}
   do
     timeout 120m /usr/bin/time -a -o run_cinderella_single_trace_search_output.csv -f "$option,$i,%E,%M" python cinderella_single_trace_search.py $option
   done

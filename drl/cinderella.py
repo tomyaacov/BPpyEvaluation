@@ -63,7 +63,7 @@ def cinderella(n):
 @bp.thread
 def game_ends(n, b):
     yield bp.sync(waitFor=EventSet(lambda e: isinstance(e, BucketState) and any([e.l[i] == b for i in range(n)])))
-    yield bp.sync(request=BEvent("StepmotherWins"), block=bp.AllExcept(BEvent("StepmotherWins")))
+    yield bp.sync(request=BEvent("StepmotherWins"), block=bp.AllExcept(BEvent("StepmotherWins")), localReward=-1)
     yield bp.sync(block=bp.All())
 
 
@@ -71,10 +71,11 @@ def game_ends(n, b):
 def state_tracker():
     while True:
         e = yield bp.sync(waitFor=stepmother_event_set)
+        s = e.l
 
 
 def init_bprogram(a, b, c, n):
-    bp_program = bp.BProgram(bthreads=[main(n), stepmother(a, b, c), cinderella(n), game_ends(n, b)],
+    bp_program = bp.BProgram(bthreads=[main(n), stepmother(a, b, c), cinderella(n), game_ends(n, b), state_tracker()],
                              event_selection_strategy=bp.SimpleEventSelectionStrategy(),
                              listener=bp.PrintBProgramRunnerListener())
     return bp_program

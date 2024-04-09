@@ -13,7 +13,7 @@ import argparse
 import random
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[4, 5, 3, 5])
+parser.add_argument("parameters", nargs="*", default=[4, 5, 3, 5, 1_000])
 args = parser.parse_args()
 
 A = int(args.parameters[0])
@@ -29,7 +29,7 @@ class CinderellaObservationSpace(BPObservationSpace):
         super().__init__(dim, np.int64, None)
 
     def bp_state_to_gym_space(self, bthreads_states):
-        return np.asarray([x.get("locals", {}).get("i") for x in bthreads_states if "i" in x.get("locals", {})],
+        return np.asarray([x.get("locals", {}).get("s") for x in bthreads_states if "s" in x.get("locals", {})][0],
                           dtype=self.dtype)
 
 
@@ -39,9 +39,9 @@ class BPEnvMask(BPEnv):
         return [action in possible_events for action in range(self.action_space.n)]
 
 
-env = BPEnvMask(bprogram_generator=lambda: init_bprogram(N, M),
-                action_list=get_action_list(),
-                observation_space=PancakeObservationSpace([N+1] * 2),
+env = BPEnvMask(bprogram_generator=lambda: init_bprogram(A, B, C, N),
+                action_list=get_action_list(N),
+                observation_space=CinderellaObservationSpace([B+1] * N),
                 reward_function=lambda rewards: sum(filter(None, rewards)))
 
 log_dir = "output/" + RUN + "/"
