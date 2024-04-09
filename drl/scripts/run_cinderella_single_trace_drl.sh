@@ -22,7 +22,7 @@ cd ~/repos/BPpyEvaluation/drl || exit
 #"4 8 2 7" "5 10 2 7" "6 12 2 7" "7 14 2 7"
 #)
 options=(
-"4 8 2 5"
+"4 8 2 5 1000000"
 )
 
 echo "option,run,time,memory" > run_cinderella_single_trace_drl_output.csv
