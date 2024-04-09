@@ -22,14 +22,15 @@ cd ~/repos/BPpyEvaluation/drl || exit
 #"4 8 2 7" "5 10 2 7" "6 12 2 7" "7 14 2 7"
 #)
 options=(
-"4 8 2 5 1000000"
+"4 8 2 5 1000000" "5 10 2 5 1000000" "6 12 2 5 1000000" "7 14 2 5 1000000"
+"4 8 2 6 1000000" "5 10 2 6 1000000" "6 12 2 6 1000000" "7 14 2 6 1000000"
+"4 8 2 7 1000000" "5 10 2 7 1000000" "6 12 2 7 1000000" "7 14 2 7 1000000"
 )
 
 echo "option,run,time,memory" > run_cinderella_single_trace_drl_output.csv
 for option in "${options[@]}"; do
   echo "$option"
-#  for i in {1..30}
-  for i in {1..2}
+  for i in {1..30}
   do
     timeout 120m /usr/bin/time -a -o run_cinderella_single_trace_drl_output.csv -f "$option,$i,%E,%M" ~/.conda/envs/BPpyLiveness/bin/python cinderella_single_trace_drl.py $option $i
   done
