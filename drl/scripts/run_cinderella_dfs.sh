@@ -15,16 +15,16 @@ source activate bppy-py39 ### activating Conda environment. Environment must be 
 cd ~/repos/BPpyEvaluation/drl || exit
 
 ~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 5 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 5 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 5 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 5 1000
-#
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 6 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 6 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 6 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 6 1000
-#
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 7 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 7 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 7 1000
-#~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 7 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 5 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 5 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 5 1000
+
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 6 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 6 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 6 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 6 1000
+
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 7 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 7 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 7 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 7 1000
