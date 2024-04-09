@@ -136,3 +136,4 @@ dmypy.json
 model_checking/output/
 llm/secrets/*
 Dockerfile
+drl/output/

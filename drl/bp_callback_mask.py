@@ -6,7 +6,7 @@ class BPCallbackMask(BaseCallback):
 
     :param verbose: Verbosity level: 0 for no output, 1 for info messages, 2 for debug messages
     """
-    def __init__(self, verbose=0, repeat=1):
+    def __init__(self, verbose=0, repeat=1, threshold=0):
         super(BPCallbackMask, self).__init__(verbose)
         # Those variables will be accessible in the callback
         # (they are defined in the base class)
@@ -27,8 +27,12 @@ class BPCallbackMask(BaseCallback):
         # self.parent = None  # type: Optional[BaseCallback]
         self.should_end = False
         self.repeat = repeat
+        self.threshold = threshold
 
-    def test(self, model, env, threshold=0):
+
+    def test(self, model, env, threshold=None):
+        if threshold is None:
+            threshold = self.threshold
         _env = env.envs[0]
         observation = env.reset()
         reward_sum = 0

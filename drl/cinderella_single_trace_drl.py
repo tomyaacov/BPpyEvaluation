@@ -13,7 +13,7 @@ import argparse
 import random
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[4, 5, 3, 5, 1_000])
+parser.add_argument("parameters", nargs="*", default=[4, 8, 2, 5, 10_000])
 args = parser.parse_args()
 
 A = int(args.parameters[0])
@@ -44,6 +44,8 @@ env = BPEnvMask(bprogram_generator=lambda: init_bprogram(A, B, C, N),
                 observation_space=CinderellaObservationSpace([B+1] * N),
                 reward_function=lambda rewards: sum(filter(None, rewards)))
 
+
+
 log_dir = "output/" + RUN + "/"
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
@@ -51,9 +53,9 @@ with warnings.catch_warnings():
     os.makedirs(log_dir, exist_ok=True)
     model = MaskablePPO("MlpPolicy", env, verbose=0)
 
-    callback = BPCallbackMask()
+    callback = BPCallbackMask(threshold=-0.5)
     model.learn(total_timesteps=STEPS,
-            callback=callback)
+                callback=callback)
 
 
 if model.num_timesteps >= STEPS:
