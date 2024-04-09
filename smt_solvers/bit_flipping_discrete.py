@@ -1,12 +1,42 @@
 from bppy import BEvent
 import itertools
 import bppy as bp
+import timeit
+import tracemalloc
+import random
+
+
+random.seed(42)
+# Global variables
+event_list = None
+true = None
+false = None
+p = None
+N = 3 # Default Number of rows
+M = 3 # Default Number of columns
+
 
 
 class PrintBProgramRunnerListener(bp.PrintBProgramRunnerListener):
+
+    def starting(self, b_program):
+        pass
+        """
+        Prints "STARTED" when the BProgram execution is about to start.
+        """
+        # print("STARTED")
+
+    def ended(self, b_program):
+        pass
+        """
+        Prints "ENDED" when the BProgram execution is about to start.
+        """
+        # print("ENDED")
+
     def event_selected(self, b_program, event):
-        print()
-        print("\n".join([",".join([str(event.eval(p[i][j]) == true) for j in range(M)]) for i in range(N)]))
+        pass
+        # print()
+        # print("\n".join([",".join([str(event.eval(p[i][j]) == true) for j in range(M)]) for i in range(N)]))
 
 
 class Assignment(BEvent):
@@ -71,6 +101,34 @@ def general():
         e = yield bp.sync(block=col_flipped(j, e), waitFor=true)
     yield bp.sync(block=true)
 
+def tracemalloc_stop():
+    snapshot = tracemalloc.take_snapshot()
+    tracemalloc.stop()
+    total_memory = sum(stat.size for stat in snapshot.statistics("filename"))
+    memory_usage = total_memory / 1024 / 1024
+    return memory_usage
+
+def run_bit_flipping_discrete_bp_program(n=3, m=3):
+    global N, M, event_list, true, false, p
+    N = n
+    M = m
+    variables_names = [f"p{i}{j}" for i in range(N) for j in range(M)]
+    event_list = set([Assignment({k: v for k, v in zip(variables_names, values)}) for values in
+                      itertools.product([True, False], repeat=len(variables_names))])
+    true = event_list
+    false = set()
+    p = [[set([e for e in event_list if f"p{i}{j}T" in e.name]) for j in range(M)] for i in range(N)]
+
+    bp_program = bp.BProgram(bthreads=[general()] + [row(i) for i in range(N)] + [col(i) for i in range(M)],
+                             event_selection_strategy=bp.SimpleEventSelectionStrategy(),
+                             listener=PrintBProgramRunnerListener())
+    start_time = timeit.default_timer()
+    tracemalloc.start()
+    bp_program.run()
+    end_time = timeit.default_timer()
+    memory_usage_discrete = tracemalloc_stop()
+    execution_time_discrete = end_time - start_time
+    return execution_time_discrete, memory_usage_discrete
 
 if __name__ == '__main__':
     N = 3
