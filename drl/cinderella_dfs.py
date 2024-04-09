@@ -9,7 +9,7 @@ from bppy import BEvent
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[4, 5, 3, 5])
+parser.add_argument("parameters", nargs="*", default=[4, 5, 3, 5, 1000])
 args = parser.parse_args()
 
 
@@ -17,14 +17,14 @@ A = int(args.parameters[0])
 B = int(args.parameters[1])
 C = int(args.parameters[2])
 N = int(args.parameters[3])
+TESTED_TRACES = int(args.parameters[4])
 
 
 dfs = DFSBProgram(lambda: init_bprogram(A, B, C, N), get_event_list(B, C, N), max_trace_length=10 ** 10, interrupt_on_trace=False)
 time_start = time.time()
 init_s, visited = dfs.run()
 time_end = time.time()
-import bppy
-print(bppy.__version__)
+
 print("Time: " + str(time_end - time_start))
 print("States: " + str(len(visited)))
 
@@ -55,7 +55,7 @@ def generate_trace(bprogram_gen):
     bprogram.setup()
     while True:
         if len(ess.selectable_events(bprogram.tickets)) == 0:
-            return trace, BEvent("AddBlueberries") in trace
+            return trace, BEvent("CinderellaWins") in trace
         else:
             e = ess.select(bprogram.tickets)
             bprogram.advance_bthreads(bprogram.tickets, e)
@@ -78,9 +78,9 @@ def generate_trace(bprogram_gen):
 
 traces = []
 for i in range(TESTED_TRACES):
-    traces.append(generate_trace(bprogram_gen=lambda: init_bprogram(N, M)))
+    traces.append(generate_trace(bprogram_gen=lambda: init_bprogram(A, B, C, N)))
 
 print(len([x for x in traces if x[1]]))
 
-with open(f'traces_{N}_{M}.pkl', 'wb') as f:
+with open(f'traces_{A}_{B}_{C}_{N}.pkl', 'wb') as f:
     pickle.dump(traces, f)
