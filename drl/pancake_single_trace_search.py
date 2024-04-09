@@ -1,6 +1,6 @@
 from dfs import DFSBProgram, Interrupt
 # from pancake import init_bprogram, get_event_list
-from pancake import init_bprogram, get_event_list
+from pancake import init_bprogram, get_event_list, get_predicate
 import argparse
 import random
 
@@ -23,7 +23,7 @@ def bprogram_generator(l):
 event_list = get_event_list()
 random.shuffle(event_list)
 
-dfs = DFSBProgram(lambda: bprogram_generator(l), get_event_list(), max_trace_length=10**10)
+dfs = DFSBProgram(lambda: bprogram_generator(l), get_event_list(), max_trace_length=10**10, predicate=get_predicate())
 try:
     init_s, visited = dfs.run()
 except Interrupt as e:
