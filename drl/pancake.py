@@ -95,6 +95,9 @@ def get_action_list():
     return [bp.BEvent("DryMixture"), bp.BEvent("WetMixture"), bp.BEvent("AddBlueberries")]
 
 
+def get_predicate():
+    return lambda l: bp.BEvent("AddBlueberries") in l
+
 if __name__ == '__main__':
     init_bprogram(3, 1).run()
 
