@@ -5,7 +5,7 @@ import random
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[4, 8, 2, 5])
+parser.add_argument("parameters", nargs="*", default=[5, 10, 2, 5])
 args = parser.parse_args()
 
 
@@ -27,7 +27,7 @@ event_list = get_event_list(B, C, N)
 random.shuffle(event_list)
 
 
-dfs = DFSBProgram(lambda: bprogram_generator(l), get_event_list(B, C, N), max_trace_length=10**10, predicate=get_predicate())
+dfs = DFSBProgram(lambda: bprogram_generator(l), max_trace_length=10**10, predicate=get_predicate())
 try:
     init_s, visited = dfs.run()
 except Interrupt as e:

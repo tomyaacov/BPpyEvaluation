@@ -31,9 +31,8 @@ class PrintBProgramRunnerListener(bp.PrintBProgramRunnerListener):
         # print("ENDED")
 
     def event_selected(self, b_program, event):
-        pass
-        # print()
-        # print("\n".join([",".join([str(event.eval(p[i][j]) == true) for j in range(M)]) for i in range(N)]))
+        print()
+        print("\n".join([",".join([str(event.eval(p[i][j])) for j in range(M)]) for i in range(N)]))
 
 
 class NewSMTEventSelectionStrategy(bp.SMTEventSelectionStrategy):
@@ -69,38 +68,34 @@ def col(i):
 
 
 @bp.thread
-def general():
-    e = yield bp.sync(request=event_list)
-    for i in range(N):
-        e = yield bp.sync(block=row_flipped(i, e), waitFor=true)
-    for j in range(M):
-        e = yield bp.sync(block=col_flipped(j, e), waitFor=true)
-    yield bp.sync(block=true)
+def init():
+    e = yield bp.sync(request=And([p[i][j] if (i + j) % 2 else Not(p[i][j]) for i in range(N) for j in range(M)]))
 
-def tracemalloc_stop():
-    snapshot = tracemalloc.take_snapshot()
-    tracemalloc.stop()
-    total_memory = sum(stat.size for stat in snapshot.statistics("filename"))
-    memory_usage = total_memory / 1024 / 1024
-    return memory_usage
+@bp.thread
+def env():
+    e = yield bp.sync(waitFor=true)
+    for i in range(3):
+        i, j = yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
+        yield bp.sync(request=row_flipped(i, e))
+        e = yield bp.sync(waitFor=true)
+        yield bp.sync(request=col_flipped(j, e))
+        e = yield bp.sync(waitFor=true)
 
-def run_bit_flipping_smt_bp_program(n=3, m=3):
-    global N, M, event_list, true, false, p
-    N = n
-    M = m
-    p = [[Bool(f"p{i}{j}") for j in range(M)] for i in range(N)]
-    event_list = And([Or([p[i][j], Not(p[i][j])]) for i in range(N) for j in range(M)])  # for requesting all options
+@bp.thread
+def opponent():
+    e = yield bp.sync(waitFor=true)
+    for i in range(3):
+        i, j = yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
+        e = yield bp.sync(waitFor=true)
+        yield bp.sync(request=row_flipped(i, e))
+        e = yield bp.sync(waitFor=true)
+        yield bp.sync(request=col_flipped(j, e))
 
-    bp_program = bp.BProgram(bthreads=[general()] + [row(i) for i in range(N)] + [col(i) for i in range(M)],
-                             event_selection_strategy=NewSMTEventSelectionStrategy(),
-                             listener=PrintBProgramRunnerListener())
-    start_time = timeit.default_timer()
-    tracemalloc.start()
-    bp_program.run()
-    end_time = timeit.default_timer()
-    memory_usage_smt = tracemalloc_stop()
-    execution_time_smt = end_time - start_time
-    return execution_time_smt, memory_usage_smt
+
+
+
+
+
 
 if __name__ == '__main__':
     import random
@@ -110,7 +105,7 @@ if __name__ == '__main__':
     #event_list = And([random.choice([p[i][j], Not(p[i][j])]) for i in range(N) for j in range(N)])  # for requesting all options
     event_list = And([Or([p[i][j], Not(p[i][j])]) for i in range(N) for j in range(M)])  # for requesting all options
 
-    bp_program = bp.BProgram(bthreads=[general()] + [row(i) for i in range(N)] + [col(i) for i in range(M)],
+    bp_program = bp.BProgram(bthreads=[init(), env(), opponent()],
                              event_selection_strategy=NewSMTEventSelectionStrategy(),
                              listener=PrintBProgramRunnerListener())
 
