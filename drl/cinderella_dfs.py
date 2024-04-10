@@ -9,7 +9,7 @@ from bppy import BEvent
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[4, 5, 3, 5, 1000])
+parser.add_argument("parameters", nargs="*", default=[5, 10, 3, 5, 1000])
 args = parser.parse_args()
 
 
@@ -20,7 +20,7 @@ N = int(args.parameters[3])
 TESTED_TRACES = int(args.parameters[4])
 
 
-dfs = DFSBProgram(lambda: init_bprogram(A, B, C, N), get_event_list(B, C, N), max_trace_length=10 ** 10, interrupt_on_trace=False)
+dfs = DFSBProgram(lambda: init_bprogram(A, B, C, N), max_trace_length=10 ** 10, interrupt_on_trace=False)
 time_start = time.time()
 init_s, visited = dfs.run()
 time_end = time.time()
@@ -28,25 +28,27 @@ time_end = time.time()
 print("Time: " + str(time_end - time_start))
 print("States: " + str(len(visited)))
 
+flags_map = {}
+visited_map = {}
+for x in visited:
+    flags_map[hash(x)] = False
+    visited_map[hash(x)] = x
 
-# before = 0
-# after = 0
-# for x in visited:
-#     if hasattr(x, "flagged"):
-#         after += 1
-#     else:
-#         x.flagged = False
-#     for k, v in x.transitions.items():
-#         if not hasattr(v, "flagged"):
-#             v.flagged = False
-# while before != after:
-#     before = after
-#     for x in visited:
-#         if x.flagged:
-#             continue
-#         if any([y.flagged for y in x.transitions.values()]):
-#             x.flagged = True
-#             after += 1
+before = 0
+after = 0
+for x in visited:
+    if BEvent("CinderellaWins") in x.transitions:
+        after += 1
+        flags_map[hash(x)] = True
+        flags_map[hash(x.transitions[BEvent("CinderellaWins")])] = True
+while before != after:
+    before = after
+    for x in visited:
+        if flags_map[hash(x)]:
+            continue
+        if any([flags_map[hash(y)] for y in x.transitions.values()]):
+            flags_map[hash(x)] = True
+            after += 1
 
 def generate_trace(bprogram_gen):
     trace = []
@@ -61,23 +63,24 @@ def generate_trace(bprogram_gen):
             bprogram.advance_bthreads(bprogram.tickets, e)
         trace.append(e)
 
-# def generate_trace2(init_s, visited, good):
-#     current_s = init_s
-#     trace = []
-#     ess = SimpleEventSelectionStrategy()
-#     while True:
-#         if len(ess.selectable_events([x.data for x in current_s.nodes if x.data is not None])) == 0:
-#             return trace, current_s.flagged
-#         if good:
-#             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if v.flagged])
-#         else:
-#             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items()])
-#         current_s = visited[visited.index(current_s)]
-#         trace.append(e)
+def generate_trace2(init_s, visited, flags_map, good):
+    current_s = init_s
+    trace = []
+    ess = SimpleEventSelectionStrategy()
+    while True:
+        if len(ess.selectable_events([x.data for x in current_s.nodes if x.data is not None])) == 0:
+            return trace
+        if good:
+            e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if flags_map[hash(v)]])
+        else:
+            e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items()])
+        current_s = visited_map[hash(current_s)]
+        trace.append(e)
 
 
 traces = []
-for i in range(TESTED_TRACES):
+for i in range(TESTED_TRACES//2):
+    traces.append((generate_trace2(init_s, visited, flags_map, True), True))
     traces.append(generate_trace(bprogram_gen=lambda: init_bprogram(A, B, C, N)))
 
 print(len([x for x in traces if x[1]]))

@@ -14,17 +14,22 @@ module load anaconda ### load anaconda module
 source activate bppy-py39 ### activating Conda environment. Environment must be configured before running the job
 cd ~/repos/BPpyEvaluation/drl || exit
 
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 5 1000
 ~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 5 1000
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 5 1000
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 5 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 15 2 5 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 20 2 5 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 25 2 5 1000
 
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 6 1000
 ~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 6 1000
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 6 1000
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 6 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 15 2 6 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 20 2 6 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 25 2 6 1000
 
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 4 8 2 7 1000
 ~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 7 1000
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 6 12 2 7 1000
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 7 14 2 7 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 15 2 7 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 20 2 7 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 25 2 7 1000
+
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 10 2 8 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 15 2 8 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 20 2 8 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 25 2 8 1000

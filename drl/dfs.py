@@ -64,7 +64,7 @@ class DFSBThread:
 
     def run(self, return_requested_and_blocked=False):
         init_s = Node(tuple(), self.get_state(tuple()))
-        visited = []
+        visited = set()
         stack = []
         stack.append(init_s)
         requested = set()
@@ -73,7 +73,7 @@ class DFSBThread:
         while len(stack):
             s = stack.pop()
             if s not in visited:
-                visited.append(s)
+                visited.add(s)
             if isinstance(s.data, sync) and return_requested_and_blocked:
                 if "request" in s.data:
                     if isinstance(s.data["request"], BEvent):
@@ -146,7 +146,8 @@ class DFSBProgram:
                 f = lambda: self.bprogram_generator().bthreads[i]
                 dfs = DFSBThread(f, ess, self.event_list)
                 init_s, visited = dfs.run()
-                mapper[i] = visited
+                print("Thread", f(), "visited", len(visited))
+                mapper[i] = list(visited)
                 init.append(init_s)
 
             if not explore_graph: # stop before mapping sync statements

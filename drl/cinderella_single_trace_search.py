@@ -5,7 +5,7 @@ import random
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[4, 5, 2, 5]) # N
+parser.add_argument("parameters", nargs="*", default=[4, 8, 2, 5])
 args = parser.parse_args()
 
 

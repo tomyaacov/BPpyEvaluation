@@ -36,9 +36,9 @@ def compute_counter_strategy(e, a, b, c, empty_from):
 
 
 @bp.thread
-def main(n):
+def main(b, n):
     yield bp.sync(request=BucketState([0 for _ in range(n)]), block=cinderella_event_set)
-    for i in range(10):
+    for i in range(b):
         yield bp.sync(block=cinderella_event_set, waitFor=stepmother_event_set)
         yield bp.sync(block=stepmother_event_set, waitFor=cinderella_event_set)
     yield bp.sync(request=BEvent("CinderellaWins"), block=bp.AllExcept(BEvent("CinderellaWins")))
@@ -75,7 +75,7 @@ def state_tracker():
 
 
 def init_bprogram(a, b, c, n):
-    bp_program = bp.BProgram(bthreads=[main(n), stepmother(a, b, c), cinderella(n), game_ends(n, b), state_tracker()],
+    bp_program = bp.BProgram(bthreads=[main(b, n), stepmother(a, b, c), cinderella(n), game_ends(n, b), state_tracker()],
                              event_selection_strategy=bp.SimpleEventSelectionStrategy(),
                              listener=bp.PrintBProgramRunnerListener())
     return bp_program
