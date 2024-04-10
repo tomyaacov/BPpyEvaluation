@@ -9,7 +9,7 @@ from bppy import BEvent
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[5, 10, 2, 5, 100])
+parser.add_argument("parameters", nargs="*", default=[5, 10, 2, 5, 1000])
 args = parser.parse_args()
 
 

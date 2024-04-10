@@ -98,11 +98,11 @@ class BPCallbackMaskMultiple(BaseCallback):
         self.result += "Steps," + str(self.num_timesteps) + ",Time," + str(time.time() - self.start_time) + "," + ",".join([str(k) + "," + str(v) for k,v in results.items()]) + "\n"
         self.last_check = time.time() - self.start_time
         print("Steps," + str(self.num_timesteps) + ",Time," + str(time.time() - self.start_time) + "," + ",".join([str(k) + "," + str(v) for k,v in results.items()]))
-        if isinstance(model, DQN):
-            print(model.policy.q_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).detach().cpu().numpy())
-        else:
-            q_values = model.policy.quantile_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).mean(dim=1)
-            print(q_values.detach().cpu().numpy())
+        # if isinstance(model, DQN):
+        #     print(model.policy.q_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).detach().cpu().numpy())
+        # else:
+        #     q_values = model.policy.quantile_net(model.policy.obs_to_tensor(np.array([[0,0]]))[0]).mean(dim=1)
+        #     print(q_values.detach().cpu().numpy())
 
 
 
