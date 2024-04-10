@@ -63,8 +63,8 @@ def cinderella(n):
 @bp.thread
 def game_ends(n, b):
     yield bp.sync(waitFor=EventSet(lambda e: isinstance(e, BucketState) and any([e.l[i] == b for i in range(n)])))
-    yield bp.sync(request=BEvent("StepmotherWins"), block=bp.AllExcept(BEvent("StepmotherWins")), localReward=-1)
-    yield bp.sync(block=bp.All())
+    yield bp.sync(request=BEvent("StepmotherWins"), block=bp.AllExcept(BEvent("StepmotherWins")))
+    yield bp.sync(block=bp.All(), localReward=-1)
 
 
 @bp.thread

@@ -5,7 +5,7 @@ import random
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[5, 10, 2, 5])
+parser.add_argument("parameters", nargs="*", default=[5, 50, 2, 10])
 args = parser.parse_args()
 
 
@@ -32,6 +32,7 @@ try:
     init_s, visited = dfs.run()
 except Interrupt as e:
     print("Trace found!")
+    print(e.prefix[-1])
     print("trace length:", len(e.prefix))
     exit(0)
 print("No trace found!")

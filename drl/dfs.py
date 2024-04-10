@@ -175,6 +175,7 @@ class DFSBProgram:
             visited.insert(0, init)
             return init, visited
         else:
+            import random
             ess = self.bprogram_generator().event_selection_strategy
             bprogram = self.bprogram_generator()
             bprogram.setup()
@@ -185,8 +186,9 @@ class DFSBProgram:
                 s = stack.pop()
                 if s not in visited:
                     visited.add(s)
-
-                for e in ess.selectable_events([x.data for x in s.nodes if x.data is not None]):
+                l = list(ess.selectable_events([x.data for x in s.nodes if x.data is not None]))
+                random.shuffle(l)
+                for e in l:
                     bprogram = self.bprogram_generator()
                     bprogram.setup()
                     for pre_e in s.prefix:
