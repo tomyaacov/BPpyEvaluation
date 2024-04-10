@@ -60,6 +60,7 @@ def run_experiemnts(csvfile, n, m, number_of_experiments=1):
     for exp in range(number_of_experiments):
         for key in n_x_m_dict.keys():
             n,m = n_x_m_dict[key]
+            logging.info(f"Starting bit_flip execution for nXm: {n}x{m}")
             execution_time_discrete,memory_usage_discrete = run_bit_flipping_discrete_bp_program( n, m )
             execution_time_smt, memory_usage_smt = run_bit_flipping_smt_bp_program(n, m)
             if key not in execution_time_discrete_dict:
@@ -102,7 +103,10 @@ if __name__ == '__main__':
     try:
         with open(init_statistics_file(), mode="w", newline="") as csvfile:
             current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            logging.basicConfig(filename=f"bit_flip_experiments_{current_datetime}.log", level=logging.INFO)
+            logging.basicConfig(filename=f"bit_flip_experiments_{current_datetime}.log",
+                                level=logging.INFO,
+                                format='%(asctime)s - %(levelname)s - %(message)s',
+                                datefmt='%Y-%m-%d %H:%M:%S')
             n, m, num_of_exp = parse_arguments()
             logging.info(f"n: {n}, m: {m}, num_of_exp: {num_of_exp}")
             run_experiemnts(csvfile, n, m, num_of_exp)

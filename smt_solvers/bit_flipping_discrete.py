@@ -112,6 +112,7 @@ def run_bit_flipping_discrete_bp_program(n=3, m=3):
     global N, M, event_list, true, false, p
     N = n
     M = m
+    tracemalloc.start()
     variables_names = [f"p{i}{j}" for i in range(N) for j in range(M)]
     event_list = set([Assignment({k: v for k, v in zip(variables_names, values)}) for values in
                       itertools.product([True, False], repeat=len(variables_names))])
@@ -123,7 +124,6 @@ def run_bit_flipping_discrete_bp_program(n=3, m=3):
                              event_selection_strategy=bp.SimpleEventSelectionStrategy(),
                              listener=PrintBProgramRunnerListener())
     start_time = timeit.default_timer()
-    tracemalloc.start()
     bp_program.run()
     end_time = timeit.default_timer()
     memory_usage_discrete = tracemalloc_stop()

@@ -88,6 +88,7 @@ def run_bit_flipping_smt_bp_program(n=3, m=3):
     global N, M, event_list, true, false, p
     N = n
     M = m
+    tracemalloc.start()
     p = [[Bool(f"p{i}{j}") for j in range(M)] for i in range(N)]
     event_list = And([Or([p[i][j], Not(p[i][j])]) for i in range(N) for j in range(M)])  # for requesting all options
 
@@ -95,7 +96,6 @@ def run_bit_flipping_smt_bp_program(n=3, m=3):
                              event_selection_strategy=NewSMTEventSelectionStrategy(),
                              listener=PrintBProgramRunnerListener())
     start_time = timeit.default_timer()
-    tracemalloc.start()
     bp_program.run()
     end_time = timeit.default_timer()
     memory_usage_smt = tracemalloc_stop()

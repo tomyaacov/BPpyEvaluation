@@ -100,6 +100,7 @@ def run_cinderella_discrete_bp_program( n, c, b,  a ):
     C = c
     B = b
     A = a
+    tracemalloc.start()
     event_list = set([BucketsAssignment(list(values)) for values in
                       itertools.product(list(range(B + 1)), repeat=N)])
     true = event_list
@@ -108,7 +109,6 @@ def run_cinderella_discrete_bp_program( n, c, b,  a ):
                              event_selection_strategy=bp.SimpleEventSelectionStrategy(),
                              listener=PrintBProgramRunnerListener())
     start_time = timeit.default_timer()
-    tracemalloc.start()
     bp_program.run()
     end_time = timeit.default_timer()
     memory_usage_discrete = tracemalloc_stop()
