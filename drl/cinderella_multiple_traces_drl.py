@@ -36,7 +36,7 @@ RUN = str(A) + str(B) + str(C) + str(N) + MODEL + str(STEPS)
 
 with open(f'traces_{A}_{B}_{C}_{N}.pkl', 'rb') as f:
     traces = pickle.load(f)
-    CHECK_EVERY = 1 #10
+    CHECK_EVERY = 10
 
 random.shuffle(traces)
 traces = traces[:TESTED_TRACES]
