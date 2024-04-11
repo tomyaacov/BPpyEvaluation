@@ -13,16 +13,17 @@ import pickle
 import random
 import torch
 
-# print(torch.cuda.is_available())
-# print(torch.cuda.device_count())
-# print(torch.cuda.current_device())
-# print(torch.cuda.get_device_name(0))
-#
-# print("current device:")
-# print(get_device())
+print(torch.cuda.is_available())
+print(torch.cuda.device_count())
+if torch.cuda.is_available():
+    print(torch.cuda.current_device())
+    print(torch.cuda.get_device_name(0))
+
+    print("current device:")
+    print(get_device())
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[10, 5, 100, 1_000, "DQN"])
+parser.add_argument("parameters", nargs="*", default=[200, 25, 10, 20_000, "DQN"])
 args = parser.parse_args()
 
 N = int(args.parameters[0])
