@@ -146,7 +146,6 @@ class DFSBProgram:
                 f = lambda: self.bprogram_generator().bthreads[i]
                 dfs = DFSBThread(f, ess, self.event_list)
                 init_s, visited = dfs.run()
-                print("Thread", f(), "visited", len(visited))
                 mapper[i] = list(visited)
                 init.append(init_s)
 
