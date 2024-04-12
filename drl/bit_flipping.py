@@ -62,7 +62,7 @@ def bt_env():
     e = yield bp.sync(waitFor=true)
     print(1)
     while True:
-        i, j = yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
+        i, j = random.choice([(k, v) for k, v in itertools.product(range(N), range(M))])#yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
         yield bp.sync(request=row_flipped(i, e))
         print(2)
         e = yield bp.sync(waitFor=true)
