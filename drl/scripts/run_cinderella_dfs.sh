@@ -6,7 +6,7 @@
 #SBATCH --output run_cinderella_dfs.out ### output log for running job - %J is the job number variable
 #SBATCH --mail-user=tomya@post.bgu.ac.il ### users email for sending job status notifications ñ replace with yours
 #SBATCH --mail-type=BEGIN,END,FAIL ### conditions when to send the email. ALL,BEGIN,END,FAIL, REQUEU, NONE
-#SBATCH --mem=16G ### total amount of RAM // 500
+#SBATCH --mem=8G ### total amount of RAM // 500
 #SBATCH --ntasks=1
 
 ### Start you code below ####
