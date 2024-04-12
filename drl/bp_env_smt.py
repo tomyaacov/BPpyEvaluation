@@ -68,16 +68,16 @@ class BPEnvSMT(BPEnv):
         done = is_true(model.evaluate(self.done_flag))
         self.bprogram.advance_bthreads(self.bprogram.tickets, model)
         local_reward = self._reward()
-        print("----------------------")
-        print("reward:", local_reward)
-        print("action:", action)
-        print(self._state().reshape((4,4)))
-        print("----------------------")
+        # print("----------------------")
+        # print("reward:", local_reward)
+        # print("action:", action)
+        # print(self._state().reshape((4,4)))
+        # print("----------------------")
         while not done and not self._step_done():
             model = self.bprogram.event_selection_strategy.select(self.bprogram.tickets + [{"block": additional_constraint}])
             done = is_true(model.evaluate(self.done_flag))
             self.bprogram.advance_bthreads(self.bprogram.tickets, model)
-            print(self._state().reshape((4, 4)))
+            # print(self._state().reshape((4, 4)))
         return self._state(), local_reward, done, None, {}
 
     def reset(self, seed=None, options=None):
@@ -107,7 +107,7 @@ class BPEnvSMT(BPEnv):
         while not self._step_done():
             model = self.bprogram.event_selection_strategy.select(self.bprogram.tickets)
             self.bprogram.advance_bthreads(self.bprogram.tickets, model)
-            print(self.observation_space.bp_state_to_gym_space(self._bthreads_states()).reshape((4,4)))
+            #print(self.observation_space.bp_state_to_gym_space(self._bthreads_states()).reshape((4,4)))
         return self.observation_space.bp_state_to_gym_space(self._bthreads_states()), {}
 
     def render(self, mode="human"):
