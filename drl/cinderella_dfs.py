@@ -9,7 +9,7 @@ from bppy import BEvent
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[5, 10, 2, 5, 1000])
+parser.add_argument("parameters", nargs="*", default=[5, 50, 2, 5, 1000])
 args = parser.parse_args()
 
 
@@ -42,6 +42,7 @@ for x in visited:
         flags_map[hash(x)] = True
         flags_map[hash(x.transitions[BEvent("CinderellaWins")])] = True
 while before != after:
+    print("before: " + str(before) + " after: " + str(after))
     before = after
     for x in visited:
         if flags_map[hash(x)]:
@@ -72,7 +73,7 @@ def generate_trace2(init_s, visited, flags_map, good):
             return trace
         if good:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if flags_map[hash(v)]])
-        elif random.random() < 0.1 and len([x for x in current_s.transitions.values() if not flags_map[hash(x)]]) > 0:
+        elif random.random() < 0.8 and len([x for x in current_s.transitions.values() if not flags_map[hash(x)]]) > 0:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if not flags_map[hash(v)]])
         else:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items()])
