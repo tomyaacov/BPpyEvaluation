@@ -142,6 +142,8 @@ class BPEnvSMT(BPEnv):
 
     def _step_done(self):
         if any(["request" in x for x in self.bprogram.tickets]):
+            print("step not done")
             return False
         else:
+            print("step done")
             return True
