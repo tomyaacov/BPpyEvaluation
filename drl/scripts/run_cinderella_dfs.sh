@@ -14,7 +14,7 @@ module load anaconda ### load anaconda module
 source activate bppy-py39 ### activating Conda environment. Environment must be configured before running the job
 cd ~/repos/BPpyEvaluation/drl || exit
 
-~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 50 2 5 1000
+~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 50 2 5 100000
 #~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 100 2 5 1000
 #~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 150 2 5 1000
 #~/.conda/envs/bppy-py39/bin/python cinderella_dfs.py 5 200 2 5 1000

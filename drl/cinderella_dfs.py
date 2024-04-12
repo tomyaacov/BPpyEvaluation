@@ -9,7 +9,7 @@ from bppy import BEvent
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[5, 50, 2, 5, 1000])
+parser.add_argument("parameters", nargs="*", default=[5, 10, 2, 5, 100])
 args = parser.parse_args()
 
 
@@ -70,7 +70,7 @@ def generate_trace2(init_s, visited, flags_map, good):
     ess = SimpleEventSelectionStrategy()
     while True:
         if len(ess.selectable_events([x.data for x in current_s.nodes if x.data is not None])) == 0:
-            return trace
+            return trace, BEvent("CinderellaWins") in trace
         if good:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if flags_map[hash(v)]])
         elif len([x for x in current_s.transitions.values() if not flags_map[hash(x)]]) > 0:
@@ -81,11 +81,12 @@ def generate_trace2(init_s, visited, flags_map, good):
         trace.append(e)
 
 
-traces = []
-for i in range(TESTED_TRACES//2):
-    traces.append((generate_trace2(init_s, visited, flags_map, True), True))
-    t = generate_trace2(init_s, visited, flags_map, False)
-    traces.append((t, BEvent("CinderellaWins") in t))
+from concurrent.futures import ThreadPoolExecutor
+with ThreadPoolExecutor(100) as executor:
+    processes = [executor.submit(generate_trace2, init_s, visited, flags_map, True) for _ in range(TESTED_TRACES//2)]
+    processes += [executor.submit(generate_trace2, init_s, visited, flags_map, False) for _ in range(TESTED_TRACES // 2)]
+    traces = [p.result() for p in processes]
+
 
 print(len([x for x in traces if x[1]]))
 
