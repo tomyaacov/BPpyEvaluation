@@ -63,7 +63,7 @@ class BPEnvSMT(BPEnv):
         if not self.action_space.contains(action):
             return self._state(), 0, True, None, {"message": "Last event is disabled"}
         additional_constraint = self.event_list[action]
-        # print("action:", additional_constraint)
+        print("action:", additional_constraint)
         model = self.bprogram.event_selection_strategy.select(self.bprogram.tickets + [{"request": additional_constraint}])
         done = is_true(model.evaluate(self.done_flag))
         self.bprogram.advance_bthreads(self.bprogram.tickets, model)
