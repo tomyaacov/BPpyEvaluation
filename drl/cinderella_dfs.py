@@ -72,6 +72,8 @@ def generate_trace2(init_s, visited, flags_map, good):
             return trace
         if good:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if flags_map[hash(v)]])
+        elif random.random() < 0.1 and len([x for x in current_s.transitions.values() if not flags_map[hash(x)]]) > 0:
+            e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if not flags_map[hash(v)]])
         else:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items()])
         current_s = visited_map[hash(current_s)]
@@ -81,7 +83,8 @@ def generate_trace2(init_s, visited, flags_map, good):
 traces = []
 for i in range(TESTED_TRACES//2):
     traces.append((generate_trace2(init_s, visited, flags_map, True), True))
-    traces.append(generate_trace(bprogram_gen=lambda: init_bprogram(A, B, C, N)))
+    t = generate_trace2(init_s, visited, flags_map, False)
+    traces.append((t, BEvent("CinderellaWins") in t))
 
 print(len([x for x in traces if x[1]]))
 

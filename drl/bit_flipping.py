@@ -31,17 +31,23 @@ def col_flipped(j0, e):
 def init():
     e = yield bp.sync(request=And([p[i][j] if (i + j) % 2 else Not(p[i][j]) for i in range(N) for j in range(M)]))
 
+@bp.thread
+def timer():
+    for _ in range(10):
+        yield bp.sync(waitFor=true, block=done)
+    yield bp.sync(block=Not(done))
+
+
 
 @bp.thread
 def bt_env():
     e = yield bp.sync(waitFor=true)
-    for _ in range(3):
+    while True:
         i, j = yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
         yield bp.sync(request=row_flipped(i, e))
         e = yield bp.sync(waitFor=true)
         yield bp.sync(request=col_flipped(j, e))
         e = yield bp.sync(waitFor=true)
-    yield bp.sync(block=true)
 
 def flip_row_based_on_action(e):
     return And([Implies(action == i, row_flipped(i, e)) for i in range(N)])
@@ -50,24 +56,13 @@ def flip_col_based_on_action(e):
     return And([Implies(action == i, col_flipped(i, e)) for i in range(M)])
 
 @bp.thread
-def opponent():
+def controller():
     e = yield bp.sync(waitFor=true)
-    for _ in range(3):
-        e = yield bp.sync(waitFor=true)
-        yield bp.sync(block=Not(flip_row_based_on_action(e)))
-        e = yield bp.sync(waitFor=true)
-        yield bp.sync(block=Not(flip_col_based_on_action(e)))
-
-
-@bp.thread
-def turn_on():
     while True:
         e = yield bp.sync(waitFor=true)
-        for _ in range(3):
-            e = yield bp.sync(waitFor=true)
-            yield bp.sync(block=Not(flip_row_based_on_action(e)))
-            e = yield bp.sync(waitFor=true)
-            yield bp.sync(block=Not(flip_col_based_on_action(e)))
+        yield bp.sync(block=Not(flip_row_based_on_action(e)), waitFor=true)
+        e = yield bp.sync(waitFor=true)
+        yield bp.sync(block=Not(flip_col_based_on_action(e)), waitFor=true)
 
 
 @bp.thread
@@ -77,7 +72,18 @@ def state_tracker():
         s = []
         for i in range(N):
             for j in range(M):
-                s.append(int(e.eval(p[i][j]).__bool__()))
+                s.append(int(is_true(e.eval(p[i][j]))))
+
+def count_reward(e_0, e_1):
+    return 2**sum([int(is_true(e_1.eval(p[i][j])) and not is_true(e_0.eval(p[i][j]))) for i in range(N) for j in range(M)])
+
+@bp.thread
+def reward():
+    e_0 = yield bp.sync(waitFor=true)
+    e_1 = yield bp.sync(waitFor=true)
+    while True:
+        e_0 = yield bp.sync(waitFor=true, localReward=count_reward(e_0, e_1))
+        e_1 = yield bp.sync(waitFor=true, localReward=count_reward(e_1, e_0))
 
 
 from bp_env_smt import BPEnvSMT
@@ -95,7 +101,7 @@ class ActionSpace(BPActionSpace):
         return [i for i in range(N)]
 
 def init_bprogram(n, m):
-    return bp.BProgram(bthreads=[init(), bt_env(), opponent(), state_tracker()],
+    return bp.BProgram(bthreads=[init(), timer(), bt_env(), controller(), state_tracker(), reward()],
                        event_selection_strategy=NewSMTEventSelectionStrategy(),
                        listener=PrintBProgramRunnerListener())
 
@@ -107,6 +113,7 @@ N = 4
 M = 4
 p = [[Bool(f"p{i}{j}") for j in range(M)] for i in range(N)]
 action = Int("action")
+done = Bool("done")
 
 class BPEnvMask(BPEnvSMT):
     def action_masks(self):
@@ -122,9 +129,9 @@ env = BPEnvMask(bprogram_generator=lambda: init_bprogram(N,M),
 
 env.action_space = ActionSpace(get_action_list(N))
 obs = env.reset()
-print(obs[0])
-done = False
-while not done:
-    action = env.action_space.sample()
-    obs, reward, done, _, info = env.step(action)
-    print(action, obs, reward, done, info)
+#print(obs[0])
+env_done = False
+while not env_done:
+    a = env.action_space.sample()
+    obs, reward, env_done, _, info = env.step(a)
+    #print(action, obs, reward, env_done, info)
