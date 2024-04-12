@@ -58,13 +58,19 @@ def timer():
 
 @bp.thread
 def bt_env():
+    print(0)
     e = yield bp.sync(waitFor=true)
+    print(1)
     while True:
         i, j = yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
         yield bp.sync(request=row_flipped(i, e))
+        print(2)
         e = yield bp.sync(waitFor=true)
+        print(3)
         yield bp.sync(request=col_flipped(j, e))
+        print(4)
         e = yield bp.sync(waitFor=true)
+        print(5)
 
 def flip_row_based_on_action(e):
     return And([Implies(action == i, row_flipped(i, e)) for i in range(N)])
@@ -93,7 +99,6 @@ def state_tracker():
                 s.append(int(is_true(e.eval(p[i][j]))))
         c += 1
         s.append((c//2)%2)
-        print(c)
 
 def count_reward(e_0, e_1):
     return 2**sum([int(is_true(e_1.eval(p[i][j])) and not is_true(e_0.eval(p[i][j]))) for i in range(N) for j in range(M)])
