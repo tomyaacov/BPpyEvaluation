@@ -11,7 +11,7 @@ import argparse
 import random
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[2, 2, 10_000])
+parser.add_argument("parameters", nargs="*", default=[3, 3, 10_000])
 args = parser.parse_args()
 
 
@@ -93,6 +93,7 @@ def state_tracker():
                 s.append(int(is_true(e.eval(p[i][j]))))
         c += 1
         s.append((c//2)%2)
+        print(c)
 
 def count_reward(e_0, e_1):
     return 2**sum([int(is_true(e_1.eval(p[i][j])) and not is_true(e_0.eval(p[i][j]))) for i in range(N) for j in range(M)])

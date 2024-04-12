@@ -78,7 +78,7 @@ class BPEnvSMT(BPEnv):
             done = is_true(model.evaluate(self.done_flag))
             self.bprogram.advance_bthreads(self.bprogram.tickets, model)
             # print(self._state().reshape((4, 4)))
-        return self._state(), local_reward, done, None, {}
+        return self._state(), local_reward, done, done, {}
 
     def reset(self, seed=None, options=None):
         """
