@@ -58,19 +58,13 @@ def timer():
 
 @bp.thread
 def bt_env():
-    print(0)
     e = yield bp.sync(waitFor=true)
-    print(1)
     while True:
         i, j = random.choice([(k, v) for k, v in itertools.product(range(N), range(M))])#yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
         yield bp.sync(request=row_flipped(i, e))
-        print(2)
         e = yield bp.sync(waitFor=true)
-        print(3)
         yield bp.sync(request=col_flipped(j, e))
-        print(4)
         e = yield bp.sync(waitFor=true)
-        print(5)
 
 def flip_row_based_on_action(e):
     return And([Implies(action == i, row_flipped(i, e)) for i in range(N)])
