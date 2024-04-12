@@ -73,7 +73,7 @@ def generate_trace2(init_s, visited, flags_map, good):
             return trace
         if good:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if flags_map[hash(v)]])
-        elif random.random() < 0.8 and len([x for x in current_s.transitions.values() if not flags_map[hash(x)]]) > 0:
+        elif len([x for x in current_s.transitions.values() if not flags_map[hash(x)]]) > 0:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items() if not flags_map[hash(v)]])
         else:
             e, current_s = random.choice([(k, v) for k, v in current_s.transitions.items()])
