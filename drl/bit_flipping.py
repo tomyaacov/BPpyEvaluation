@@ -159,4 +159,4 @@ with warnings.catch_warnings():
     env = Monitor(env, log_dir)
     os.makedirs(log_dir, exist_ok=True)
     mdl = PPO("MlpPolicy", env, verbose=1)
-    mdl.learn(total_timesteps=STEPS, progress_bar=True)
+    mdl.learn(total_timesteps=STEPS)
