@@ -11,14 +11,14 @@ import argparse
 import random
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[5, 5, 10_000])
+parser.add_argument("parameters", nargs="*", default=[5, 5, 0, 1000])
 args = parser.parse_args()
 
 
 N = int(args.parameters[0])
 M = int(args.parameters[1])
-STEPS = int(args.parameters[2])
-RUN = str(N) + str(M) + str(STEPS)
+GREEDY = bool(args.parameters[2])
+RUNS = int(args.parameters[3])
 
 
 class PrintBProgramRunnerListener(bp.PrintBProgramRunnerListener):
@@ -57,12 +57,14 @@ def timer():
 
 
 @bp.thread
-def bt_env():
+def opponent():
     e = yield bp.sync(waitFor=true)
     while True:
-        i, j = random.choice([(k, v) for k, v in itertools.product(range(N), range(M))])#yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
+        i = random.choice([k for k in range(N)])#bp.choice({k: 1 / N for k in range(N)})
+        #i, j = yield bp.choice({(k, v): 1 / (N * M) for k, v in itertools.product(range(N), range(M))})
         yield bp.sync(request=row_flipped(i, e))
         e = yield bp.sync(waitFor=true)
+        j = random.choice([k for k in range(N)])#bp.choice({k: 1 / M for k in range(M)})
         yield bp.sync(request=col_flipped(j, e))
         e = yield bp.sync(waitFor=true)
 
@@ -95,15 +97,18 @@ def state_tracker():
         s.append((c//2)%2)
 
 def count_reward(e_0, e_1):
-    return 2**sum([int(is_true(e_1.eval(p[i][j])) and not is_true(e_0.eval(p[i][j]))) for i in range(N) for j in range(M)])
+    if e_0 is None or e_1 is None:
+        return 0
+    def turned_on(e_0, e_1, i, j):
+        return is_true(e_1.eval(p[i][j])) and not is_true(e_0.eval(p[i][j]))
+    return 2**sum([int(turned_on(e_0, e_1, i, j)) for i in range(N) for j in range(M)])
 
 @bp.thread
 def reward_bt():
-    e_0 = yield bp.sync(waitFor=true)
-    e_1 = yield bp.sync(waitFor=true)
+    e_0, e_1 = None, None
     while True:
-        e_0 = yield bp.sync(waitFor=true, localReward=count_reward(e_0, e_1))
-        e_1 = yield bp.sync(waitFor=true, localReward=count_reward(e_1, e_0))
+        tmp = yield bp.sync(waitFor=true, localReward=count_reward(e_0, e_1))
+        e_0, e_1 = e_1, tmp
 
 
 from bp_env_smt import BPEnvSMT
@@ -121,7 +126,7 @@ class ActionSpace(BPActionSpace):
         return [i for i in range(N)]
 
 def init_bprogram(n, m):
-    return bp.BProgram(bthreads=[init(), timer(), bt_env(), controller(), state_tracker(), reward_bt()],
+    return bp.BProgram(bthreads=[init(), timer(), opponent(), controller(), state_tracker(), reward_bt()],
                        event_selection_strategy=NewSMTEventSelectionStrategy(),
                        listener=PrintBProgramRunnerListener())
 
@@ -153,14 +158,14 @@ def compute_best_local_action(m, axis):
 option = 1
 env.action_space = ActionSpace(get_action_list(N))
 total_rewards = []
-for _ in range(100):
+for _ in range(RUNS):
     obs = env.reset()
     reward_sum = 0
     obs = obs[0]
     #print(obs)
     env_done = False
     while not env_done:
-        if option == 1:
+        if GREEDY:
             a = compute_best_local_action(obs[:-1].reshape(N,M), obs[-1])
         else:
             a = env.action_space.sample()

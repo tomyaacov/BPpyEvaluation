@@ -77,7 +77,7 @@ if MODEL == "DQN":
     model = DQN("MlpPolicy", env, verbose=0)
 else:
     model = QRDQN("MlpPolicy", env, verbose=0)
-callback_obj = BPCallbackMaskMultiple(traces=traces, check_every=CHECK_EVERY, threshold=-0.5)
+callback_obj = BPCallbackMaskMultiple(traces=traces, check_every=CHECK_EVERY, threshold=-0.4)
 model.learn(total_timesteps=STEPS, callback=callback_obj)
 
 print("Final results:")
