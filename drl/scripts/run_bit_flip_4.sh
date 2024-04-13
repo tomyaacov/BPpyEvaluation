@@ -15,4 +15,4 @@ module load anaconda ### load anaconda module
 source activate BPpyLiveness ### activating Conda environment. Environment must be configured before running the job
 cd ~/repos/BPpyEvaluation/drl || exit
 
-~/.conda/envs/BPpyLiveness/bin/python bit_flipping.py 4 4 100000
+~/.conda/envs/BPpyLiveness/bin/python bit_flipping.py 4 4 200000
