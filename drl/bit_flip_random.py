@@ -11,7 +11,7 @@ import argparse
 import random
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[5, 5, 0, 1000])
+parser.add_argument("parameters", nargs="*", default=[3, 3, 1, 1000])
 args = parser.parse_args()
 
 
@@ -175,3 +175,4 @@ for _ in range(RUNS):
     total_rewards.append(reward_sum)
 
 print(sum(total_rewards)/len(total_rewards))
+print(max(total_rewards))
