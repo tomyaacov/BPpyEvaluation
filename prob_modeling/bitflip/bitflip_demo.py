@@ -13,9 +13,9 @@ from bit_flip_exe import bit_flip_bp
 
 parser = argparse.ArgumentParser(
 	description='BPpy bitflip demonstation. Runs only sampling a problem with the given parameters.')
-parser.add_argument('N', type=int, metavar='n_val', default=2,
+parser.add_argument('N', type=int, metavar='n', default=2,
 					choices=range(2, 5), help='Number of rows in the matrix.')
-parser.add_argument('M', type=int, metavar='m_val', default=2,
+parser.add_argument('M', type=int, metavar='m', default=2,
 					choices=range(2, 5), help='Number of columns in the matrix')
 parser.add_argument('--samples', type=int, metavar='num', default=1000,
 					help='Number of iterations to use for sampling, default=1000')

@@ -28,7 +28,7 @@ try:
 except:
 	print(f'Failed to find or run PRISM executable at {PRISM_EXECUTABLE_LOCATION}')
 	print(f'Change path constant PRISM_EXECUTABLE_LOCATION or check requirements.')
-	#exit(1)
+	exit(1)
 
 dice_sides = args.sides
 SAMPLES_NUM = args.num
