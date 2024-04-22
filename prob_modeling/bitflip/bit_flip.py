@@ -119,10 +119,10 @@ if __name__ == '__main__':
 
     if mode == bp.analysis_thread:
         converter = BProgramConverter(bp_gen, event_list,
-                                      ["init", "general"] + [f"row{i}" for i in range(N)] + [f"col{i}" for i in
+                                      ["begin", "general"] + [f"row{i}" for i in range(N)] + [f"col{i}" for i in
                                                                                              range(M)])
         content = converter.to_prism()
-        with open("bit_flip.prism", "w") as f:
+        with open("bit_flip.pm", "w") as f:
             f.write(content)
     else:
         bp_gen().run()
