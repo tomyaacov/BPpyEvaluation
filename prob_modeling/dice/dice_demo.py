@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(
 	description='BPpy dice problem solving demonstation. Runs sampling and translation + model checking of a problem with the given parameter.')
 parser.add_argument('sides', type=int, metavar='sides', default=6,
 					choices=range(4, 50), help='Number of sides in the simulated dice.')
-parser.add_argument('--samples', type=int, metavar='num', default=1000,
+parser.add_argument('--samples', type=int, metavar='samples', default=1000,
 					help='Number of iterations to use for sampling, default=1000')
 
 args = parser.parse_args()
@@ -31,7 +31,7 @@ except:
 	exit(1)
 
 dice_sides = args.sides
-SAMPLES_NUM = args.num
+SAMPLES_NUM = args.samples
 print(f'Running demonstration with n={dice_sides}.')
 
 class EvaluatorListener(bp.PrintBProgramRunnerListener):

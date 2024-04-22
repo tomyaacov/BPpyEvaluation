@@ -33,7 +33,7 @@ docker pull annonymouswriter/bp-evaluation:latest
 docker run -it annonymouswriter/bp-evaluation:latest
 ```
 When running the container, the current directory will be ``BPpyEvaluation``.
-First, pull the repository, for it to be updated with the latest version:
+First, pull the repository for it to be updated with the latest version:
 ```shell
 git pull
 ```
@@ -177,7 +177,12 @@ cd prism-4.8-linux64-x86
 cd ..
 ```
 
-The ``artifact_demonstration.py`` file runs the monty hall experiment for a single parameter configuration and accepts the parameters:
+Each sub-directory contains a demonstration of the respective b-program for a given parameter configuration, in addition to the scripts used during the experiments (named modeling or sampling).
+The scripts should be run from the directory in which the above installation was performed.
+
+##### Monty Hall Problem
+
+``monty/monty_demo.py`` accepts the parameters:
 * `doors` - number of doors in total
 * `prizes` - doors containing prizes
 * `doors_opened` - doors opened before asking to swap
@@ -185,10 +190,36 @@ The ``artifact_demonstration.py`` file runs the monty hall experiment for a sing
 
 For example, running the experiment for 3 doors, 1 prize, 1 door opened, and 10000 samples:
 ```shell
-python3 artifact_demonstration.py 3 1 1 --samples 10000
+python3 monty/monty_demo.py 3 1 1 --samples 10000
 ```
 
-The full evaluation results presented in Section 5 and presented in Figure 4 and Table 4 can be obtained by running the script `run_all.sh` (**this may take multiple days and may require additional resources**).
+The full evaluation results presented in Section 5 and presented in Figure 5 and Table 4 can be obtained by running the script `monty/run_all.sh` (**this may take multiple days and may require additional resources**).
+
+
+##### Dice 
+
+``dice/dice_demo.py`` accepts the parameters:
+* `sides` - number of sides in the simulated dice
+* `--samples` - number of iterations to use for sampling
+
+For example, running the experiment for a dice with 6 sides and 10000 samples:
+```shell
+python3 dice/dice_demo.py 6 --samples 10000
+```
+
+##### Bit Flip
+
+``bitflip/bitflip_demo.py`` accepts the parameters:
+* `n` - number of rows in the matrix
+* `m` - number of columns in the matrix
+* `--samples` - number of iterations to use for sampling
+
+For example, running the experiment for a 3x3 matrix and 1000 samples:
+```shell
+python3 bitflip/bitflip_demo.py 3 3 --samples 1000
+```
+
+**Note the bitflip demo does not generate the translated models for exact analysis.**
 
 
 #### Deep Reinforcement Learning (Section 6)
@@ -352,8 +383,8 @@ The full evaluation results mentioned in the end of Section 8 can be obtained by
 
 ### Available
 
-During the review process, the artifact is available at [https://anonymous.4open.science/r/BPpyEvaluation-85EC](https://anonymous.4open.science/r/BPpyEvaluation-85EC).
-Once reviewing process is over it can be published under a Creative Commons license.
+During the review process, the artifact is available at [https://figshare.com/s/6635a52bad0d1a2781e8](https://figshare.com/s/6635a52bad0d1a2781e8).
+It can be published under a Creative Commons license.
 
 ### Functional and Reusable
 
