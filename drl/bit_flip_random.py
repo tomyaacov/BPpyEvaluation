@@ -174,5 +174,5 @@ for _ in range(RUNS):
         #print(a, obs, reward, env_done, info)
     total_rewards.append(reward_sum)
 
-print(sum(total_rewards)/len(total_rewards))
-print(max(total_rewards))
+print("The computed average reward is:", sum(total_rewards)/len(total_rewards))
+

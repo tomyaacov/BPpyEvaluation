@@ -61,8 +61,22 @@ For example, running ``cinderella_single_trace_drl.py`` for `A=5`, `B=50`, `C=2`
 python3 cinderella_single_trace_drl.py 5 50 2 5 1000000
 ```
 
+The ``cinderella_single_trace_search.py`` file contain the experiment of finding a single valid trace using search. 
+It accepts the parameters:
+
+* `A` - the number water units Cinderella’s stepmother distributes across the buckets in each round
+* `B` - capacity of each bucket
+* `C` - number of adjacent buckets that Cinderella empties in each round
+* `N` - number of buckets
+
+For example, running ``cinderella_single_trace_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5`:
+```shell
+python3 cinderella_single_trace_search.py 5 50 2 5
+```
+
 The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results" 
-can be obtained by running the scripts `scripts/cinderella_single_trace_drl.sh` and `cinderella_scripts/single_trace_search.sh` (**this may take multiple days and may require additional resources**).
+can be obtained by running the scripts `scripts/cinderella_single_trace_drl.sh` and `scripts/cinderella_single_trace_search.sh` (**this may take multiple days and may require additional resources**).
+
 
 The ``cinderella_multiple_traces_drl.py`` file contain the experiment of finding a single valid trace using search. 
 It accepts the parameters:
@@ -75,7 +89,7 @@ It accepts the parameters:
 * algorithm used - on of `DQN`,`QRDQN`
 
 
-For example, running ``cinderella_multiple_traces_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5` - **warning - this can take few minutes**
+For example, running ``cinderella_multiple_traces_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5` - **warning - this can take few hours**
 ```shell
 python3 cinderella_multiple_traces_drl.py 5 50 2 5 1000 1000000 "DQN"
 ```
