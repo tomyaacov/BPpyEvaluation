@@ -35,6 +35,7 @@ try:
 except:
 	print(f'Failed to find or run PRISM executable at {PRISM_EXECUTABLE_LOCATION}')
 	print(f'Change path constant PRISM_EXECUTABLE_LOCATION or check requirements.')
+	exit(1)
 
 DOORS_NUM = args.doors
 PRIZES_NUM = args.prizes
@@ -139,11 +140,11 @@ bp_gen, event_list = generate_model(doors_num=DOORS_NUM,
 event_nums = {e.name: i for i, e in enumerate(event_list)}
 print('Starting model translation...')
 conv = BProgramConverter(bp_gen, event_list)
-output = conv.to_prism('monty.prism')
-print('Output written to monty.prism')
-print('Running PRISM (more portable than Storm)')
+output = conv.to_prism('monty.pm')
+print('Output written to monty.pm')
+print('Running PRISM (instead of STORM for portability reasons)')
 
-cmd = PRISM_EXECUTABLE_LOCATION + ' -dtmc monty.prism -pf "P=? [(F event=3)]"'
+cmd = PRISM_EXECUTABLE_LOCATION + ' -dtmc monty.pm -pf "P=? [(F event=3)]"'
 res = subprocess.run(cmd, shell=True, check=True,
                      capture_output=True, text=True)
 

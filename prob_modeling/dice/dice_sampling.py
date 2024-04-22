@@ -1,11 +1,10 @@
 import bppy as bp
 from bppy.model.sync_statement import *
 from bppy.model.b_thread import *
-from bppy.analysis.bprogram_converter import BProgramConverter
 import itertools
 import numpy as np
 from scipy import stats
-from time import perf_counter, perf_counter_ns
+from time import perf_counter_ns
 from math import ceil, log2
 
 class EvaluatorListener(bp.PrintBProgramRunnerListener):
@@ -15,11 +14,10 @@ class EvaluatorListener(bp.PrintBProgramRunnerListener):
         pass
     def event_selected(self, b_program, event):
         self.events.append(event.name)
-        if len(self.events) == 20:
+        if len(self.events) >= 200:
             raise TimeoutError()
 
-def generate_model(n =6, mode=bp.execution_thread):
-
+def generate_model(n=6, mode=bp.execution_thread):
     @mode
     def node(u, x):
         while True:
@@ -53,19 +51,28 @@ def generate_model(n =6, mode=bp.execution_thread):
     return bp_gen, event_list
 
 
-for dice_n in range(6, 20):
-    bp_gen, event_list = generate_model(n=dice_n,
-                                        mode=bp.analysis_thread)
-    event_nums = {e.name: i for i, e in enumerate(event_list)}
-    conv = BProgramConverter(bp_gen, event_list)
-    start = perf_counter()
-    output = conv.to_prism('dice/models/dice_{}.pm'.format(dice_n))
+def sample_comb(dice_n=6, gen_function=generate_model, max_run=1000):
+    bp_gen, _ = gen_function(dice_n)
+    hist = []
+    hist_mean, mean = [], 0
+    times = []
+    start_time = perf_counter_ns()
+    for n in range(1, max_run):
+        model = bp_gen()
+        model.run()
+        res = model.listener.events
+        new_val = int(f'result_{dice_n-1}' in res)
+        hist.append(new_val)
+        delta = new_val - mean
+        mean += delta / n
+        hist_mean.append(mean)
+        times.append(perf_counter_ns()-start_time)
+    return(np.array(hist_mean), hist, np.array(times)/1000000000)
 
-    end = perf_counter()-start
-    with open('dice/models/time_taken.txt', 'a') as f:
-        f.write(f'time for {dice_n}: {end}\n')
 
-    prob_n = f'(F event=' + str(event_nums[event_list[-1].name]) + ')'
-    with open("dice/models/prop_{}.csl".format(dice_n), 'w+') as f:
-        f.write(f"P=? [{prob_n}]")
-    print("finished {}".format(dice_n))
+for dice_n in range(6, 31):
+  mean, hist, times = sample_comb(dice_n, max_run=10000)
+  sem = [stats.sem(hist[0:n]) for n in range(0, len(hist))]
+  np.savetxt('sampling/dice_{}.csv'.format(dice_n), np.transpose((mean,sem,
+                times, mean+sem, mean-sem)), delimiter=',',header='mean, sem, time, max_sem, min_sem', comments='')
+  print('finished {}.csv'.format(dice_n))
