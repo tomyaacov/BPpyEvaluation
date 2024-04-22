@@ -1,9 +1,8 @@
 # Artifact Submission 
 
-
 **Title of the submitted paper**: Exploring and Evaluating Interplays of BPpy with Artificial Intelligence and Formal Methods
 
-**ECOOP submission number for the paper**: 61
+**ECOOP submission number for the paper**: 134
 
 ## Metadata 
 
@@ -14,7 +13,7 @@
     * disk: 256 GB
 
 * Required hardware resources:
-    * The artifact includes code for several experiments presented in the paper. Running a complete experiment in each of the evaluations takes multiple days and requires huge resources. We included instructions for a scaled-down evaluation for each experiment, which takes several minutes.
+    * The artifact includes code for all experiments presented in the paper. Running a complete experiment in each of the evaluations takes multiple days and requires huge resources. We included instructions for a scaled-down evaluation for each experiment, which takes several minutes.
 
 * Known compatibility issues of the container:
     * No compatibility issues are known.
@@ -34,7 +33,12 @@ docker pull annonymouswriter/bp-evaluation:latest
 docker run -it annonymouswriter/bp-evaluation:latest
 ```
 When running the container, the current directory will be ``BPpyEvaluation``.
-Inside this directory there are separate directories for each experiment discussed in the paper, as elaborated below. 
+First, pull the repository, for it to be updated with the latest version:
+```shell
+git pull
+```
+
+Inside the ``BPpyEvaluation`` directory there are separate directories for each experiment discussed in the paper, as elaborated below. 
 
 ### Experiments
 
@@ -46,30 +50,57 @@ The code for running the SMT solvers experiments (Section 3) is in the ``smt_sol
 cd smt_solvers
 ```
 
+**Cinderella-Stepmother problem**
+
+To repeat the experiment presented in Figure 1, execute the ```cinderella_experiments.py``` script with the following parameters ( **warning - this can take few minutes**):
+
+```shell
+python3 cinderella_experiments.py -n 5 -c 2 -b 25 -n_e 10
+```
+The ```cinderella_experiments.py``` file accepts the parameters: 
+* `n` - the number of buckets.
+* `c` - the number of adjacent buckets Cinderella empties.
+* `b ` - The maximum number of water units a bucket can contain.
+* `a` - The number of water units the stepmother pours into the buckets
+* `n_e` - the number of times to repeat the experiment.
+
+**Bit-Flip problem**
+
+The ```bit_flipping_experiments.py``` file accepts the parameters:
+
+ * `n` - maximal number of rows
+ * `m` - maximal number of columns
+ * `n_e` - The number of times to run the experiment
+
+For instance, a scaled down evaluation of the experiment presented in Figure 2, execute the ```bit_flipping_experiments.py``` program with the following parameters:
+```shell
+python3 bit_flipping_experiments.py -n 3 -m 4 -n_e 10
+```
+
+To repeat the full experiment presented in Figure 2, execute the ```bit_flipping_experiments.py``` program with the following parameters (**this may take few hours and may require additional resources**):
+```shell
+python3 bit_flipping_experiments.py -n 4 -m 5 -n_e 10
+```
+
+**Circled Polygon problem**
+
 The ``z3_circle_examples.py`` file accepts the parameters:
 * `n_0` - the initial number of edges to start the experiment.
 * `n_m` - the final number of edges to finish the experiment.
 * `n_e` - the number of times to repeat the experiment.
-* `s` - flag that indicates that the experiment will be executed in a single-edge mode.
 
-For example, running a scaled-down evaluation of the single edge experiment:
-```shell
-python3 z3_circle_examples.py -n_0 4 -n_m 10 -s -n_e 20 -s
-```
-
-and running a scaled-down evaluation of the multi edge experiment:
+For example, running a scaled-down evaluation of the circled-polygon experiment:
 ```shell
 python3 z3_circle_examples.py -n_0 4 -n_m 10 -n_e 20
 ```
 
-The scripts outputs a table with the results presented in Figure 2 and Figure 3.
+The script outputs a table with the results.
 
-The full evaluation results presented in Section 3 can be obtained by running the following commands (**this may take a few hours and may require additional resources**):
+To repeat the experiment presented in Figure 4, execute the ```z3_circle_examples.py``` program with the following parameters(**this may take few hours and may require additional resources**):
+
 ```shell
-python3 z3_circle_examples.py -n_0 4 -n_m 100 -s -n_e 30 -s
 python3 z3_circle_examples.py -n_0 4 -n_m 200 -n_e 30
 ```
-
 
 #### Symbolic Model Checking (Section 4)
 
@@ -102,7 +133,9 @@ and running *bounded* symbolic model checking for the dining philosophers exampl
 python3 main.py dining_philosophers2 3 1 1
 ```
 
-The data in Table 3 concerning BPpy can be obtained by running scripts `scripts/bounded.sh` and `scripts/unbounded.sh`  (**this may take multiple days and may require additional resources**).
+The data in Table 3 concerning BPpy can be obtained by running scripts (**this may take multiple days and may require additional resources**):
+* `scripts/bounded.sh` - the script will create a csv file `run_all_bppy_bounded_output.csv` with the results of the time and memory of BPpy's bounded model checking.
+* `scripts/unbounded.sh` - the script will create a csv file `run_all_bppy_unbounded_output.csv` with the results of the time and memory of BPpy's unbounded model checking.
 
 
 ##### BPjs's Model Checker
@@ -121,7 +154,9 @@ mvn clean compile exec:java -Dexec.args="hot_cold 30 1 true false"
 mvn clean compile exec:java -Dexec.args="dining_philosophers 3 true true"
 ```
 
-The data in Table 3 concerning BPjs can be obtained by running scripts `scripts/bounded.sh` and `scripts/unbounded.sh`  (**this may take multiple days and may require additional resources**).
+The data in Table 3 concerning BPjs can be obtained by running scripts (**this may take multiple days and may require additional resources**):
+* `scripts/bounded.sh` - the script will create a csv file `run_all_bpjs_bounded_output.csv` with the results of the time and memory of BPjs's bounded model checking.
+* `scripts/unbounded.sh` - the script will create a csv file `run_all_bpjs_unbounded_output.csv` with the results of the time and memory of BPjs's unbounded model checking.
 
 #### Probabilistic Model Checking (Section 5)
 
@@ -164,6 +199,8 @@ The code for running the deep reinforcement learning experiments (Section 6) is 
 cd drl
 ```
 
+##### Pancake example
+
 The ``pancake_single_trace_drl.py`` file contain the experiment of finding a single valid trace using DRL. 
 It accepts the parameters:
 * `n` - number of pancakes in the example
@@ -187,7 +224,9 @@ For example, running ``pancake_single_trace_search.py`` for `n=200`, `b=25` - **
 python3 pancake_single_trace_search.py 200 25
 ```
 
-The full evaluation results presented in Table 5 can be obtained by running the scripts `scripts/single_trace_drl.sh` and `scripts/single_trace_search.sh` (**this may take multiple days and may require additional resources**).
+The full evaluation results presented in Table 9 can be obtained by running the scripts (**this may take multiple days and may require additional resources**): 
+* `scripts/single_trace_drl.sh` - the script will create a csv file, `run_single_trace_drl_output.csv`, with the memory and time of the DRL algorithm in the table.
+* `scripts/single_trace_search.sh` - the script will create a csv file, `run_single_trace_search_output.csv`, with the memory and time of the search algorithm in the table.
 
 
 The ``pancake_multiple_traces_drl.py`` file contain the experiment of finding a valid non-deterministic policy for the pancake example.
@@ -205,9 +244,87 @@ python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
 ```
 This is a reduced evaluation which outputs a table with the results presented in Figure 5.
 
-The full evaluation results presented in Figure 5 can be obtained by running the script `scripts/multiple_traces.sh` (**this may take few hours and may require additional resources**).
+The full evaluation results presented in Figure 10 can be obtained by running the script `scripts/multiple_traces.sh` (**this may take few hours and may require additional resources**).
 
-#### LLM (Section 7)
+##### Cinderella-Stepmother example
+
+The ``cinderella_single_trace_drl.py`` file contain the experiment of finding a single valid trace using DRL. 
+It accepts the parameters:
+
+* `A` - the number water units Cinderella’s stepmother distributes across the buckets in each round
+* `B` - capacity of each bucket
+* `C` - number of adjacent buckets that Cinderella empties in each round
+* `N` - number of buckets
+* `STEPS` - number of learning rounds
+
+For example, running ``cinderella_single_trace_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5`:
+```shell
+python3 cinderella_single_trace_drl.py 5 50 2 5 1000000
+```
+
+The ``cinderella_single_trace_search.py`` file contain the experiment of finding a single valid trace using search. 
+It accepts the parameters:
+
+* `A` - the number water units Cinderella’s stepmother distributes across the buckets in each round
+* `B` - capacity of each bucket
+* `C` - number of adjacent buckets that Cinderella empties in each round
+* `N` - number of buckets
+
+For example, running ``cinderella_single_trace_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5`:
+```shell
+python3 cinderella_single_trace_search.py 5 50 2 5
+```
+
+The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results"  (**this may take multiple days and may require additional resources**): 
+can be obtained by running the scripts:
+* `scripts/cinderella_single_trace_drl.sh` - the script will create a csv file, `run_single_trace_drl_output.csv`, with the memory and time of the DRL algorithm in the table.
+* `scripts/cinderella_single_trace_search.sh`. - the script will create a csv file, `run_single_trace_search_output.csv`, with the memory and time of the search algorithm in the table.
+
+
+The ``cinderella_multiple_traces_drl.py`` file contain the experiment of finding a single valid trace using search. 
+It accepts the parameters:
+* `A` - the number water units Cinderella’s stepmother distributes across the buckets in each round
+* `B` - capacity of each bucket
+* `C` - number of adjacent buckets that Cinderella empties in each round
+* `N` - number of buckets
+* number of evaluated traces
+* learning rounds for the DRL algorithm
+* algorithm used - on of `DQN`,`QRDQN`
+
+
+For example, running ``cinderella_multiple_traces_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5` - **warning - this can take few minutes**
+```shell
+python3 cinderella_multiple_traces_drl.py 5 50 2 5 1000 100000 "DQN"
+```
+The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results" 
+can be obtained by running the script `scripts/cinderella_multiple_traces.sh` (**this may take few hours and may require additional resources**).
+
+#### (DRL + Probabilities + SMT Solvers) (Section 7)
+
+The ``bit_flipping.py`` file contain the experiment presented in Section 7.
+It accepts the parameters:
+* `N` - number of matrix rows
+* `M` - number of matrix columns
+* learning rounds for the DRL algorithm.
+
+For example, running ``bit_flipping.py`` for `N=3`, `M=3` (**this may take few hours and may require additional resources**):
+```shell
+python3 bit_flipping.py 3 3 100000
+```
+The full evaluation results presented in Figure 11 can be obtained by running the script `scripts/bit_flip_all.sh` (**this may take few hours and may require additional resources**).
+
+To compute the random and greedy baselines, run the ``bit_flip_random.py`` that accepts the parameters:
+* `N` - number of matrix rows
+* `M` - number of matrix columns
+* greedy or random (1 for greedy, 0 for random)
+* number of samples
+
+For example (**this may take few minutes**):
+```shell
+python3 bit_flip_random.py 3 3 1 1000
+```
+
+#### LLM (Section 8)
 
 The code for running the LLM experiments (Section 7) is in the ``llm`` directory:
 
@@ -229,7 +346,7 @@ and running the evaluation of the Python model for the specification example `rs
 python3 main_regular.py rs1
 ```
 
-The full evaluation results mentioned in the end of Section 7 can be obtained by running the script `run_all.sh`.
+The full evaluation results mentioned in the end of Section 8 can be obtained by running the script `run_all.sh`.
 
 ## Additional Information Regarding Claimed Badges
 

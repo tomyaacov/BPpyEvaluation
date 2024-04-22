@@ -23,7 +23,9 @@ and running *bounded* symbolic model checking for the dining philosophers exampl
 python3 main.py dining_philosophers2 3 1 1
 ```
 
-The data in Table 3 concerning BPpy can be obtained by running scripts `scripts/bounded.sh` and `scripts/unbounded.sh`  (**this may take multiple days and may require additional resources**).
+The data in Table 3 concerning BPpy can be obtained by running scripts (**this may take multiple days and may require additional resources**):
+* `scripts/bounded.sh` - the script will create a csv file `run_all_bppy_bounded_output.csv` with the results of the time and memory of BPpy's bounded model checking.
+* `scripts/unbounded.sh` - the script will create a csv file `run_all_bppy_unbounded_output.csv` with the results of the time and memory of BPpy's unbounded model checking.
 
 
 ##### BPjs's Model Checker
@@ -42,4 +44,7 @@ mvn clean compile exec:java -Dexec.args="hot_cold 30 1 true false"
 mvn clean compile exec:java -Dexec.args="dining_philosophers 3 true true"
 ```
 
-The data in Table 3 concerning BPjs can be obtained by running scripts `scripts/bounded.sh` and `scripts/unbounded.sh`  (**this may take multiple days and may require additional resources**).
+The data in Table 3 concerning BPjs can be obtained by running scripts (**this may take multiple days and may require additional resources**):
+* `scripts/bounded.sh` - the script will create a csv file `run_all_bpjs_bounded_output.csv` with the results of the time and memory of BPjs's bounded model checking.
+* `scripts/unbounded.sh` - the script will create a csv file `run_all_bpjs_unbounded_output.csv` with the results of the time and memory of BPjs's unbounded model checking.
+
