@@ -559,7 +559,7 @@ def parse_arguments():
         "-s",
         "--single_equation",
         action="store_true",
-        default=True,
+        default=False,
         help="single equation or multiple equations",
     )
     parser.add_argument(

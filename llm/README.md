@@ -14,4 +14,4 @@ and running the evaluation of the Python model for the specification example `rs
 python3 main_regular.py rs1
 ```
 
-The full evaluation results mentioned in the end of Section 7 can be obtained by running the script `run_all.sh`.
+The full evaluation results mentioned in the end of Section 8 can be obtained by running the script `run_all.sh`.

@@ -25,7 +25,9 @@ For example, running ``pancake_single_trace_search.py`` for `n=200`, `b=25` - **
 python3 pancake_single_trace_search.py 200 25
 ```
 
-The full evaluation results presented in Table 9 can be obtained by running the scripts `scripts/single_trace_drl.sh` and `scripts/single_trace_search.sh` (**this may take multiple days and may require additional resources**).
+The full evaluation results presented in Table 9 can be obtained by running the scripts (**this may take multiple days and may require additional resources**): 
+* `scripts/single_trace_drl.sh` - the script will create a csv file, `run_single_trace_drl_output.csv`, with the memory and time of the DRL algorithm in the table.
+* `scripts/single_trace_search.sh` - the script will create a csv file, `run_single_trace_search_output.csv`, with the memory and time of the search algorithm in the table.
 
 
 The ``pancake_multiple_traces_drl.py`` file contain the experiment of finding a valid non-deterministic policy for the pancake example.
@@ -43,7 +45,7 @@ python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
 ```
 This is a reduced evaluation which outputs a table with the results presented in Figure 5.
 
-The full evaluation results presented in Figure 5 can be obtained by running the script `scripts/multiple_traces.sh` (**this may take few hours and may require additional resources**).
+The full evaluation results presented in Figure 10 can be obtained by running the script `scripts/multiple_traces.sh` (**this may take few hours and may require additional resources**).
 
 ##### Cinderella-Stepmother example
 
@@ -74,8 +76,10 @@ For example, running ``cinderella_single_trace_drl.py`` for `A=5`, `B=50`, `C=2`
 python3 cinderella_single_trace_search.py 5 50 2 5
 ```
 
-The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results" 
-can be obtained by running the scripts `scripts/cinderella_single_trace_drl.sh` and `scripts/cinderella_single_trace_search.sh` (**this may take multiple days and may require additional resources**).
+The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results"  (**this may take multiple days and may require additional resources**): 
+can be obtained by running the scripts:
+* `scripts/cinderella_single_trace_drl.sh` - the script will create a csv file, `run_single_trace_drl_output.csv`, with the memory and time of the DRL algorithm in the table.
+* `scripts/cinderella_single_trace_search.sh`. - the script will create a csv file, `run_single_trace_search_output.csv`, with the memory and time of the search algorithm in the table.
 
 
 The ``cinderella_multiple_traces_drl.py`` file contain the experiment of finding a single valid trace using search. 
@@ -89,9 +93,9 @@ It accepts the parameters:
 * algorithm used - on of `DQN`,`QRDQN`
 
 
-For example, running ``cinderella_multiple_traces_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5` - **warning - this can take few hours**
+For example, running ``cinderella_multiple_traces_drl.py`` for `A=5`, `B=50`, `C=2`, and `N=5` - **warning - this can take few minutes**
 ```shell
-python3 cinderella_multiple_traces_drl.py 5 50 2 5 1000 1000000 "DQN"
+python3 cinderella_multiple_traces_drl.py 5 50 2 5 1000 100000 "DQN"
 ```
 The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results" 
 can be obtained by running the script `scripts/cinderella_multiple_traces.sh` (**this may take few hours and may require additional resources**).
@@ -116,7 +120,7 @@ To compute the random and greedy baselines, run the ``bit_flip_random.py`` that 
 * greedy or random (1 for greedy, 0 for random)
 * number of samples
 
-For example:
+For example (**this may take few minutes**):
 ```shell
 python3 bit_flip_random.py 3 3 1 1000
 ```
