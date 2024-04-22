@@ -41,4 +41,5 @@ python3 artifact_demonstration.py 3 1 1 --samples 10000
 * `n` - number of rows in the matrix
 * `m` - number of columns in the matrix
 * `--samples` - number of iterations to use for sampling
+
 Note the bitflip demo does not generate the translated models for exact analysis. 
