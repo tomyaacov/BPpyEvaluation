@@ -48,5 +48,5 @@ ulimit -s unlimited
 
 for option in "${options[@]}"; do
   echo "$option"
-  timeout 120m python3 artifact_demonstration.py $option
+  timeout 120m python3 monty/monty_demo.py $option
 done
