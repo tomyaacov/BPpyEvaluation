@@ -103,7 +103,7 @@ print(f'Time taken was {times[-1]}s, avg {np.mean(times)/SAMPLES_NUM}s per itera
 print(f'Approximated result = {mean[-1]}')
 
 
-bp_gen, event_list = generate_model(dice_n=dice_sides,
+bp_gen, event_list = generate_model(n=dice_sides,
 									mode=bp.analysis_thread)
 event_nums = {e.name: i for i, e in enumerate(event_list)}
 print('Starting model translation...')
