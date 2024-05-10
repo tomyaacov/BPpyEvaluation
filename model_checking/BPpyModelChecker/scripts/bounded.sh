@@ -18,7 +18,7 @@ for option in "${options[@]}"; do
   echo "$option"
   for i in {1..10}
   do
-    timeout 60m /usr/bin/time -a -o run_all_bppy_bounded_output.csv -f "$option,$i,%E,%M" python3 main.py $option
+    timeout 60m time -a -o run_all_bppy_bounded_output.csv -f "$option,$i,%E,%M" python3 main.py $option
     EXIT_STATUS=$?
     if [ $EXIT_STATUS -eq 124 ]
     then

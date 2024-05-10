@@ -33,10 +33,6 @@ docker pull annonymouswriter/bp-evaluation:latest
 docker run -it annonymouswriter/bp-evaluation:latest
 ```
 When running the container, the current directory will be ``BPpyEvaluation``.
-First, pull the repository for it to be updated with the latest version:
-```shell
-git pull
-```
 
 Inside the ``BPpyEvaluation`` directory there are separate directories for each experiment discussed in the paper, as elaborated below. 
 
@@ -52,17 +48,25 @@ cd smt_solvers
 
 **Cinderella-Stepmother problem**
 
-To repeat the experiment presented in Figure 1, execute the ```cinderella_experiments.py``` script with the following parameters ( **warning - this can take few minutes**):
-
-```shell
-python3 cinderella_experiments.py -n 5 -c 2 -b 25 -n_e 10
-```
 The ```cinderella_experiments.py``` file accepts the parameters: 
 * `n` - the number of buckets.
 * `c` - the number of adjacent buckets Cinderella empties.
 * `b ` - The maximum number of water units a bucket can contain.
 * `a` - The number of water units the stepmother pours into the buckets
 * `n_e` - the number of times to repeat the experiment.
+
+For instance, a scaled down evaluation of the experiment presented in Figure 1, execute the ```cinderella_experiments.py``` program with the following parameters:
+```shell
+python3 cinderella_experiments.py -n 5 -c 2 -b 10 -n_e 3
+```
+
+To repeat the experiment presented in Figure 1, execute the ```cinderella_experiments.py``` script with the following parameters (**this may take few hours and may require additional resources**):
+
+```shell
+python3 cinderella_experiments.py -n 5 -c 2 -b 25 -n_e 10
+```
+
+The script outputs a table with the results presented in Figure 1.
 
 **Bit-Flip problem**
 
@@ -74,13 +78,15 @@ The ```bit_flipping_experiments.py``` file accepts the parameters:
 
 For instance, a scaled down evaluation of the experiment presented in Figure 2, execute the ```bit_flipping_experiments.py``` program with the following parameters:
 ```shell
-python3 bit_flipping_experiments.py -n 3 -m 4 -n_e 10
+python3 bit_flipping_experiments.py -n 3 -m 4 -n_e 5
 ```
 
 To repeat the full experiment presented in Figure 2, execute the ```bit_flipping_experiments.py``` program with the following parameters (**this may take few hours and may require additional resources**):
 ```shell
 python3 bit_flipping_experiments.py -n 4 -m 5 -n_e 10
 ```
+
+The script outputs a table with the results presented in Figure 2.
 
 **Circled Polygon problem**
 
@@ -94,13 +100,14 @@ For example, running a scaled-down evaluation of the circled-polygon experiment:
 python3 z3_circle_examples.py -n_0 4 -n_m 10 -n_e 20
 ```
 
-The script outputs a table with the results.
 
 To repeat the experiment presented in Figure 4, execute the ```z3_circle_examples.py``` program with the following parameters(**this may take few hours and may require additional resources**):
 
 ```shell
 python3 z3_circle_examples.py -n_0 4 -n_m 200 -n_e 30
 ```
+
+The script outputs a table with the results presented in Figure 4.
 
 #### Symbolic Model Checking (Section 4)
 
@@ -133,7 +140,7 @@ and running *bounded* symbolic model checking for the dining philosophers exampl
 python3 main.py dining_philosophers2 3 1 1
 ```
 
-The data in Table 3 concerning BPpy can be obtained by running scripts (**this may take multiple days and may require additional resources**):
+The data in Table 3 concerning BPpy can be obtained by running the following scripts using the `bash` command (**this may take multiple days and may require additional resources**):
 * `scripts/bounded.sh` - the script will create a csv file `run_all_bppy_bounded_output.csv` with the results of the time and memory of BPpy's bounded model checking.
 * `scripts/unbounded.sh` - the script will create a csv file `run_all_bppy_unbounded_output.csv` with the results of the time and memory of BPpy's unbounded model checking.
 
@@ -147,14 +154,14 @@ cd BPjsModelChecking
 Running the examples above using BPjs's model checker:
 
 ```shell
-mvn clean compile exec:java -Dexec.args="hot_cold 30 1 true false"
+mvn exec:java -Dexec.args="hot_cold 30 1 true false"
 ```
 
 ```shell
-mvn clean compile exec:java -Dexec.args="dining_philosophers 3 true true"
+mvn exec:java -Dexec.args="dining_philosophers 3 true true"
 ```
 
-The data in Table 3 concerning BPjs can be obtained by running scripts (**this may take multiple days and may require additional resources**):
+The data in Table 3 concerning BPjs can be obtained by running the following scripts using the `bash` command (**this may take multiple days and may require additional resources**):
 * `scripts/bounded.sh` - the script will create a csv file `run_all_bpjs_bounded_output.csv` with the results of the time and memory of BPjs's bounded model checking.
 * `scripts/unbounded.sh` - the script will create a csv file `run_all_bpjs_unbounded_output.csv` with the results of the time and memory of BPjs's unbounded model checking.
 
@@ -255,7 +262,7 @@ For example, running ``pancake_single_trace_search.py`` for `n=200`, `b=25` - **
 python3 pancake_single_trace_search.py 200 25
 ```
 
-The full evaluation results presented in Table 9 can be obtained by running the scripts (**this may take multiple days and may require additional resources**): 
+The full evaluation results presented in Table 9 can be obtained by running the following scripts using the `bash` command (**this may take multiple days and may require additional resources**): 
 * `scripts/single_trace_drl.sh` - the script will create a csv file, `run_single_trace_drl_output.csv`, with the memory and time of the DRL algorithm in the table.
 * `scripts/single_trace_search.sh` - the script will create a csv file, `run_single_trace_search_output.csv`, with the memory and time of the search algorithm in the table.
 
@@ -273,9 +280,9 @@ For example, running ``pancake_multiple_traces_drl.py`` for `n=200`, `b=25` - **
 ```shell
 python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
 ```
-This is a reduced evaluation which outputs a table with the results presented in Figure 5.
+This is a reduced evaluation which outputs a table with the results presented in Figure 10.
 
-The full evaluation results presented in Figure 10 can be obtained by running the script `scripts/multiple_traces.sh` (**this may take few hours and may require additional resources**).
+The full evaluation results presented in Figure 10 can be obtained by running the script `scripts/multiple_traces.sh` using the `bash` command (**this may take few hours and may require additional resources**).
 
 ##### Cinderella-Stepmother example
 
@@ -307,7 +314,7 @@ python3 cinderella_single_trace_search.py 5 50 2 5
 ```
 
 The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results"  (**this may take multiple days and may require additional resources**): 
-can be obtained by running the scripts:
+can be obtained by running the following scripts using the `bash` command:
 * `scripts/cinderella_single_trace_drl.sh` - the script will create a csv file, `run_single_trace_drl_output.csv`, with the memory and time of the DRL algorithm in the table.
 * `scripts/cinderella_single_trace_search.sh`. - the script will create a csv file, `run_single_trace_search_output.csv`, with the memory and time of the search algorithm in the table.
 
@@ -328,7 +335,7 @@ For example, running ``cinderella_multiple_traces_drl.py`` for `A=5`, `B=50`, `C
 python3 cinderella_multiple_traces_drl.py 5 50 2 5 1000 100000 "DQN"
 ```
 The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results" 
-can be obtained by running the script `scripts/cinderella_multiple_traces.sh` (**this may take few hours and may require additional resources**).
+can be obtained by running the script `scripts/cinderella_multiple_traces.sh`  using the `bash` command (**this may take few hours and may require additional resources**).
 
 #### (DRL + Probabilities + SMT Solvers) (Section 7)
 
@@ -342,7 +349,7 @@ For example, running ``bit_flipping.py`` for `N=3`, `M=3` (**this may take few h
 ```shell
 python3 bit_flipping.py 3 3 100000
 ```
-The full evaluation results presented in Figure 11 can be obtained by running the script `scripts/bit_flip_all.sh` (**this may take few hours and may require additional resources**).
+The full evaluation results presented in Figure 11 can be obtained by running the script `scripts/bit_flip_all.sh` using the `bash` command (**this may take few hours and may require additional resources**).
 
 To compute the random and greedy baselines, run the ``bit_flip_random.py`` that accepts the parameters:
 * `N` - number of matrix rows
@@ -377,7 +384,9 @@ and running the evaluation of the Python model for the specification example `rs
 python3 main_regular.py rs1
 ```
 
-The full evaluation results mentioned in the end of Section 8 can be obtained by running the script `run_all.sh`.
+The scripts output the alignment of the 100 sampled traces with requirements.
+
+The full evaluation results mentioned in the end of Section 8 can be obtained by running the script `run_all.sh` using the `bash` command.
 
 ## Additional Information Regarding Claimed Badges
 
@@ -390,5 +399,7 @@ It can be published under a Creative Commons license.
 
 All experimental claims are referenced in their relevant subsection above (divided to paper sections). 
 Each reference includes instructions on how to run the full experiment and obtain the results presented in the paper.
+
+The artifact implements several integration for the BPpy package. Users can reuse the artifact when using these integrations to other b-programs they implement. 
 
 The artifact and its dependencies are open-source.
