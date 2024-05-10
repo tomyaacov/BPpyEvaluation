@@ -122,7 +122,7 @@ print(f'Property written to prop.csl')
 
 print('Running PRISM (instead of STORM for portability reasons)')
 
-cmd = PRISM_EXECUTABLE_LOCATION + ' -dtmc dice.pm -pf prop_dice.csl'
+cmd = PRISM_EXECUTABLE_LOCATION + ' -dtmc dice.pm prop_dice.csl'
 res = subprocess.run(cmd, shell=True, check=True,
                      capture_output=True, text=True)
 
