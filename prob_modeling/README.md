@@ -1,5 +1,71 @@
 #### Probabilistic Model Checking (Section 5)
 
+##### Monty Hall
+
+The code for the monty hall experiment is located in the `monty_hall` directory. 
+The `demo.py` file must be run from within the `monty_hall` directory:
+```shell
+cd monty_hall
+```
+
+The `demo.py` file accepts the following parameters:
+* `min` - the minimum number of doors
+* `max` - the maximum number of doors
+* `--samples` - the number of samples to take
+
+For example, running the Monty Hall experiment on a minimum of 3 and maximum of 4 doors, taking 10000 samples:
+```shell
+python3 demo.py 3 4 --samples 10000
+```
+
+The script outputs the sampling results to different csv files the `samples` subdirectory.
+For instance, the results of the above command reproduce the one shown in Figure 5(a), 
+and are saved to `samples/sample_3d1p1o.csv`.
+
+The above command also produces the results for the analysis shown in Table 4, 
+which are saved to `translation_overview.csv` (albeit with different parameters). 
+Note that since the demo script does not timeout, 
+larger parameters inputs, shown in Table 4, may take multiple days and require additional resources.
+A scaled down evaluation can be achieved by running the following command (**warning - this can take few minutes**):
+```shell
+python3 demo.py 7 7 --samples 10000
+```
+
+##### Dice Problem
+
+
+
+##### Bitflip
+
+
+
+
+
+The demo.py accepts the paraneters:
+...
+For example 
+
+
+to run a single example of the montyhall analysis, run the following command:
+```shell
+python3 monty_hall/demo.py 3 4 --samples 10000
+```
+
+
+
+
+To get the results in Figure 5 run the following commands:
+```shell
+```
+the results will based saved to kdgldfg.csv
+
+To get the results in Table 4 run the following commands:
+```shell
+
+```
+the results will be saved to translation.
+
+
 
 Each sub-directory contains a demonstration of the respective b-program evaluation for a given parameter range, in addition to the scripts used during the experiments (named modeling or sampling).
 Running the demos performs the sampling followed by model translation and verification.
