@@ -112,7 +112,11 @@ For example, running ``bit_flipping.py`` for `N=3`, `M=3` (**this may take few h
 ```shell
 python3 bit_flipping.py 3 3 100000
 ```
-The full evaluation results presented in Figure 11 can be obtained by running the script `scripts/bit_flip_all.sh` (**this may take few hours and may require additional resources**).
+
+The script saves the results presented in the evaluation in a csv file. 
+For instance, the results for the command above will be saved in `output/33100000/results.csv`.
+
+The full evaluation results presented in Figure 11 can be obtained by running the script `scripts/bit_flip_all.sh` using the `bash` command (**this may take few hours and may require additional resources**).
 
 To compute the random and greedy baselines, run the ``bit_flip_random.py`` that accepts the parameters:
 * `N` - number of matrix rows

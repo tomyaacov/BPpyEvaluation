@@ -15,7 +15,7 @@ import pandas as pd
 import json
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[2, 2, 5_000])
+parser.add_argument("parameters", nargs="*", default=[3, 3, 1000])
 args = parser.parse_args()
 
 
@@ -190,5 +190,6 @@ def load_results(path):
 results = load_results(log_dir)
 results["episode"] = results["index"] + 1
 results["timesteps"] = results["episode"] * results["l"]
-results["mean_reward"] = results['r'].rolling(200).mean()
+results["mean_reward"] = results['r'][::-1].rolling(200,min_periods=1).mean()[::-1]
 results[["episode", "l", "timesteps", "r", "mean_reward"]].to_csv(os.path.join(log_dir, "results.csv"), index=False)
+print("results saved to", os.path.join(log_dir, "results.csv"))
