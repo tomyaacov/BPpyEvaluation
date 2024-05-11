@@ -12,6 +12,6 @@ for option in "${options[@]}"; do
   echo "$option"
   for i in {1..10}
   do
-    timeout 120m /usr/bin/time -a -o run_single_trace_drl_output.csv -f "$option,$i,%E,%M" python3 pancake_single_trace_drl.py $option
+    timeout 120m time -a -o run_single_trace_drl_output.csv -f "$option,$i,%E,%M" python3 pancake_single_trace_drl.py $option
   done
 done
