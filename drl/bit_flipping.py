@@ -2,16 +2,20 @@ import itertools
 import bppy as bp
 from bppy import And, true, false, Not, Implies, Bool, Or, is_true, Int
 from bppy.gym import BPEnv, BPObservationSpace, BPActionSpace
-from stable_baselines3.common.monitor import Monitor
+from stable_baselines3.common.monitor import Monitor, load_results
 import numpy as np
 from bppy.utils.z3helper import *
 import warnings
 
 import argparse
 import random
+import shutil
+from glob import glob
+import pandas as pd
+import json
 
 parser = argparse.ArgumentParser()
-parser.add_argument("parameters", nargs="*", default=[3, 3, 10_000])
+parser.add_argument("parameters", nargs="*", default=[3, 3, 1000])
 args = parser.parse_args()
 
 
@@ -155,9 +159,37 @@ env.action_space = ActionSpace(get_action_list(N))
 #     obs, reward, env_done, _, info = env.step(a)
 #     print(a, obs, reward, env_done, info)
 log_dir = "output/" + RUN + "/"
+if os.path.exists(log_dir) and os.path.isdir(log_dir):
+    shutil.rmtree(log_dir)
 with warnings.catch_warnings():
     from stable_baselines3 import PPO
     env = Monitor(env, log_dir)
     os.makedirs(log_dir, exist_ok=True)
     mdl = PPO("MlpPolicy", env, verbose=1)
     mdl.learn(total_timesteps=STEPS)
+
+
+def load_results(path):
+    monitor_files = glob(os.path.join(path, ".*")) + glob(os.path.join(path, "*"))
+    data_frames, headers = [], []
+    for file_name in monitor_files:
+        with open(file_name) as file_handler:
+            first_line = file_handler.readline()
+            assert first_line[0] == "#"
+            header = json.loads(first_line[1:])
+            data_frame = pd.read_csv(file_handler, index_col=None)
+            headers.append(header)
+            data_frame["t"] += header["t_start"]
+        data_frames.append(data_frame)
+    data_frame = pd.concat(data_frames)
+    data_frame.sort_values("t", inplace=True)
+    data_frame.reset_index(inplace=True)
+    data_frame["t"] -= min(header["t_start"] for header in headers)
+    return data_frame
+
+results = load_results(log_dir)
+results["episode"] = results["index"] + 1
+results["timesteps"] = results["episode"] * results["l"]
+results["mean_reward"] = results['r'][::-1].rolling(200,min_periods=1).mean()[::-1]
+results[["episode", "l", "timesteps", "r", "mean_reward"]].to_csv(os.path.join(log_dir, "results.csv"), index=False)
+print("results saved to", os.path.join(log_dir, "results.csv"))
