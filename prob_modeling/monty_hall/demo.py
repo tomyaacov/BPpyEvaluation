@@ -1,6 +1,5 @@
 import argparse, os, shutil, subprocess
 import numpy as np
-import math
 import monty
 
 from sampling import sample_params
