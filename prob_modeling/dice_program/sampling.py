@@ -2,11 +2,10 @@ import bppy as bp
 from bppy.model.sync_statement import *
 from bppy.model.b_thread import *
 import warnings
-import bit_flip
+import dice
 import numpy as np
 from scipy import stats
 from time import perf_counter_ns
-
 
 def comp_sem(hist):
     with warnings.catch_warnings():
@@ -14,12 +13,8 @@ def comp_sem(hist):
             sem = [stats.sem(hist[0:n]) for n in range(0, len(hist))]
     return sem
 
-
-similar_bits = lambda s, n: abs(s.count('T') - s.count('F')) < 2
-
-def sample_params(nm=(2,2), max_run=1000, to=3.6e+12):
-    n,m = nm
-    bp_gen = bit_flip.generate_model(n,m)
+def sample_params(dice_n=6, gen_function=dice.generate_model, max_run=1000):
+    bp_gen, _ = gen_function(dice_n)
     hist = []
     hist_mean, mean = [], 0
     times = []
@@ -28,22 +23,18 @@ def sample_params(nm=(2,2), max_run=1000, to=3.6e+12):
         model = bp_gen()
         model.run()
         res = model.listener.events
-        new_val =  int(similar_bits(res[-1], n))  # 1 if true, 0 false
+        new_val = int(f'result_{dice_n-1}' in res[-1])
         hist.append(new_val)
         delta = new_val - mean
         mean += delta / n
         hist_mean.append(mean)
         times.append(perf_counter_ns()-start_time)
-        if times[-1] > to: #1h
-            break
     sem = comp_sem(hist)
-    return(np.array(hist_mean), hist, np.array(times) / 1e+9, sem)
+    return (np.array(hist_mean), hist, np.array(times) / 1e+9, sem)
 
 if __name__ == '__main__':
-    for params in bit_flip.param_combs():
-        print('started {}n {}m'.format(*params))
-        mean, hist, times, sem = bit_flip.generate_model(params, max_run=10000)
-        np.savetxt('samples/sample_{}n{}m.csv'.format(*params), np.transpose((mean,sem,
+    for dice_n in range(6, 31):
+        mean, hist, times, sem = sample_params(dice_n, max_run=10000)
+        np.savetxt('sampling/dice_{}.csv'.format(dice_n), np.transpose((mean,sem,
                         times, mean+sem, mean-sem)), delimiter=',',header='mean, sem, time, max_sem, min_sem', comments='')
-        print('finished {}n{}m.csv'.format(*params))
-        print(mean[-1], len(hist))
+        print('finished {}.csv'.format(dice_n))

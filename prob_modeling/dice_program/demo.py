@@ -1,6 +1,7 @@
 import argparse, os, shutil, subprocess
 import numpy as np
-import monty
+import math
+import dice
 
 from sampling import sample_params
 from modeling import run_translation
@@ -18,13 +19,14 @@ if os.path.exists(dir_models):
     shutil.rmtree(dir_models)
 os.makedirs(dir_models)
 
+
 parser = argparse.ArgumentParser(
-	description='BPpy Monty Hall problem solving demonstation. Runs sampling and translation + model checking of a given parameter range.')
-parser.add_argument('min', type=int, metavar='min_doors', default=3,
-					choices=range(3, 10), help='Minimum number of doors')
-parser.add_argument('max', type=int, metavar='max_doors', default=5,
-					choices=range(3, 10), help='Maximum number of doors')
-parser.add_argument('--samples', type=int, metavar='num', default=1000,
+	description='BPpy dice problem solving demonstation. Runs sampling and translation + model checking of a given parameter range.')
+parser.add_argument('min', type=int, metavar='min_sides', default=6,
+					choices=range(6, 50), help='Minimal number of sides in the simulated dice.')
+parser.add_argument('max', type=int, metavar='max_sides', default=35,
+					choices=range(6, 50), help='Maximal number of sides.')
+parser.add_argument('--samples', type=int, metavar='samples', default=1000,
 					help='Number of iterations to use for sampling, default=1000')
 
 args = parser.parse_args()
@@ -37,18 +39,17 @@ except:
 	print(f'Failed to find or run Storm executable.')
 	exit(1)
 
-MIN_DOORS = args.min
-MAX_DOORS = args.max
+MIN_SIDES = args.min
+MAX_SIDES = args.max +1 # range is end exclusive
 SAMPLES_NUM = args.samples
-print(f'Running demonstration with min={MIN_DOORS}, max={MAX_DOORS}.')
-
+print(f'Running demonstration with min={MIN_SIDES}, max={MAX_SIDES -1}.')
 
 print(f'Starting sampling (n={SAMPLES_NUM})')
-for params in monty.param_combs(MIN_DOORS, MAX_DOORS):
+for params in range(MIN_SIDES, MAX_SIDES):
 	mean, hist, times, sem = sample_params(params, max_run=SAMPLES_NUM)
 	data = np.transpose((times, mean, sem))
 	# indices = data[gen_indices(SAMPLES_NUM), :]
-	fname = '{}/sample_{}d{}p{}o.csv'.format(dir_samples, *params)
+	fname = '{}/sample_{}n.csv'.format(dir_samples, params)
 	np.savetxt(fname,
 			data,
 			delimiter=',',
@@ -60,8 +61,9 @@ print(f'Done sampling.')
 
 
 print(f'Starting translation...')
-run_translation(MIN_DOORS, MAX_DOORS, dir_models)
+run_translation(MIN_SIDES, MAX_SIDES, dir_models)
 print(f'Output written to {dir_models}')
+
 
 
 print('Running Storm...')
@@ -71,7 +73,5 @@ subprocess.run(f'bash {CWD}/run_computation.sh', shell=True)
 
 print('Processing output...')
 
-process_files(MIN_DOORS, MAX_DOORS)
+process_files(MIN_SIDES, MAX_SIDES)
 print(f'Output written to {CWD}/translation_overview.csv')
-
-

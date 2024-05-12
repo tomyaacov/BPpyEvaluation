@@ -14,7 +14,6 @@ class EvaluatorListener(bp.PrintBProgramRunnerListener):
 			raise TimeoutError()
 
 def generate_model(n=6, mode=bp.execution_thread):
-
     @mode
     def node(u, x):
         while True:
