@@ -280,9 +280,11 @@ For example, running ``pancake_multiple_traces_drl.py`` for `n=200`, `b=25` - **
 ```shell
 python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
 ```
-This is a reduced evaluation which outputs a table with the results presented in Figure 10.
+This is a **reduced evaluation** which outputs a table similar with the results presented in Figure 10.
 
-The full evaluation results presented in Figure 10 can be obtained by running the script `scripts/multiple_traces.sh` using the `bash` command (**this may take few hours and may require additional resources**).
+The full evaluation results presented in Figure 10 can be obtained by running the script `scripts/multiple_traces.sh` using the `bash` command (**this may take multiple days and may require additional resources**).
+The script dumps a csv file for each algorithm with a table with the results presented in Figure 10.
+For instance, the results of the DQN algorithm with the parameters in `scripts/multiple_traces.sh` will be saved to `output/200251000000DQN/results.csv` 
 
 ##### Cinderella-Stepmother example
 
@@ -335,7 +337,9 @@ For example, running ``cinderella_multiple_traces_drl.py`` for `A=5`, `B=50`, `C
 python3 cinderella_multiple_traces_drl.py 5 50 2 5 1000 100000 "DQN"
 ```
 The full evaluation results presented in the appendix "Cinderella-Stepmother Problem DRL Results" 
-can be obtained by running the script `scripts/cinderella_multiple_traces.sh`  using the `bash` command (**this may take few hours and may require additional resources**).
+can be obtained by running the script `scripts/cinderella_multiple_traces.sh`  using the `bash` command (**this may take multiple days and may require additional resources**).
+The script dumps a csv file for each algorithm with a table with the results presented in the appendix.
+For instance, the results of the DQN algorithm with the parameters in `scripts/cinderella_multiple_traces.sh` will be saved to `output/550251000000DQN/results.csv` 
 
 #### (DRL + Probabilities + SMT Solvers) (Section 7)
 
@@ -404,6 +408,7 @@ It can be published under a Creative Commons license.
 All experimental claims are referenced in their relevant subsection above (divided to paper sections). 
 Each reference includes instructions on how to run the full experiment and obtain the results presented in the paper.
 
-The artifact implements several integration for the BPpy package. Users can reuse the artifact when using these integrations to other b-programs they implement. 
+The artifact implements several integrations for the BPpy package. 
+Users can reuse the artifact when using these integrations to other b-programs they implement and apply the different discussed techniques. 
 
 The artifact and its dependencies are open-source.
