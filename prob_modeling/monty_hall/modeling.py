@@ -6,7 +6,6 @@ from time import perf_counter_ns
 import monty
 
 
-
 def run_translation(min_d, max_d, FILEDIR = 'models'):
     for params in monty.param_combs(min_d, max_d):
         d, p, o = params
@@ -17,7 +16,7 @@ def run_translation(min_d, max_d, FILEDIR = 'models'):
         event_nums = {e.name: i for i, e in enumerate(event_list)}
         conv = BProgramConverter(bp_gen, event_list)
         start = perf_counter_ns()
-        output = conv.to_prism('{}/model_{}d{}p{}o.pm'.format(FILEDIR, d, p, o))
+        conv.to_prism('{}/model_{}d{}p{}o.pm'.format(FILEDIR, d, p, o))
 
         time_taken = (perf_counter_ns() - start) / 1e+9
         with open(f'{FILEDIR}/time_taken.txt', 'a') as f:
