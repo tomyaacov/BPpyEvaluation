@@ -25,13 +25,25 @@
 
 ## Installation and Usage
 
-The artifact contains all experiments contained in the paper.
+The artifact contains all experiments presented in the paper.
 
-To run all experiments, the first step is to pull the docker image and run it:
+To run all experiments, the first step is to pull the docker image from dockerhub:
 ```shell
 docker pull annonymouswriter/bp-evaluation:latest
+```
+
+or download it from the artifact url and load it:
+
+```shell
+docker load -i <path to image>/bp-evaluation.docker
+```
+
+and then run it:
+
+```shell
 docker run -it annonymouswriter/bp-evaluation:latest
 ```
+
 When running the container, the current directory will be ``BPpyEvaluation``.
 
 Inside the ``BPpyEvaluation`` directory there are separate directories for each experiment discussed in the paper, as elaborated below. 
