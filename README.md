@@ -372,6 +372,12 @@ For instance, the results of the DQN algorithm with the parameters in `scripts/c
 
 (the evaluation presented in the paper used an NVIDIA GeForce RTX 4090 GPU)
 
+The code for running the experiments of Section 7 is also in the ``drl`` directory:
+
+```shell
+cd drl
+```
+
 The ``bit_flipping.py`` file contain the experiment presented in Section 7.
 It accepts the parameters:
 * `N` - number of matrix rows
