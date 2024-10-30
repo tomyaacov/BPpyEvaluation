@@ -1,7 +1,6 @@
 # Exploring and Evaluating Interplays of BPpy with Deep Reinforcement Learning and Formal Methods
 
 
-
 * To run the artifact we used:
     * macOS 11.7.5 
     * Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
@@ -15,12 +14,6 @@ The artifact contains all experiments presented in the paper.
 To run all experiments, the first step is to pull the docker image from dockerhub:
 ```shell
 docker pull annonymouswriter/bp-evaluation:latest
-```
-
-or download it from the artifact url and load it:
-
-```shell
-docker load -i <path to image>/bp-evaluation.docker
 ```
 
 and then run it:
@@ -54,7 +47,7 @@ The ```cinderella_experiments.py``` file accepts the parameters:
 * `a` - The number of water units the stepmother pours into the buckets
 * `n_e` - the number of times to repeat the experiment.
 
-For instance, a scaled down evaluation of the experiment presented in Figure 1, execute the ```cinderella_experiments.py``` program with the following parameters:
+For instance, for a scaled down evaluation of the experiment execute the ```cinderella_experiments.py``` program with the following parameters:
 ```shell
 python3 cinderella_experiments.py -n 5 -c 2 -b 10 -n_e 3
 ```
@@ -65,7 +58,7 @@ To repeat the experiment presented in Figure 2(a), execute the ```cinderella_exp
 python3 cinderella_experiments.py -n 5 -c 2 -b 25 -n_e 10
 ```
 
-The script outputs a table with the results presented in Figure 1.
+The script outputs a table with the results presented in Figure 2(a).
 
 **Bit-Flip problem**
 
@@ -314,10 +307,10 @@ For example, running ``pancake_multiple_traces_drl.py`` for `n=200`, `b=25` - **
 ```shell
 python3 pancake_multiple_traces_drl.py 200 25 500 100000 DQN
 ```
-This is a **reduced evaluation** which outputs a table similar with the results presented in Figure 10.
+This is a **reduced evaluation** which outputs a table similar with the results presented in the appendix.
 
-The full evaluation results presented in Figure 10 can be obtained by running the script `scripts/multiple_traces.sh` using the `bash` command (**this may take multiple days and may require additional resources**).
-The script dumps a csv file for each algorithm with a table with the results presented in Figure 10.
+The full evaluation results presented in the appendix can be obtained by running the script `scripts/multiple_traces.sh` using the `bash` command (**this may take multiple days and may require additional resources**).
+The script dumps a csv file for each algorithm with a table with the results.
 For instance, the results of the DQN algorithm with the parameters in `scripts/multiple_traces.sh` will be saved to `output/200251000000DQN/results.csv` 
 
 #### Cinderella-Stepmother example
